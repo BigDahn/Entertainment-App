@@ -1,7 +1,8 @@
 import React from "react";
+import MoviesComponent from "../Movies/MoviesComponent";
 
 function Movies() {
-  return <div>Movies</div>;
+  return <MoviesComponent />;
 }
 
 export default Movies;
