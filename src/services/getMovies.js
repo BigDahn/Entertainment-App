@@ -1,15 +1,16 @@
 import supabase from "./supabase";
 
 export async function getMovies() {
-  let query = supabase.from("movies").select("*");
+  let query = supabase.from("movies").select("*", { count: "exact" });
 
-  const { data, error } = await query;
+  const { data, count, error } = await query;
+
   if (error) {
     console.error(error);
     throw new Error("Bookings could not be loaded");
   }
 
-  return { data };
+  return { data, count };
 }
 
 /* */

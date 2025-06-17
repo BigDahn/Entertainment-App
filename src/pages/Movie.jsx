@@ -1,7 +1,7 @@
-import React from "react";
+import MovieDetails from "../Movie/MovieDetails";
 
 function Movie() {
-  return <div>Movie</div>;
+  return <MovieDetails />;
 }
 
 export default Movie;

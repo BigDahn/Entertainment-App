@@ -4,12 +4,12 @@ import { getMovies } from "../services/getMovies";
 export function useMovies() {
   const {
     isLoading,
-    data: { data: movies } = {},
+    data: { data: movies,count } = {},
     error,
   } = useQuery({
     queryKey: ["movies"],
     queryFn: () => getMovies(),
   });
 
-  return { isLoading, movies, error };
+  return { isLoading, movies, count, error };
 }
