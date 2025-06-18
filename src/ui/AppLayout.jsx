@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 
 function AppLayout() {
   return (
-    <main className="grid h-screen grid-cols-[200px_auto] grid-rows-[80px_1fr]">
+    <main className="grid h-screen grid-cols-[200px_auto] grid-rows-[80px_1fr] overflow-hidden">
       <Header />
       <Sidebar />
       <section className="">

@@ -4,7 +4,6 @@ import MoviesComponent from "../Movies/MoviesComponent";
 function Movies() {
   return (
     <main>
-      <h3>All Movies</h3>
       <MoviesComponent />
     </main>
   );

@@ -2,8 +2,12 @@ import React from "react";
 import Button from "../ui/Button";
 import { ArrowLeftIcon } from "@heroicons/react/16/solid";
 import { useGoBack } from "../hooks/useGoBack";
+import { useMovie } from "./useMovie";
 
 function MovieDetails() {
+  const { data, isLoading, error } = useMovie();
+
+  //console.log(data);
   return (
     <div className="flex w-full justify-end px-4 mt-2 ">
       <Button

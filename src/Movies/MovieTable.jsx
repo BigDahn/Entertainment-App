@@ -8,9 +8,9 @@ function MovieTable({ movies }) {
   const [Id, setId] = useState();
   const navigate = useNavigate();
   return (
-    <main className="max-w-[100rem] m-auto  px-6">
+    <main className="overflow-hidden m-auto  px-6">
       <section className="grid gap-3   py-2  items-center rounded-lg  w-fit m-auto  ">
-        <header className=" grid grid-cols-[40px_2fr_2fr_2fr_2fr_2fr_2fr_70px] gap-4 text-center  border-b rounded-2xl pb-2 uppercase ">
+        <header className=" grid grid-cols-[40px_2fr_2fr_2fr_2fr_2fr_2fr_70px] gap-4 text-center  border-b border-b-gray-300 rounded-2xl pb-2 uppercase ">
           <h3>Id</h3>
           <h3>Title</h3>
           <h3>Poster</h3>
