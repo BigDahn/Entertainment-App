@@ -10,7 +10,7 @@ function MovieTable({ movies }) {
   return (
     <main className="overflow-hidden m-auto  px-6">
       <section className="grid gap-3   py-2  items-center rounded-lg  w-fit m-auto  ">
-        <header className=" grid grid-cols-[40px_2fr_2fr_2fr_2fr_2fr_2fr_70px] gap-4 text-center  border-b border-b-gray-300 rounded-2xl pb-2 uppercase ">
+        <header className=" grid grid-cols-[40px_2fr_2fr_2fr_2fr_2fr_2fr_70px] gap-4 text-center  border-b border-b-gray-300  pb-2 uppercase ">
           <h3>Id</h3>
           <h3>Title</h3>
           <h3>Poster</h3>
@@ -25,7 +25,7 @@ function MovieTable({ movies }) {
             return (
               <main
                 key={id}
-                className=" grid  grid-cols-[40px_2fr_2fr_2fr_2fr_2fr_2fr_70px] gap-4 justify-center grid-rows-[70px] bg- items-center text-center border-b border-b-gray-200 cursor-pointer pb-1 relative"
+                className=" grid  grid-cols-[40px_2fr_2fr_2fr_2fr_2fr_2fr_70px] gap-4 justify-center grid-rows-[70px]  items-center text-center border-b border-b-gray-200 cursor-pointer pb-1 relative"
                 onClick={() => navigate(`/movies/${id}`)}
               >
                 <h2>{id}</h2>
