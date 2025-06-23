@@ -8,16 +8,20 @@ function MovieTable({ movies }) {
   const [Id, setId] = useState();
   const navigate = useNavigate();
   return (
-    <main className="overflow-hidden m-auto  px-6">
-      <section className="grid gap-3   py-2  items-center rounded-lg  w-fit m-auto  ">
-        <header className=" grid grid-cols-[40px_2fr_2fr_2fr_2fr_2fr_2fr_70px] gap-4 text-center  border-b border-b-gray-300  pb-2 uppercase ">
-          <h3>Id</h3>
-          <h3>Title</h3>
-          <h3>Poster</h3>
-          <h3>Category</h3>
-          <h3>Rating</h3>
-          <h3>Year Released</h3>
-          <h3 className="">Tv Rating</h3>
+    <main className="overflow-hidden   px-6">
+      <section className="gap-3 w-full  rounded-lg  " role="table">
+        <header
+          className=" grid grid-cols-[0.4fr_2fr_2fr_1.3fr_1fr_2fr_2fr_3.2rem]  gap-x-[3rem] text-center text-[14px]    pb-2 uppercase "
+          role="row"
+        >
+          <div>Id</div>
+          <div>Title</div>
+          <div>Poster</div>
+          <div>Category</div>
+          <div>Rating</div>
+          <div className="bg-green-900">Year</div>
+          <div>Tv Rating</div>
+          <div></div>
         </header>
         <section className="flex flex-col gap-2">
           {movies.map((s) => {
@@ -25,24 +29,29 @@ function MovieTable({ movies }) {
             return (
               <main
                 key={id}
-                className=" grid  grid-cols-[40px_2fr_2fr_2fr_2fr_2fr_2fr_70px] gap-4 justify-center grid-rows-[70px]  items-center text-center border-b border-b-gray-200 cursor-pointer pb-1 relative"
-                onClick={() => navigate(`/movies/${id}`)}
+                className=" grid grid-cols-[2fr_30px] grid-rows-[70px] bg-amber-500   items-center  text-center border-b border-b-gray-200 cursor-pointer pb-1 relative"
               >
-                <h2>{id}</h2>
-                <h2 className="text-[14px]">{title}</h2>
-                <img src={image} className="w-[70px] h-[80%] m-auto" />
-                <h3 className="text-[10px] grid grid-cols-3 grid-rows-1">
-                  {category.map((s) => {
-                    return <p>{s}</p>;
-                  })}
-                </h3>
-                <h6>{rating}</h6>
-                <h3 className="0">{year}</h3>
-                <h3 className="">{tv_rating}</h3>
+                <div
+                  className=" grid  grid-cols-[30px_2fr_1.5fr_2fr_1fr_2fr_1fr] justify-center bg-purple-600 gap-[2rem] items-center text-center grid-rows-[70px]"
+                  onClick={() => navigate(`/movies/${id}`)}
+                >
+                  <h2 className="bg-red-500">{id}</h2>
+                  <h2 className="text-[14px] bg-orange-800">{title}</h2>
+                  <img src={image} className="w-[70px] h-[80%] m-auto" />
+                  <h3 className="text-[10px] flex gap-2 bg-green-700">
+                    {category.map((s) => {
+                      return <p>{s}</p>;
+                    })}
+                  </h3>
+                  <h6 className="bg-orange-400">{rating}</h6>
+                  <h3 className="0">{year}</h3>
+                  <h3 className="">{tv_rating}</h3>
+                </div>
                 <EllipsisVerticalIcon
                   className="size-4 text-gray-400 ml-9"
                   role="button"
                   onClick={() => setId(id)}
+                  //  onClick={() => alert("hi")}
                 />
                 {Id === id && (
                   <div className="absolute flex items-end justify-end w-full top-[50px] left-5">

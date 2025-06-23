@@ -56,41 +56,47 @@ function MovieDetails() {
           return (
             <main
               key={id}
-              className="flex justify-between gap-4 w-full items-start h-full"
+              className="flex justify-between gap-4 w-full items-start min-h-[100vh] "
             >
-              <div className="  ">
-                <h3 className="uppercase text-[25px] ">{title}</h3>
-                <div className="flex gap-1 text-[13px]">
-                  <h6>{year}</h6>
-                  <h6>{tv_rating}</h6>
-                  <h6>1hr,30min</h6>
-                </div>
+              <div className="flex flex-col gap-1.5  ">
+                <div>
+                  <h3 className="uppercase text-[25px] font-semibold ">
+                    {title}
+                  </h3>
+                  <div className="flex gap-1 text-[13px] font-semibold">
+                    <h6>{year}</h6>&#46;
+                    <h6>{tv_rating}</h6>&#46;
+                    <h6>1hr,30min</h6>
+                  </div>
+                </div>{" "}
                 <div className="bg-yellow-50 min-w-[26rem] ">
-                  <img src={image} className="h-[490px] w-full " />
+                  <img src={image} className="h-[30rem] w-full " />
                 </div>
               </div>
               <div className="mt-13 flex flex-col gap-5">
                 <h3 className="text-[16px] leading-[30px] tracking-wide">
                   {description}
                 </h3>
-                <div className="flex  items-center gap-4 px-4 bg-gray-500 rounded-sm py-3">
-                  <h3 className="text-[17px] font-semibold text-white">
-                    Stars:
-                  </h3>
+                <div className="flex  items-center gap-4 px-4 bg-blue-600 rounded-sm py-3">
+                  {stars?.length >= 1 && (
+                    <h3 className="text-[17px] font-semibold text-white ">
+                      Stars:
+                    </h3>
+                  )}
+
                   {stars?.length >= 1 ? (
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-3 gap-2 ">
                       {stars?.map((s) => {
                         return (
-                          <h3 className="bg-gray-500 rounded-sm py-1 text-[15px] font-normal px-2 shadow-md">
+                          <h3 className="bg-white rounded-sm py-1 text-[13px] font-semibold px-2 shadow-md">
                             {s}
                           </h3>
                         );
                       })}
                     </div>
                   ) : (
-                    <h3 className="text-[17px] font-semibold text-white text-center">
-                      No Data Available yet.. Click the edit button to add new
-                      data
+                    <h3 className="text-[17px] font-semibold text-white text-center w-full ">
+                      No Data Available yet..
                     </h3>
                   )}
                 </div>
@@ -115,10 +121,10 @@ function MovieDetails() {
                 </div>
                 <div className="bg-blue-600 rounded-sm py-3">
                   {category.length >= 1 ? (
-                    <div className="grid grid-cols-4 ">
+                    <div className="flex gap-4 justify-center ">
                       {category?.map((s) => {
                         return (
-                          <h3 className=" rounded-full   w-[90%] text-center font-semibold text-white ">
+                          <h3 className=" rounded-full  text-center font-semibold text-white ">
                             {s}
                           </h3>
                         );
@@ -127,8 +133,7 @@ function MovieDetails() {
                   ) : (
                     <h3 className="text-[15px] font-semibold text-white text-center">
                       {" "}
-                      No Data Available yet.. Click the edit button to add new
-                      category
+                      No Data Available yet..
                     </h3>
                   )}
                 </div>
