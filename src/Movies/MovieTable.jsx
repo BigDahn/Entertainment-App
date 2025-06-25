@@ -8,7 +8,7 @@ function MovieTable({ movies }) {
   const [Id, setId] = useState();
   const navigate = useNavigate();
   return (
-    <main className="overflow-hidden   px-6">
+    <main className="overflow-hidden  ">
       <section className="w-full h-screen rounded-lg  " role="table">
         <header
           className=" grid grid-cols-[0.4fr_2fr_2fr_1.3fr_1fr_2fr_1fr_3rem]   gap-x-[3rem] text-center text-[14px]    pb-2 uppercase "
@@ -47,10 +47,9 @@ function MovieTable({ movies }) {
                   className="size-4 text-gray-400 ml-9"
                   role="button"
                   onClick={() => setId(id)}
-                  //  onClick={() => alert("hi")}
                 />
                 {Id === id && (
-                  <div className="absolute flex items-end justify-end w-full top-[50px] left-[20px] z-[90]">
+                  <div className="absolute flex items-end justify-end w-full top-[50px] left-[0px] z-[90]">
                     <MiniModal onClick={() => navigate(`/movies/${id}`)} />
                   </div>
                 )}

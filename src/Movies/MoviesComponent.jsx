@@ -32,7 +32,7 @@ function MoviesComponent() {
     );
   }
   return (
-    <main>
+    <main className="py-3 px-6">
       <h3>All Movies</h3>
       <MovieTable movies={movies} />
     </main>

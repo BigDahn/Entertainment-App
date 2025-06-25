@@ -29,7 +29,7 @@ function MovieDetails() {
   }
 
   return (
-    <main className="px-4 w-full overflow-y-scroll">
+    <main className="px-4  w-full h-full overflow-x-scroll">
       <div className="flex w-full justify-end  mt-2 ">
         <Button
           style="bg-gray-50 shadow-sm px-3 py-2 flex items-center gap-2 cursor-pointer"
@@ -96,7 +96,7 @@ function MovieDetails() {
                     </div>
                   ) : (
                     <h3 className="text-[17px] font-semibold text-white text-center w-full ">
-                      No Data Available yet..
+                      Stars: No Data Available yet..
                     </h3>
                   )}
                 </div>
@@ -133,7 +133,7 @@ function MovieDetails() {
                   ) : (
                     <h3 className="text-[15px] font-semibold text-white text-center">
                       {" "}
-                      No Data Available yet..
+                      Category: No Data Available yet..
                     </h3>
                   )}
                 </div>
@@ -143,7 +143,7 @@ function MovieDetails() {
                   </h3>
                 ) : (
                   <h3 className="bg-gray-500 py-3 text-center text-[20px] rounded-sm text-white font-semibold">
-                    This movie is outdated !!!!
+                    This movie is not trending !!!!
                   </h3>
                 )}
               </div>
