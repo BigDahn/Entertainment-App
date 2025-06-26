@@ -77,7 +77,13 @@ function MovieDetails() {
                 <h3 className="text-[16px] leading-[30px] tracking-wide">
                   {description}
                 </h3>
-                <div className="flex  items-center gap-4 px-4 bg-blue-600 rounded-sm py-3">
+                <div
+                  className={`${
+                    stars?.length >= 1
+                      ? "flex  items-center gap-4 px-4 bg-blue-600 rounded-sm py-3"
+                      : "flex  items-center gap-4 px-4 bg-gray-600 rounded-sm py-3"
+                  }`}
+                >
                   {stars?.length >= 1 && (
                     <h3 className="text-[17px] font-semibold text-white ">
                       Stars:
@@ -95,7 +101,7 @@ function MovieDetails() {
                       })}
                     </div>
                   ) : (
-                    <h3 className="text-[17px] font-semibold text-white text-center w-full ">
+                    <h3 className="text-[20px] font-semibold text-white text-center w-full ">
                       Stars: No Data Available yet..
                     </h3>
                   )}
@@ -119,7 +125,13 @@ function MovieDetails() {
                   <h1 className="font-semibold "> Director:</h1>
                   <h3>{director}</h3>
                 </div>
-                <div className="bg-blue-600 rounded-sm py-3">
+                <div
+                  className={`${
+                    category.length >= 1
+                      ? "bg-blue-600 rounded-sm py-3"
+                      : "bg-gray-600  py-3  text-[20px] rounded-sm text-white font-semibold"
+                  }`}
+                >
                   {category.length >= 1 ? (
                     <div className="flex gap-4 justify-center ">
                       {category?.map((s) => {
@@ -131,7 +143,7 @@ function MovieDetails() {
                       })}
                     </div>
                   ) : (
-                    <h3 className="text-[15px] font-semibold text-white text-center">
+                    <h3 className="text-[20px] font-semibold text-white text-center">
                       {" "}
                       Category: No Data Available yet..
                     </h3>
@@ -142,7 +154,7 @@ function MovieDetails() {
                     This movie is currently trending !!!!
                   </h3>
                 ) : (
-                  <h3 className="bg-gray-500 py-3 text-center text-[20px] rounded-sm text-white font-semibold">
+                  <h3 className="bg-gray-600 py-3 text-center text-[20px] rounded-sm text-white font-semibold">
                     This movie is not trending !!!!
                   </h3>
                 )}

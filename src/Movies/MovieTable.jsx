@@ -1,12 +1,16 @@
 import { EllipsisVerticalIcon } from "@heroicons/react/16/solid";
-
-import { useState } from "react";
 import MiniModal from "../ui/MiniModal";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { openMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
+import EditBox from "../ui/EditBox";
 
 function MovieTable({ movies }) {
-  const [Id, setId] = useState();
-  const navigate = useNavigate();
+  const { optionsId, isEdit, optionsModal } = useSelector(
+    (store) => store.Entertainment
+  );
+
+  const dispatch = useDispatch();
+
   return (
     <main className="overflow-hidden  ">
       <section className="w-full h-screen rounded-lg  " role="table">
@@ -29,7 +33,11 @@ function MovieTable({ movies }) {
             return (
               <main
                 key={id}
-                className="grid grid-cols-[0.4fr_2fr_2fr_1.3fr_1fr_2fr_1fr_3rem] grid-rows-[70px]  gap-x-[3rem]  text-[14px]   items-center  text-center border-b border-b-gray-200 cursor-pointer pb-1 relative"
+                className={`${
+                  isEdit && optionsId === id
+                    ? "grid grid-cols-[0.4fr_2fr_2fr_1.3fr_1fr_2fr_1fr_3rem] grid-rows-[70px_10rem]  gap-x-[1rem]  text-[14px]   items-center  w-full text-center border-b border-b-gray-200 cursor-pointer pb-1 relative"
+                    : "grid grid-cols-[0.4fr_2fr_2fr_1.3fr_1fr_2fr_1fr_3rem] grid-rows-[70px]  gap-x-[1rem]  text-[14px]   items-center  w-full text-center border-b border-b-gray-200 cursor-pointer pb-1 relative"
+                } `}
               >
                 <h2>{id}</h2>
                 <h2 className="text-[14px]">{title}</h2>
@@ -42,17 +50,19 @@ function MovieTable({ movies }) {
                 <h6 className="">{rating}</h6>
                 <h3 className="">{year}</h3>
                 <h3 className="">{tv_rating}</h3>
-
                 <EllipsisVerticalIcon
                   className="size-4 text-gray-400 ml-9"
                   role="button"
-                  onClick={() => setId(id)}
+                  onClick={() => dispatch(openMiniModal({ id }))}
                 />
-                {Id === id && (
+                {optionsId === id && optionsModal && (
                   <div className="absolute flex items-end justify-end w-full top-[50px] left-[0px] z-[90]">
-                    <MiniModal onClick={() => navigate(`/movies/${id}`)} />
+                    <MiniModal />
                   </div>
                 )}
+                <div className="bg-gray-400 fixed  ">
+                  {optionsId === id && isEdit ? <EditBox name={title} /> : ""}
+                </div>
               </main>
             );
           })}
