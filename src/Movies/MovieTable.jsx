@@ -12,8 +12,8 @@ function MovieTable({ movies }) {
   const dispatch = useDispatch();
 
   return (
-    <main className="overflow-hidden  ">
-      <section className="w-full h-screen rounded-lg  " role="table">
+    <main className="  ">
+      <section className="w-full  rounded-lg  " role="table">
         <header
           className=" grid grid-cols-[0.4fr_2fr_2fr_1.3fr_1fr_2fr_1fr_3rem]   gap-x-[3rem] text-center text-[14px]    pb-2 uppercase "
           role="row"
@@ -29,14 +29,28 @@ function MovieTable({ movies }) {
         </header>
         <section>
           {movies.map((s) => {
-            const { id, title, tv_rating, image, year, rating, category } = s;
+            const {
+              id,
+              title,
+              description,
+              image,
+              year,
+              rating,
+              trending,
+              stars,
+              director,
+              category,
+              tv_rating,
+            } = s;
+
+            console.log(tv_rating);
             return (
               <main
                 key={id}
                 className={`${
                   isEdit && optionsId === id
-                    ? "grid grid-cols-[0.4fr_2fr_2fr_1.3fr_1fr_2fr_1fr_3rem] grid-rows-[70px_10rem]  gap-x-[1rem]  text-[14px]   items-center  w-full text-center border-b border-b-gray-200 cursor-pointer pb-1 relative"
-                    : "grid grid-cols-[0.4fr_2fr_2fr_1.3fr_1fr_2fr_1fr_3rem] grid-rows-[70px]  gap-x-[1rem]  text-[14px]   items-center  w-full text-center border-b border-b-gray-200 cursor-pointer pb-1 relative"
+                    ? "grid grid-cols-[0.4fr_2fr_2fr_1.3fr_1fr_2fr_1fr_3rem] grid-rows-[1fr_2fr] bg-red-800    gap-x-[3rem]  text-[14px]   items-center   w-full text-center border-b border-b-gray-200 cursor-pointer pb-1 relative"
+                    : "grid grid-cols-[0.4fr_2fr_2fr_1.3fr_1fr_2fr_1fr_3rem] grid-rows-[80px]  gap-x-[3rem]  text-[14px]   items-center  w-full  text-center border-b border-b-gray-200 cursor-pointer pb-1 relative"
                 } `}
               >
                 <h2>{id}</h2>
@@ -60,8 +74,27 @@ function MovieTable({ movies }) {
                     <MiniModal />
                   </div>
                 )}
-                <div className="bg-gray-400 fixed  ">
-                  {optionsId === id && isEdit ? <EditBox name={title} /> : ""}
+                <div className="fixed top-[18%]  bg-gray-100 flex w-full items-center m-auto h-fit  ">
+                  {optionsId === id && isEdit ? (
+                    <EditBox
+                      name={title}
+                      movies={{
+                        id: id,
+                        title: title,
+                        description: description,
+                        image: image,
+                        year: year,
+                        rating: rating,
+                        trending: trending,
+                        stars: stars,
+                        director: director,
+                        category: category,
+                        tv_rating: tv_rating,
+                      }}
+                    />
+                  ) : (
+                    ""
+                  )}
                 </div>
               </main>
             );
