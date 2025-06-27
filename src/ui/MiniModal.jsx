@@ -9,7 +9,7 @@ function MiniModal() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   return (
-    <div className="bg-white shadow-sm w-[110px]   flex flex-col gap-0.5 items-start px-3 py-2 rounded-sm">
+    <div className="bg-white shadow-sm w-[110px]   flex flex-col gap-0.5 items-start px-3 py-2 rounded-sm cursor-pointer">
       <h3
         className="text-[12px] flex gap-1.5 items-center text-gray-500"
         onClick={() => navigate(`/movies/${optionsId}`)}

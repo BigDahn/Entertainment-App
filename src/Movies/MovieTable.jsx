@@ -15,16 +15,16 @@ function MovieTable({ movies }) {
     <main className="  ">
       <section className="w-full  rounded-lg  " role="table">
         <header
-          className=" grid grid-cols-[0.4fr_2fr_2fr_1.3fr_1fr_2fr_1fr_3rem]   gap-x-[3rem] text-center text-[14px]    pb-2 uppercase "
+          className=" grid grid-cols-[0.3fr_0.7fr_0.8fr_0.7fr_0.3fr_0.4fr_0.4fr_4rem]   gap-x-[2rem] text-center text-[14px]    pb-2 uppercase "
           role="row"
         >
-          <div>Id</div>
-          <div>Title</div>
-          <div>Poster</div>
-          <div>Category</div>
-          <div>Rating</div>
-          <div>Year</div>
-          <div>Tv Rating</div>
+          <div className="bg-green-400">Id</div>
+          <div className="bg-blue-500">Title</div>
+          <div className="bg-orange-600">Poster</div>
+          <div className="bg-purple-600">Category</div>
+          <div className="bg-red-900">Rating</div>
+          <div className="bg-gray-500">Year</div>
+          <div className="bg-indigo-700">Tv Rating</div>
           <div></div>
         </header>
         <section>
@@ -45,36 +45,31 @@ function MovieTable({ movies }) {
 
             console.log(tv_rating);
             return (
-              <main
-                key={id}
-                className={`${
-                  isEdit && optionsId === id
-                    ? "grid grid-cols-[0.4fr_2fr_2fr_1.3fr_1fr_2fr_1fr_3rem] grid-rows-[1fr_2fr] bg-red-800    gap-x-[3rem]  text-[14px]   items-center   w-full text-center border-b border-b-gray-200 cursor-pointer pb-1 relative"
-                    : "grid grid-cols-[0.4fr_2fr_2fr_1.3fr_1fr_2fr_1fr_3rem] grid-rows-[80px]  gap-x-[3rem]  text-[14px]   items-center  w-full  text-center border-b border-b-gray-200 cursor-pointer pb-1 relative"
-                } `}
-              >
-                <h2>{id}</h2>
-                <h2 className="text-[14px]">{title}</h2>
-                <img src={image} className="w-[70px] h-[80%] m-auto" />
-                <h3 className="text-[10px] grid">
-                  {category.map((s) => {
-                    return <p>{s}</p>;
-                  })}
-                </h3>
-                <h6 className="">{rating}</h6>
-                <h3 className="">{year}</h3>
-                <h3 className="">{tv_rating}</h3>
-                <EllipsisVerticalIcon
-                  className="size-4 text-gray-400 ml-9"
-                  role="button"
-                  onClick={() => dispatch(openMiniModal({ id }))}
-                />
+              <main key={id} className="flex flex-col">
+                <section className="grid grid-cols-[0.3fr_0.7fr_0.8fr_0.7fr_0.3fr_0.4fr_0.4fr_4rem]  grid-rows-[70px]  gap-x-[2rem]  text-[14px]   items-center  w-full  text-center border-b border-b-gray-200 cursor-pointer pb-1 relative">
+                  <h2>{id}</h2>
+                  <h2 className="text-[14px]">{title}</h2>
+                  <img src={image} className="w-[70px] h-[80%] m-auto" />
+                  <h3 className="text-[10px] grid">
+                    {category.map((s) => {
+                      return <p>{s}</p>;
+                    })}
+                  </h3>
+                  <h6 className="">{rating}</h6>
+                  <h3 className="">{year}</h3>
+                  <h3 className="">{tv_rating}</h3>
+                  <EllipsisVerticalIcon
+                    className="size-4 text-gray-400 ml-9"
+                    role="button"
+                    onClick={() => dispatch(openMiniModal({ id }))}
+                  />
+                </section>
                 {optionsId === id && optionsModal && (
-                  <div className="absolute flex items-end justify-end w-full top-[50px] left-[0px] z-[90]">
+                  <div className="absolute flex items-end justify-end w-full mt-12 left-[-16px] z-[90]">
                     <MiniModal />
                   </div>
                 )}
-                <div className="fixed top-[18%]  bg-gray-100 flex w-full items-center m-auto h-fit  ">
+                <div>
                   {optionsId === id && isEdit ? (
                     <EditBox
                       name={title}

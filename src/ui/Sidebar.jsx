@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 
 function Sidebar() {
   return (
-    <div className="border-r border-r-gray-100 font-medium text-[18px] row-[1/-1] flex flex-col py-7  gap-[3rem] bg-red-700">
+    <div className="border-r border-r-gray-100 font-medium text-[18px] row-[1/-1] flex flex-col py-7  gap-[3rem]">
       <div className="px-4">
         <h1>Logo here</h1>
       </div>
