@@ -223,7 +223,7 @@ function EditBox({ movies }) {
               Click to add new stars
             </h3>
           )}
-          <Button style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] mt-2">
+          <Button style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] mt-2" onClick={()=>}>
             Add Stars
           </Button>
         </div>
