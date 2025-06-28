@@ -32,7 +32,7 @@ function MoviesComponent() {
     );
   }
   return (
-    <main className="py-2 px-6 flex flex-col gap-3 overflow-y-scroll max-h-[100vh] ">
+    <main className="py-2 px-6 flex flex-col gap-3 h-full ">
       <h3>All Movies</h3>
       <Button style="bg-gray-300 font-medium  text-[12px] rounded-sm py-1.5 px-1.5 max-w-30 shadow-sm cursor-pointer">
         Add New Movie

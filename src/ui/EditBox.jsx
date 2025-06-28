@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import Button from "./Button";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 
-function EditBox({ name, movies }) {
+function EditBox({ movies }) {
   const {
     stars,
     title,
@@ -16,13 +16,12 @@ function EditBox({ name, movies }) {
     rating,
     category,
   } = movies;
-  //console.log(tv_rating);
-  console.log(tv_rating);
+
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => console.log(data);
   return (
-    <main className="px-7 w-full h-fit ">
-      <h3 className="text-[20px] font-medium">Edit Movie ({name})</h3>
+    <main className="px-7 w-full h-fit py-3 flex flex-col gap-y-2 ">
+      <h3 className="text-[20px] font-medium ">Edit Movie ({title})</h3>
       <form
         className="grid grid-cols-4 m-auto  items-start lg:gap-x-[1.3rem] lg:gap-y-3  "
         onSubmit={handleSubmit(onSubmit)}
@@ -35,7 +34,7 @@ function EditBox({ name, movies }) {
             type="text"
             name="title"
             className="border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px]"
-            defaultValue={name}
+            defaultValue={title}
             {...register("title", {
               required: "This field is required",
             })}

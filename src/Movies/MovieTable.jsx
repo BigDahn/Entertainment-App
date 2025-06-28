@@ -12,22 +12,22 @@ function MovieTable({ movies }) {
   const dispatch = useDispatch();
 
   return (
-    <main className="  ">
+    <main>
       <section className="w-full  rounded-lg  " role="table">
         <header
           className=" grid grid-cols-[0.3fr_0.7fr_0.8fr_0.7fr_0.3fr_0.4fr_0.4fr_4rem]   gap-x-[2rem] text-center text-[14px]    pb-2 uppercase "
           role="row"
         >
-          <div className="bg-green-400">Id</div>
-          <div className="bg-blue-500">Title</div>
-          <div className="bg-orange-600">Poster</div>
-          <div className="bg-purple-600">Category</div>
-          <div className="bg-red-900">Rating</div>
-          <div className="bg-gray-500">Year</div>
-          <div className="bg-indigo-700">Tv Rating</div>
+          <div className="">Id</div>
+          <div className="">Title</div>
+          <div className="">Poster</div>
+          <div className="">Category</div>
+          <div className="">Rating</div>
+          <div className="">Year</div>
+          <div className="">Tv Rating</div>
           <div></div>
         </header>
-        <section>
+        <div>
           {movies.map((s) => {
             const {
               id,
@@ -43,7 +43,6 @@ function MovieTable({ movies }) {
               tv_rating,
             } = s;
 
-            console.log(tv_rating);
             return (
               <main key={id} className="flex flex-col">
                 <section className="grid grid-cols-[0.3fr_0.7fr_0.8fr_0.7fr_0.3fr_0.4fr_0.4fr_4rem]  grid-rows-[70px]  gap-x-[2rem]  text-[14px]   items-center  w-full  text-center border-b border-b-gray-200 cursor-pointer pb-1 relative">
@@ -72,7 +71,6 @@ function MovieTable({ movies }) {
                 <div>
                   {optionsId === id && isEdit ? (
                     <EditBox
-                      name={title}
                       movies={{
                         id: id,
                         title: title,
@@ -94,7 +92,7 @@ function MovieTable({ movies }) {
               </main>
             );
           })}
-        </section>
+        </div>
       </section>
     </main>
   );
