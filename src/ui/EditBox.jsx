@@ -1,7 +1,8 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useState } from "react";
+import { useFieldArray, useForm } from "react-hook-form";
 import Button from "./Button";
-import { XMarkIcon } from "@heroicons/react/20/solid";
+import { CheckCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import { NoSymbolIcon } from "@heroicons/react/16/solid";
 
 function EditBox({ movies }) {
   const {
@@ -17,7 +18,32 @@ function EditBox({ movies }) {
     category,
   } = movies;
 
-  const { register, handleSubmit } = useForm();
+  const { register, control, handleSubmit } = useForm({
+    defaultValues: {
+      category: category,
+      stars: stars,
+    },
+  });
+
+  const { fields, append, remove } = useFieldArray(
+    {
+      control,
+      name: "category",
+    },
+    {
+      control,
+      name: "stars",
+    }
+  );
+  const {
+    fields: starsField,
+    append: addStars,
+    remove: removeStars,
+  } = useFieldArray({
+    control,
+    name: "stars",
+  });
+
   const onSubmit = (data) => console.log(data);
   return (
     <main className="px-7 w-full h-fit py-3 flex flex-col gap-y-2 ">
@@ -26,7 +52,7 @@ function EditBox({ movies }) {
         className="grid grid-cols-4 m-auto  items-start lg:gap-x-[1.3rem] lg:gap-y-3  "
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="flex flex-col gap-1 items-start bg-orange-700">
+        <div className="flex flex-col gap-1 items-start">
           <label htmlFor="title" className="text-[12px] font-medium">
             Title
           </label>
@@ -40,7 +66,7 @@ function EditBox({ movies }) {
             })}
           />
         </div>
-        <div className="flex flex-col gap-1 items-start bg-purple-400">
+        <div className="flex flex-col gap-1 items-start ">
           <label htmlFor="year" className="text-[12px] font-medium">
             Year
           </label>
@@ -54,7 +80,7 @@ function EditBox({ movies }) {
             })}
           />
         </div>
-        <div className="flex flex-col gap-1 items-start bg-orange-400">
+        <div className="flex flex-col gap-1 items-start ">
           <label htmlFor="trending" className="text-[12px] font-medium">
             Trending
           </label>
@@ -69,7 +95,7 @@ function EditBox({ movies }) {
             <option>true</option>
           </select>
         </div>
-        <div className="flex flex-col gap-1 items-start bg-blue-400">
+        <div className="flex flex-col gap-1 items-start ">
           <label htmlFor="mpa_ratings" className="text-[12px] font-medium">
             MPA Ratings
           </label>
@@ -87,7 +113,7 @@ function EditBox({ movies }) {
             <option>NC-17</option>
           </select>
         </div>
-        <div className="flex flex-col gap-1 items-start bg-indigo-400">
+        <div className="flex flex-col gap-1 items-start ">
           <label htmlFor="director" className="text-[12px] font-medium">
             Director
           </label>
@@ -101,7 +127,7 @@ function EditBox({ movies }) {
             })}
           />
         </div>
-        <div className="flex flex-col gap-1 items-start col-span-2 bg-green-500">
+        <div className="flex flex-col gap-1 items-start col-span-2">
           <label htmlFor="description" className="text-[12px] font-medium">
             Description
           </label>
@@ -115,7 +141,7 @@ function EditBox({ movies }) {
             })}
           ></textarea>
         </div>
-        <div className="flex flex-col gap-1 items-start bg-amber-900 row-start-2 col-start-4">
+        <div className="flex flex-col gap-1 items-start  row-start-2 col-start-4">
           <label htmlFor="duration" className="text-[12px] font-medium">
             Duration
           </label>
@@ -129,7 +155,7 @@ function EditBox({ movies }) {
             })}
           />
         </div>
-        <div className="flex flex-col gap-1 items-star bg-pink-600 row-start-2 col-start-2">
+        <div className="flex flex-col gap-1 items-star  row-start-2 col-start-2">
           <label htmlFor="photo" className="text-[12px] font-medium">
             Movie Photo
           </label>
@@ -144,7 +170,7 @@ function EditBox({ movies }) {
           />
         </div>
 
-        <div className="flex flex-col gap-1 items-start bg-yellow-400 row-start-2 col-start-3">
+        <div className="flex flex-col gap-1 items-start  row-start-2 col-start-3">
           <label htmlFor="rating" className="text-[12px] font-medium">
             Rating
           </label>
@@ -171,52 +197,82 @@ function EditBox({ movies }) {
           <label htmlFor="stars" className="text-[12px] font-medium">
             Stars
           </label>
-          <div className="grid grid-cols-2 gap-1 ">
-            {stars?.map((s) => {
-              return (
-                <div className="flex items-center gap-0.5">
-                  <input
-                    type="text"
-                    defaultValue={s}
-                    className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px]"
-                  />
-                  <XMarkIcon className="size-5" />
-                </div>
-              );
-            })}
-          </div>
+          {stars?.length >= 1 ? (
+            <div className="grid grid-cols-2 gap-1 ">
+              {starsField?.map((field, i) => {
+                return (
+                  <div className="flex items-center gap-0.5" key={i}>
+                    <input
+                      type="text"
+                      name="stars"
+                      defaultValue={field.name}
+                      {...register(`stars.${i}.name`)}
+                      className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px]"
+                    />
+                    <XMarkIcon
+                      className="size-5"
+                      onClick={() => removeStars(i)}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <h3 className="text-[13px] font-medium text-center">
+              {" "}
+              Click to add new stars
+            </h3>
+          )}
           <Button style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] mt-2">
-            Add More Stars
+            Add Stars
           </Button>
         </div>
-        <div className="flex flex-col gap-1 col-span-2 bg-teal-500 row-start-3">
+        <div className="flex flex-col gap-1 col-span-2 row-start-3">
           <label htmlFor="category" className="text-[12px] font-medium">
             Category
           </label>
-          <div className="grid grid-cols-2 gap-1 ">
-            {category?.map((s) => {
-              return (
-                <div className="flex items-center gap-0.5">
-                  <input
-                    type="text"
-                    defaultValue={s}
-                    className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px]"
-                  />
-                  <XMarkIcon className="size-5" />
-                </div>
-              );
-            })}
-          </div>
-          <Button style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] mt-2">
-            Add More Stars
+          {category.length >= 1 && fields.length >= 1 ? (
+            <div className="grid grid-cols-2 gap-1 ">
+              {fields.map((field, index) => {
+                return (
+                  <div className="flex items-center gap-0.5" key={index}>
+                    <input
+                      type="text"
+                      name="category"
+                      className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px]"
+                      {...register(`category.${index}.category`)}
+                      defaultValue={field.category}
+                    />
+                    <XMarkIcon
+                      className="size-5"
+                      onClick={() => remove(index)}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <h3 className="text-[13px] font-medium text-center">
+              Click to add new category
+            </h3>
+          )}
+          <Button
+            style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] mt-2"
+            onClick={() =>
+              append({
+                category: "",
+              })
+            }
+          >
+            Add Category
           </Button>
         </div>
         <div className="flex justify-end gap-3 col-span-4 items-center  w-full h-[40px] ">
-          <Button style="bg-gray-400 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px]">
-            Cancel
+          <Button style="bg-gray-400 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center gap-1">
+            <NoSymbolIcon className="size-4" /> Cancel
           </Button>
-          <Button style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px]">
-            Submit
+          <Button style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center gap-1">
+            <CheckCircleIcon className="size-4" /> Submit
           </Button>
         </div>
       </form>

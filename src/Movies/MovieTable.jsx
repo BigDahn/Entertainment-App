@@ -50,8 +50,8 @@ function MovieTable({ movies }) {
                   <h2 className="text-[14px]">{title}</h2>
                   <img src={image} className="w-[70px] h-[80%] m-auto" />
                   <h3 className="text-[10px] grid">
-                    {category.map((s) => {
-                      return <p>{s}</p>;
+                    {category?.map((s) => {
+                      return <p>{s.category}</p>;
                     })}
                   </h3>
                   <h6 className="">{rating}</h6>
