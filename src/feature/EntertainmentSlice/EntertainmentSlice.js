@@ -20,9 +20,14 @@ const EntertainmentSlice = createSlice({
       state.isEdit = true;
       state.optionsModal = false;
     },
+    closeMiniModal: (state, action) => {
+      state.optionsModal = false;
+      state.isEdit = false;
+    },
   },
 });
 
-export const { openMiniModal, openEditBox } = EntertainmentSlice.actions;
+export const { openMiniModal, openEditBox, closeMiniModal } =
+  EntertainmentSlice.actions;
 
 export default EntertainmentSlice.reducer;

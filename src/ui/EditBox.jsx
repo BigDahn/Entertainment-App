@@ -1,10 +1,13 @@
-import React, { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import Button from "./Button";
 import { CheckCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { NoSymbolIcon } from "@heroicons/react/16/solid";
+import { useDispatch } from "react-redux";
+import { closeMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
+import { useEditMovie } from "../Movies/useEditMovie";
 
 function EditBox({ movies }) {
+  const { mutate: editMovie, isLoading: isEditing } = useEditMovie();
   const {
     stars,
     title,
@@ -12,18 +15,22 @@ function EditBox({ movies }) {
     trending,
     year,
     director,
+    image,
     description,
-    tv_rating,
+    mpa_ratings,
     rating,
     category,
   } = movies;
 
-  const { register, control, handleSubmit } = useForm({
+  const { register, reset, control, handleSubmit } = useForm({
     defaultValues: {
       category: category,
       stars: stars,
+      image: image,
     },
   });
+
+  const dispatch = useDispatch();
 
   const { fields, append, remove } = useFieldArray(
     {
@@ -44,7 +51,26 @@ function EditBox({ movies }) {
     name: "stars",
   });
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    const image = typeof data.image === "string" ? data.image : data.image[0];
+
+    const newMovieData = {
+      ...data,
+      image,
+      year: Number(data.year),
+      rating: Number(data.rating),
+      trending: Boolean(data.trending),
+    };
+
+    editMovie(
+      { newMovieData, MovieId: id },
+      {
+        onSuccess: () => {
+          reset(), dispatch(closeMiniModal());
+        },
+      }
+    );
+  };
   return (
     <main className="px-7 w-full h-fit py-3 flex flex-col gap-y-2 ">
       <h3 className="text-[20px] font-medium ">Edit Movie ({title})</h3>
@@ -59,6 +85,7 @@ function EditBox({ movies }) {
           <input
             type="text"
             name="title"
+            disabled={isEditing}
             className="border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             defaultValue={title}
             {...register("title", {
@@ -72,6 +99,7 @@ function EditBox({ movies }) {
           </label>
           <input
             type="text"
+            disabled={isEditing}
             name="year"
             defaultValue={year}
             className="border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px]"
@@ -86,6 +114,7 @@ function EditBox({ movies }) {
           </label>
           <select
             defaultValue={trending}
+            disabled={isEditing}
             className="bg-white border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("trending", {
               required: "This field is required",
@@ -100,7 +129,8 @@ function EditBox({ movies }) {
             MPA Ratings
           </label>
           <select
-            defaultValue={tv_rating}
+            disabled={isEditing}
+            defaultValue={mpa_ratings}
             className="bg-white border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("mpa_ratings", {
               required: "This field is required",
@@ -118,6 +148,7 @@ function EditBox({ movies }) {
             Director
           </label>
           <input
+            disabled={isEditing}
             type="text"
             name="director"
             defaultValue={director}
@@ -134,6 +165,7 @@ function EditBox({ movies }) {
           <textarea
             type="text"
             name="description"
+            disabled={isEditing}
             defaultValue={description}
             className="border rounded-sm outline-none w-full h-[5rem] px-1.5 text-[13px] "
             {...register("description", {
@@ -141,32 +173,32 @@ function EditBox({ movies }) {
             })}
           ></textarea>
         </div>
-        <div className="flex flex-col gap-1 items-start  row-start-2 col-start-4">
+        {/**  <div className="flex flex-col gap-1 items-start  row-start-2 col-start-4">
           <label htmlFor="duration" className="text-[12px] font-medium">
             Duration
           </label>
           <input
             type="text"
             name="duration"
+            disabled={isEditing}
             defaultValue="1hr,30min"
             className="border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("duration", {
               required: "This field is required",
             })}
           />
-        </div>
+        </div> */}
         <div className="flex flex-col gap-1 items-star  row-start-2 col-start-2">
-          <label htmlFor="photo" className="text-[12px] font-medium">
+          <label htmlFor="image" className="text-[12px] font-medium">
             Movie Photo
           </label>
           <input
+            disabled={isEditing}
             type="file"
-            name="photo"
+            name="image"
             accept="image/*"
             className="rounded-sm outline-none w-[15rem] border bg-gray-200 border-gray-100 py-1.5 px-2 cursor-pointer text-[14px]"
-            {...register("photo", {
-              required: "This field is required",
-            })}
+            {...register("image")}
           />
         </div>
 
@@ -176,6 +208,7 @@ function EditBox({ movies }) {
           </label>
           <select
             defaultValue={rating}
+            disabled={isEditing}
             className="bg-white border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("rating", {
               required: "This field is required",
@@ -197,21 +230,24 @@ function EditBox({ movies }) {
           <label htmlFor="stars" className="text-[12px] font-medium">
             Stars
           </label>
-          {stars?.length >= 1 ? (
+          {starsField?.length >= 1 ? (
             <div className="grid grid-cols-2 gap-1 ">
-              {starsField?.map((field, i) => {
+              {starsField?.map((field, index) => {
                 return (
-                  <div className="flex items-center gap-0.5" key={i}>
+                  <div className="flex items-center gap-0.5" key={index}>
                     <input
                       type="text"
+                      disabled={isEditing}
                       name="stars"
                       defaultValue={field.name}
-                      {...register(`stars.${i}.name`)}
+                      {...register(`stars.${index}.name`)}
                       className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px]"
                     />
                     <XMarkIcon
                       className="size-5"
-                      onClick={() => removeStars(i)}
+                      onClick={() => removeStars(index)}
+                      role="button"
+                      disabled={isEditing}
                     />
                   </div>
                 );
@@ -225,7 +261,13 @@ function EditBox({ movies }) {
           )}
           <Button
             style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] mt-2"
-            onClick={() => addStars(i)}
+            onClick={(e) => {
+              e.preventDefault();
+              addStars({
+                name: "",
+              });
+            }}
+            disabled={isEditing}
           >
             Add Stars
           </Button>
@@ -234,13 +276,14 @@ function EditBox({ movies }) {
           <label htmlFor="category" className="text-[12px] font-medium">
             Category
           </label>
-          {category.length >= 1 && fields.length >= 1 ? (
+          {fields.length >= 1 ? (
             <div className="grid grid-cols-2 gap-1 ">
               {fields.map((field, index) => {
                 return (
                   <div className="flex items-center gap-0.5" key={index}>
                     <input
                       type="text"
+                      disabled={isEditing}
                       name="category"
                       className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px]"
                       {...register(`category.${index}.category`)}
@@ -249,6 +292,8 @@ function EditBox({ movies }) {
                     <XMarkIcon
                       className="size-5"
                       onClick={() => remove(index)}
+                      disabled={isEditing}
+                      role="button"
                     />
                   </div>
                 );
@@ -261,20 +306,31 @@ function EditBox({ movies }) {
           )}
           <Button
             style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] mt-2"
-            onClick={() =>
-              append({
-                category: "",
-              })
-            }
+            onClick={(e) => {
+              e.preventDefault(),
+                append({
+                  category: "",
+                });
+            }}
+            disabled={isEditing}
           >
             Add Category
           </Button>
         </div>
         <div className="flex justify-end gap-3 col-span-4 items-center  w-full h-[40px] ">
-          <Button style="bg-gray-400 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center gap-1">
+          <Button
+            style="bg-gray-400 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center gap-1"
+            onClick={(e) => {
+              dispatch(closeMiniModal()), e.preventDefault();
+            }}
+            disabled={isEditing}
+          >
             <NoSymbolIcon className="size-4" /> Cancel
           </Button>
-          <Button style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center gap-1">
+          <Button
+            style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center gap-1"
+            disabled={isEditing}
+          >
             <CheckCircleIcon className="size-4" /> Submit
           </Button>
         </div>

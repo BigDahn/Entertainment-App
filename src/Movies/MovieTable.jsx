@@ -24,7 +24,7 @@ function MovieTable({ movies }) {
           <div className="">Category</div>
           <div className="">Rating</div>
           <div className="">Year</div>
-          <div className="">Tv Rating</div>
+          <div className="">MPA_Rating</div>
           <div></div>
         </header>
         <div>
@@ -40,7 +40,7 @@ function MovieTable({ movies }) {
               stars,
               director,
               category,
-              tv_rating,
+              mpa_ratings,
             } = s;
 
             return (
@@ -56,7 +56,7 @@ function MovieTable({ movies }) {
                   </h3>
                   <h6 className="">{rating}</h6>
                   <h3 className="">{year}</h3>
-                  <h3 className="">{tv_rating}</h3>
+                  <h3 className="">{mpa_ratings}</h3>
                   <EllipsisVerticalIcon
                     className="size-4 text-gray-400 ml-9"
                     role="button"
@@ -82,7 +82,7 @@ function MovieTable({ movies }) {
                         stars: stars,
                         director: director,
                         category: category,
-                        tv_rating: tv_rating,
+                        mpa_ratings: mpa_ratings,
                       }}
                     />
                   ) : (
