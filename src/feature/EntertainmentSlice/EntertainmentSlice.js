@@ -13,21 +13,31 @@ const EntertainmentSlice = createSlice({
   reducers: {
     openMiniModal: (state, action) => {
       state.optionsId = action.payload.id;
-      state.optionsModal = true;
+      state.optionsModal = !state.optionsModal;
       state.isEdit = false;
     },
     openEditBox: (state) => {
       state.isEdit = true;
       state.optionsModal = false;
     },
-    closeMiniModal: (state, action) => {
+    closeMiniModal: (state) => {
       state.optionsModal = false;
       state.isEdit = false;
+    },
+    openDeleteModal: (state) => {
+      state.optionsModal = false;
+      state.isEdit = false;
+      state.isDeleteModal = true;
+    },
+    closeDeleteModal: (state) => {
+      state.optionsModal = false;
+      state.isEdit = false;
+      state.isDeleteModal = false;
     },
   },
 });
 
-export const { openMiniModal, openEditBox, closeMiniModal } =
+export const { openMiniModal, openEditBox, closeMiniModal, openDeleteModal,closeDeleteModal } =
   EntertainmentSlice.actions;
 
 export default EntertainmentSlice.reducer;

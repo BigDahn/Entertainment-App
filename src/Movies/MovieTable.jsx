@@ -1,15 +1,19 @@
 import { EllipsisVerticalIcon } from "@heroicons/react/16/solid";
 import MiniModal from "../ui/MiniModal";
 import { useDispatch, useSelector } from "react-redux";
-import { openMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
+import {
+  
+  openMiniModal,
+} from "../feature/EntertainmentSlice/EntertainmentSlice";
 import EditBox from "../ui/EditBox";
+
 
 function MovieTable({ movies }) {
   const { optionsId, isEdit, optionsModal } = useSelector(
     (store) => store.Entertainment
   );
-
   const dispatch = useDispatch();
+
 
   return (
     <main>
@@ -60,7 +64,9 @@ function MovieTable({ movies }) {
                   <EllipsisVerticalIcon
                     className="size-4 text-gray-400 ml-9"
                     role="button"
-                    onClick={() => dispatch(openMiniModal({ id }))}
+                    onClick={() => {
+                      dispatch(openMiniModal({ id }));
+                    }}
                   />
                 </section>
                 {optionsId === id && optionsModal && (

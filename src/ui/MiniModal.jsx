@@ -2,7 +2,10 @@ import { TrashIcon } from "@heroicons/react/16/solid";
 import { EyeIcon, PencilIcon } from "@heroicons/react/20/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { openEditBox } from "../feature/EntertainmentSlice/EntertainmentSlice";
+import {
+  openDeleteModal,
+  openEditBox,
+} from "../feature/EntertainmentSlice/EntertainmentSlice";
 
 function MiniModal() {
   const { optionsId } = useSelector((store) => store.Entertainment);
@@ -24,7 +27,10 @@ function MiniModal() {
         <PencilIcon className="size-3 text-blue-900" />
         Edit
       </h3>
-      <h3 className="text-[12px] flex gap-1.5 items-center text-red-600">
+      <h3
+        className="text-[12px] flex gap-1.5 items-center text-red-600"
+        onClick={() => dispatch(openDeleteModal())}
+      >
         <TrashIcon className="size-3 text-red-500" />
         Delete
       </h3>

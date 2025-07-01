@@ -72,7 +72,7 @@ function EditBox({ movies }) {
     );
   };
   return (
-    <main className="px-7 w-full h-fit py-3 flex flex-col gap-y-2 ">
+    <main className="px-7 w-full h-fit py-3 flex flex-col gap-y-2 bg-gray-100">
       <h3 className="text-[20px] font-medium ">Edit Movie ({title})</h3>
       <form
         className="grid grid-cols-4 m-auto  items-start lg:gap-x-[1.3rem] lg:gap-y-3  "
@@ -86,7 +86,7 @@ function EditBox({ movies }) {
             type="text"
             name="title"
             disabled={isEditing}
-            className="border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             defaultValue={title}
             {...register("title", {
               required: "This field is required",
@@ -102,7 +102,7 @@ function EditBox({ movies }) {
             disabled={isEditing}
             name="year"
             defaultValue={year}
-            className="border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("year", {
               required: "This field is required",
             })}
@@ -115,7 +115,7 @@ function EditBox({ movies }) {
           <select
             defaultValue={trending}
             disabled={isEditing}
-            className="bg-white border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className=" border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("trending", {
               required: "This field is required",
             })}
@@ -131,7 +131,7 @@ function EditBox({ movies }) {
           <select
             disabled={isEditing}
             defaultValue={mpa_ratings}
-            className="bg-white border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="bg-white border rounded-sm border-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("mpa_ratings", {
               required: "This field is required",
             })}
@@ -152,7 +152,7 @@ function EditBox({ movies }) {
             type="text"
             name="director"
             defaultValue={director}
-            className="border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("director", {
               required: "This field is required",
             })}
@@ -167,7 +167,7 @@ function EditBox({ movies }) {
             name="description"
             disabled={isEditing}
             defaultValue={description}
-            className="border rounded-sm outline-none w-full h-[5rem] px-1.5 text-[13px] "
+            className="border rounded-sm outline-none w-full border-white bg-white h-[7rem] px-1.5 py-1 text-[13px] "
             {...register("description", {
               required: "This field is required",
             })}
@@ -182,7 +182,7 @@ function EditBox({ movies }) {
             name="duration"
             disabled={isEditing}
             defaultValue="1hr,30min"
-            className="border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="border rounded-sm  border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("duration", {
               required: "This field is required",
             })}
@@ -197,7 +197,7 @@ function EditBox({ movies }) {
             type="file"
             name="image"
             accept="image/*"
-            className="rounded-sm outline-none w-[15rem] border bg-gray-200 border-gray-100 py-1.5 px-2 cursor-pointer text-[14px]"
+            className="file:rounded-sm file:outline-none file:border border-white  file:bg-blue-500  file:py-2 file:px-2.5 file:cursor-pointer file:text-[11px] text-[12px] file:text-white file:font-semibold"
             {...register("image")}
           />
         </div>
@@ -209,7 +209,7 @@ function EditBox({ movies }) {
           <select
             defaultValue={rating}
             disabled={isEditing}
-            className="bg-white border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="bg-white border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px] border-white"
             {...register("rating", {
               required: "This field is required",
             })}
@@ -241,10 +241,10 @@ function EditBox({ movies }) {
                       name="stars"
                       defaultValue={field.name}
                       {...register(`stars.${index}.name`)}
-                      className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px]"
+                      className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-white bg-white"
                     />
                     <XMarkIcon
-                      className="size-5"
+                      className="size-5 text-gray-400 cursor-pointer hover:text-red-500"
                       onClick={() => removeStars(index)}
                       role="button"
                       disabled={isEditing}
@@ -260,7 +260,7 @@ function EditBox({ movies }) {
             </h3>
           )}
           <Button
-            style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] mt-2"
+            style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] mt-2 disabled:bg-gray-400"
             onClick={(e) => {
               e.preventDefault();
               addStars({
@@ -285,12 +285,12 @@ function EditBox({ movies }) {
                       type="text"
                       disabled={isEditing}
                       name="category"
-                      className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px]"
+                      className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-white bg-white"
                       {...register(`category.${index}.category`)}
                       defaultValue={field.category}
                     />
                     <XMarkIcon
-                      className="size-5"
+                      className="size-5 text-gray-400 hover:text-red-500"
                       onClick={() => remove(index)}
                       disabled={isEditing}
                       role="button"
@@ -305,7 +305,7 @@ function EditBox({ movies }) {
             </h3>
           )}
           <Button
-            style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] mt-2"
+            style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] mt-2 disabled:bg-gray-400"
             onClick={(e) => {
               e.preventDefault(),
                 append({
