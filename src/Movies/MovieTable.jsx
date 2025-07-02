@@ -1,19 +1,15 @@
 import { EllipsisVerticalIcon } from "@heroicons/react/16/solid";
 import MiniModal from "../ui/MiniModal";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  
-  openMiniModal,
-} from "../feature/EntertainmentSlice/EntertainmentSlice";
-import EditBox from "../ui/EditBox";
-
+import { openMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
+import EditBox from "./EditBox";
+import CreateNewMovie from "./CreateNewMovie";
 
 function MovieTable({ movies }) {
-  const { optionsId, isEdit, optionsModal } = useSelector(
+  const { optionsId, isEdit, optionsModal, newMovie } = useSelector(
     (store) => store.Entertainment
   );
   const dispatch = useDispatch();
-
 
   return (
     <main>
@@ -100,6 +96,7 @@ function MovieTable({ movies }) {
           })}
         </div>
       </section>
+      <CreateNewMovie />
     </main>
   );
 }

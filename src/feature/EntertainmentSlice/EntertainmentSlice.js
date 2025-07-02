@@ -5,6 +5,7 @@ const initialState = {
   isDeleteModal: false,
   optionsModal: false,
   optionsId: "",
+  newMovie: false,
 };
 
 const EntertainmentSlice = createSlice({
@@ -34,10 +35,19 @@ const EntertainmentSlice = createSlice({
       state.isEdit = false;
       state.isDeleteModal = false;
     },
+    openNewMovie: (state) => {
+      state.newMovie = true;
+    },
   },
 });
 
-export const { openMiniModal, openEditBox, closeMiniModal, openDeleteModal,closeDeleteModal } =
-  EntertainmentSlice.actions;
+export const {
+  openMiniModal,
+  openEditBox,
+  closeMiniModal,
+  openDeleteModal,
+  closeDeleteModal,
+  openNewMovie,
+} = EntertainmentSlice.actions;
 
 export default EntertainmentSlice.reducer;
