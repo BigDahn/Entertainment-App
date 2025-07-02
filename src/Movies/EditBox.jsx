@@ -32,16 +32,10 @@ function EditBox({ movies }) {
 
   const dispatch = useDispatch();
 
-  const { fields, append, remove } = useFieldArray(
-    {
-      control,
-      name: "category",
-    },
-    {
-      control,
-      name: "stars",
-    }
-  );
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "category",
+  });
   const {
     fields: starsField,
     append: addStars,
