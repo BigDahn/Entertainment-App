@@ -96,7 +96,7 @@ function MovieTable({ movies }) {
           })}
         </div>
       </section>
-      <CreateNewMovie />
+      {newMovie && <CreateNewMovie />}
     </main>
   );
 }

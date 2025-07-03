@@ -7,7 +7,13 @@ import Button from "../ui/Button";
 import { useFieldArray, useForm } from "react-hook-form";
 
 function CreateNewMovie() {
-  const { register, reset, control, handleSubmit } = useForm({
+  const {
+    register,
+    reset,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: {},
   });
 
@@ -29,7 +35,7 @@ function CreateNewMovie() {
   });
   return (
     <main className="px-7 w-full h-fit py-3 flex flex-col gap-y-2 bg-gray-100">
-      <h2>Create New Movie</h2>
+      <h2 className="pb-3 text-[20px] font-bold ">Create New Movie</h2>
       <form
         className="grid grid-cols-4 m-auto  items-start lg:gap-x-[1.3rem] lg:gap-y-3 "
         onSubmit={handleSubmit(onSubmit)}
@@ -47,6 +53,11 @@ function CreateNewMovie() {
               required: "This field is required",
             })}
           />
+          {errors.title && (
+            <span className="text-[8px] text-red-600">
+              This field is required
+            </span>
+          )}
         </div>
         <div className="flex flex-col gap-1 items-start ">
           <label htmlFor="year" className="text-[12px] font-medium">
@@ -62,6 +73,11 @@ function CreateNewMovie() {
               required: "This field is required",
             })}
           />
+          {errors.year && (
+            <span className="text-[8px] text-red-600">
+              This field is required
+            </span>
+          )}
         </div>
         <div className="flex flex-col gap-1 items-start ">
           <label htmlFor="trending" className="text-[12px] font-medium">
@@ -112,6 +128,11 @@ function CreateNewMovie() {
               required: "This field is required",
             })}
           />
+          {errors.director && (
+            <span className="text-[8px] text-red-600">
+              This field is required
+            </span>
+          )}
         </div>
         <div className="flex flex-col gap-1 items-start col-span-2">
           <label htmlFor="description" className="text-[12px] font-medium">
@@ -127,6 +148,11 @@ function CreateNewMovie() {
               required: "This field is required",
             })}
           ></textarea>
+          {errors.description && (
+            <span className="text-[8px] text-red-600">
+              This field is required
+            </span>
+          )}
         </div>
         {/**  <div className="flex flex-col gap-1 items-start  row-start-2 col-start-4">
           <label htmlFor="duration" className="text-[12px] font-medium">
@@ -153,8 +179,15 @@ function CreateNewMovie() {
             name="image"
             accept="image/*"
             className="file:rounded-sm file:outline-none file:border border-white  file:bg-blue-500  file:py-2 file:px-2.5 file:cursor-pointer file:text-[11px] text-[12px] file:text-white file:font-semibold"
-            {...register("image")}
+            {...register("image", {
+              required: "This field is required",
+            })}
           />
+          {errors.image && (
+            <span className="text-[8px] text-red-600">
+              This field is required
+            </span>
+          )}
         </div>
         <div className="flex flex-col gap-1 items-start  row-start-2 col-start-3">
           <label htmlFor="rating" className="text-[12px] font-medium">
@@ -189,21 +222,30 @@ function CreateNewMovie() {
             <div className="grid grid-cols-2 gap-1 ">
               {starsField?.map((field, index) => {
                 return (
-                  <div className="flex items-center gap-0.5" key={index}>
-                    <input
-                      type="text"
-                      //disabled={isEditing}
-                      name="stars"
-                      defaultValue={field.name}
-                      {...register(`stars.${index}.name`)}
-                      className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-white bg-white"
-                    />
-                    <XMarkIcon
-                      className="size-5 text-gray-400 cursor-pointer hover:text-red-500"
-                      onClick={() => removeStars(index)}
-                      role="button"
-                      //  disabled={isEditing}
-                    />
+                  <div className="flex flex-col  gap-0.5" key={index}>
+                    <div className="flex items-center gap-0.5">
+                      <input
+                        type="text"
+                        //disabled={isEditing}
+                        name="stars"
+                        defaultValue={field.name}
+                        {...register(`stars.${index}.name`, {
+                          required: "This field is required",
+                        })}
+                        className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-white bg-white"
+                      />
+                      <XMarkIcon
+                        className="size-5 text-gray-400 cursor-pointer hover:text-red-500"
+                        onClick={() => removeStars(index)}
+                        role="button"
+                        //  disabled={isEditing}
+                      />
+                    </div>
+                    {errors.stars?.[index]?.name && (
+                      <span className="text-[8px] text-red-600">
+                        This field is required
+                      </span>
+                    )}
                   </div>
                 );
               })}
@@ -236,20 +278,29 @@ function CreateNewMovie() {
             <div className="grid grid-cols-2 gap-1 ">
               {fields.map((field, index) => {
                 return (
-                  <div className="flex items-center gap-0.5" key={index}>
-                    <input
-                      type="text"
-                      //disabled={isEditing}
-                      name="category"
-                      className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-white bg-white"
-                      {...register(`category.${index}.category`)}
-                    />
-                    <XMarkIcon
-                      className="size-5 text-gray-400 hover:text-red-500"
-                      onClick={() => remove(index)}
-                      // disabled={isEditing}
-                      role="button"
-                    />
+                  <div className="flex flex-col gap-0.5" key={index}>
+                    <div className="flex items-center gap-0.5">
+                      <input
+                        type="text"
+                        //disabled={isEditing}
+                        name="category"
+                        className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-white bg-white"
+                        {...register(`category.${index}.category`, {
+                          required: "This field is required",
+                        })}
+                      />
+                      <XMarkIcon
+                        className="size-5 text-gray-400 hover:text-red-500"
+                        onClick={() => remove(index)}
+                        // disabled={isEditing}
+                        role="button"
+                      />
+                    </div>
+                    {errors.category?.[index]?.category && (
+                      <span className="text-[8px] text-red-600">
+                        This field is required
+                      </span>
+                    )}
                   </div>
                 );
               })}
