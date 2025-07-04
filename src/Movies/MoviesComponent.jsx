@@ -9,9 +9,7 @@ import { openNewMovie } from "../feature/EntertainmentSlice/EntertainmentSlice";
 function MoviesComponent() {
   const { movies, isLoading, error } = useMovies();
   const dispatch = useDispatch();
-  const { isDeleteModal } = useSelector(
-    (store) => store.Entertainment
-  );
+  const { isDeleteModal } = useSelector((store) => store.Entertainment);
 
   if (isLoading)
     return (
@@ -33,8 +31,9 @@ function MoviesComponent() {
     <>
       <main className="py-2 px-6 flex flex-col gap-3   h-screen ">
         <h3>All Movies</h3>
+        <h3 className="flex justify-end">Filtering Options</h3>
         <Button
-          style="bg-gray-300 font-medium  text-[12px] rounded-sm py-1.5 px-1.5 max-w-30 shadow-sm cursor-pointer"
+          style="bg-blue-500 font-semibold text-white  text-[12px] rounded-sm py-1.5 px-1.5 max-w-30 shadow-sm cursor-pointer"
           onClick={() => dispatch(openNewMovie())}
         >
           Add New Movie
@@ -46,7 +45,6 @@ function MoviesComponent() {
           <DeleteConfirmationBox />
         </div>
       )}
-      
     </>
   );
 }

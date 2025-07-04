@@ -19,10 +19,8 @@ export async function getMovie(id) {
 
   const { data, error } = await query;
 
-  console.log(data);
-
   if (error) {
-    throw new Error("Movies could not be loaded");
+    throw new Error("Movie could not be loaded");
   }
 
   return data;
@@ -43,7 +41,7 @@ export async function createNewMovie({ newMovieData }) {
   console.log(data);
 
   if (error) {
-    throw new Error("Movie could not be updated");
+    throw new Error("Movie could not be created");
   }
 
   const { error: StorageError } = supabase.storage
@@ -52,7 +50,7 @@ export async function createNewMovie({ newMovieData }) {
 
   if (StorageError) {
     await supabase.from("movies").delete().eq("id", data.id);
-    throw new Error("Movie could not be uploaded");
+    throw new Error("There was an error creating this movie.. Try Again");
   }
 
   return data;
