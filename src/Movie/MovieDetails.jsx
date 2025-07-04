@@ -94,7 +94,7 @@ function MovieDetails() {
                 <div className="grid grid-cols-3 gap-2 ">
                   {stars?.map((s) => {
                     return (
-                      <h3 className="bg-white rounded-sm py-1 text-[13px] font-semibold px-2 shadow-md">
+                      <h3 className="bg-white rounded-sm py-1 text-[13px] font-semibold px-1.5 text-center shadow-md">
                         {s.name}
                       </h3>
                     );

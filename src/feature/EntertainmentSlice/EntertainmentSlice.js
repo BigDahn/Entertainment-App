@@ -24,6 +24,7 @@ const EntertainmentSlice = createSlice({
     closeMiniModal: (state) => {
       state.optionsModal = false;
       state.isEdit = false;
+      state.newMovie = false;
     },
     openDeleteModal: (state) => {
       state.optionsModal = false;

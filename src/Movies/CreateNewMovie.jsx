@@ -5,8 +5,12 @@ import {
 } from "@heroicons/react/16/solid";
 import Button from "../ui/Button";
 import { useFieldArray, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { closeMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
+import { useCreateMovie } from "./useCreateMovie";
 
 function CreateNewMovie() {
+  const { mutate: createMovie, isLoading: isCreating } = useCreateMovie();
   const {
     register,
     reset,
@@ -17,8 +21,28 @@ function CreateNewMovie() {
     defaultValues: {},
   });
 
+  const dispatch = useDispatch();
+
   const onSubmit = (data) => {
-    console.log(data);
+    const image = data.image[0];
+    const newMovieData = {
+      ...data,
+      image,
+      year: Number(data.year),
+      rating: Number(data.rating),
+      trending: Boolean(data.trending),
+    };
+
+    createMovie(
+      { newMovieData },
+      {
+        onSuccess: () => {
+          reset(), dispatch(closeMiniModal());
+        },
+      }
+    );
+
+    console.log(newMovieData);
   };
 
   const { fields, append, remove } = useFieldArray({
@@ -326,10 +350,10 @@ function CreateNewMovie() {
         <div className="flex justify-end gap-3 col-span-4 items-center  w-full h-[40px] ">
           <Button
             style="bg-gray-400 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center gap-1"
-            /** onClick={(e) => {
-                      dispatch(closeMiniModal()), e.preventDefault();
-                    }}
-                    disabled={isEditing} */
+            onClick={(e) => {
+              dispatch(closeMiniModal()), e.preventDefault();
+            }}
+            // disabled={isEditing}
           >
             <NoSymbolIcon className="size-4" /> Cancel
           </Button>

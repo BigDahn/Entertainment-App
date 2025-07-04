@@ -28,6 +28,36 @@ export async function getMovie(id) {
   return data;
 }
 
+export async function createNewMovie({ newMovieData }) {
+  console.log(newMovieData);
+  const imageName = `${Math.random()}-${newMovieData.image.name}`.replaceAll(
+    "/",
+    ""
+  );
+
+  const newImagePath = `${supabaseUrl}/storage/v1/object/public/movies/${imageName}`;
+  const { data, error } = await supabase
+    .from("movies")
+    .insert([{ ...newMovieData, image: newImagePath }]);
+  console.log(error);
+  console.log(data);
+
+  if (error) {
+    throw new Error("Movie could not be updated");
+  }
+
+  const { error: StorageError } = supabase.storage
+    .from("movies")
+    .upload(imageName, newMovieData.image);
+
+  if (StorageError) {
+    await supabase.from("movies").delete().eq("id", data.id);
+    throw new Error("Movie could not be uploaded");
+  }
+
+  return data;
+}
+
 export async function editMovie(id, newMovieData) {
   console.log(id);
   const hasImagePath = newMovieData.image?.startsWith?.(supabaseUrl);
@@ -47,7 +77,6 @@ export async function editMovie(id, newMovieData) {
     .eq("id", id)
     .select()
     .single();
-  console.log(data);
 
   if (error) {
     throw new Error("Movie could not be updated");

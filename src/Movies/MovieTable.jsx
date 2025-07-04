@@ -49,7 +49,7 @@ function MovieTable({ movies }) {
                   <h2>{id}</h2>
                   <h2 className="text-[14px]">{title}</h2>
                   <img src={image} className="w-[70px] h-[80%] m-auto" />
-                  <h3 className="text-[10px] grid">
+                  <h3 className="text-[10px] grid  grid-cols-3">
                     {category?.map((s) => {
                       return <p>{s.category}</p>;
                     })}
