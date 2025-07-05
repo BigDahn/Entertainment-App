@@ -5,11 +5,14 @@ import Button from "../ui/Button";
 import DeleteConfirmationBox from "../ui/DeleteConfirmationBox";
 import { useDispatch, useSelector } from "react-redux";
 import { openNewMovie } from "../feature/EntertainmentSlice/EntertainmentSlice";
+import MovieTableOperation from "./MovieTableOperation";
 
 function MoviesComponent() {
   const { movies, isLoading, error } = useMovies();
   const dispatch = useDispatch();
-  const { isDeleteModal } = useSelector((store) => store.Entertainment);
+  const { isDeleteModal, newMovie } = useSelector(
+    (store) => store.Entertainment
+  );
 
   if (isLoading)
     return (
@@ -29,17 +32,23 @@ function MoviesComponent() {
   }
   return (
     <>
-      <main className="py-2 px-6 flex flex-col gap-3   h-screen ">
-        <h3>All Movies</h3>
-        <h3 className="flex justify-end">Filtering Options</h3>
-        <Button
-          style="bg-blue-500 font-semibold text-white  text-[12px] rounded-sm py-1.5 px-1.5 max-w-30 shadow-sm cursor-pointer"
-          onClick={() => dispatch(openNewMovie())}
-        >
-          Add New Movie
-        </Button>
+      <main className="py-4 px-6 flex flex-col gap-3   h-screen ">
+        <div className="flex justify-between items-center">
+          <h3 className="text-[20px] font-semibold">All Movies</h3>
+          <MovieTableOperation />
+        </div>
+
         <MovieTable movies={movies} />
+        {!newMovie && (
+          <Button
+            style="bg-blue-800 font-semibold text-white  text-[12px] rounded-sm py-2 px-1.5 max-w-30 shadow-sm cursor-pointer shadow-md"
+            onClick={() => dispatch(openNewMovie())}
+          >
+            Add New Movie
+          </Button>
+        )}
       </main>
+
       {isDeleteModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-300/40">
           <DeleteConfirmationBox />

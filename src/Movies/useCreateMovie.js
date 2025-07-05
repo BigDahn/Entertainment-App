@@ -7,7 +7,7 @@ export function useCreateMovie() {
   const { mutate, isLoading } = useMutation({
     mutationFn: ({ newMovieData }) => createNewMovie({ newMovieData }),
     onSuccess: () => {
-      toast.success("Movie successfully deleted");
+      toast.success("Movie successfully Uploaded");
       queryClient.invalidateQueries({ queryKey: ["movies"] });
     },
     onError: (err) => toast.error(err.message),

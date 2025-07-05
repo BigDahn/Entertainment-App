@@ -13,9 +13,12 @@ function MovieTable({ movies }) {
 
   return (
     <main>
-      <section className="w-full  rounded-lg  " role="table">
+      <section
+        className="w-full  rounded-lg border-1 border-gray-100  "
+        role="table"
+      >
         <header
-          className=" grid grid-cols-[0.3fr_0.7fr_0.8fr_0.7fr_0.3fr_0.4fr_0.4fr_4rem]   gap-x-[2rem] text-center text-[14px] bg-gray-600 py-4 text-white font-normal rounded-md uppercase "
+          className=" grid grid-cols-[0.3fr_0.7fr_0.8fr_0.7fr_0.3fr_0.4fr_0.4fr_4rem]   gap-x-[2rem] text-center text-[14px] bg-gray-400 py-4 text-white font-normal rounded-tr-md rounded-tl-md uppercase "
           role="row"
         >
           <div className="">Id</div>
