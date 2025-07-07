@@ -10,7 +10,7 @@ import { useSearchParams } from "react-router-dom";
 
 function MoviesComponent() {
   const [searchParams] = useSearchParams();
-  const { movies, isLoading, error } = useMovies();
+  const { movies, isLoading, error, count } = useMovies();
   const dispatch = useDispatch();
   const { isDeleteModal, newMovie } = useSelector(
     (store) => store.Entertainment
@@ -52,7 +52,7 @@ function MoviesComponent() {
           <MovieTableOperation />
         </div>
 
-        <MovieTable movies={sortedData} />
+        <MovieTable movies={sortedData} count={count} />
         {!newMovie && (
           <Button
             style="bg-blue-800 font-semibold text-white  text-[12px] rounded-sm py-2 px-1.5 max-w-30 shadow-sm cursor-pointer shadow-md"

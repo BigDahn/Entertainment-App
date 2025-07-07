@@ -1,7 +1,15 @@
+import { PAGE_SIZE } from "../helper/constant";
 import supabase, { supabaseUrl } from "./supabase";
 
-export async function getMovies() {
+export async function getMovies({ page }) {
+  console.log(page);
   let query = supabase.from("movies").select("*", { count: "exact" });
+
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+    query = query.range(from, to);
+  }
 
   const { data, count, error } = await query;
 
@@ -12,7 +20,7 @@ export async function getMovies() {
   return { data, count };
 }
 
-/*get single  movie with a specific ID */
+/*get single movie with a specific ID */
 
 export async function getMovie(id) {
   let query = supabase.from("movies").select("*").eq("id", id);

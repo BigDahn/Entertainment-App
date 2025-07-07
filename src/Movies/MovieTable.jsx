@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { openMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
 import EditBox from "./EditBox";
 import CreateNewMovie from "./CreateNewMovie";
+import Pagination from "../ui/Pagination";
 
-function MovieTable({ movies }) {
+function MovieTable({ movies, count }) {
   const { optionsId, isEdit, optionsModal, newMovie } = useSelector(
     (store) => store.Entertainment
   );
@@ -97,6 +98,9 @@ function MovieTable({ movies }) {
               </main>
             );
           })}
+        </div>
+        <div>
+          <Pagination count={count} />
         </div>
       </section>
       {newMovie && <CreateNewMovie />}
