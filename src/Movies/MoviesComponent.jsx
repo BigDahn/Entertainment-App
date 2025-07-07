@@ -6,14 +6,15 @@ import DeleteConfirmationBox from "../ui/DeleteConfirmationBox";
 import { useDispatch, useSelector } from "react-redux";
 import { openNewMovie } from "../feature/EntertainmentSlice/EntertainmentSlice";
 import MovieTableOperation from "./MovieTableOperation";
+import { useSearchParams } from "react-router-dom";
 
 function MoviesComponent() {
+  const [searchParams] = useSearchParams();
   const { movies, isLoading, error } = useMovies();
   const dispatch = useDispatch();
   const { isDeleteModal, newMovie } = useSelector(
     (store) => store.Entertainment
   );
-
   if (isLoading)
     return (
       <div className="m-auto h-screen flex items-center justify-center">
@@ -30,6 +31,19 @@ function MoviesComponent() {
       </div>
     );
   }
+  const sortBy = searchParams.get("sortby") || "title-asc";
+
+  const [field, direction] = sortBy.split("-");
+
+  const modifier = direction === "asc" ? 1 : -1;
+
+  const sortedData =
+    field === "title" && direction === "asc"
+      ? movies.sort((a, b) => a[field].localeCompare(b[field]))
+      : field === "title" && direction === "desc"
+      ? movies.sort((a, b) => b[field].localeCompare(a[field]))
+      : movies?.sort((a, b) => (a[field] - b[field]) * modifier);
+
   return (
     <>
       <main className="py-4 px-6 flex flex-col gap-3   h-screen ">
@@ -38,7 +52,7 @@ function MoviesComponent() {
           <MovieTableOperation />
         </div>
 
-        <MovieTable movies={movies} />
+        <MovieTable movies={sortedData} />
         {!newMovie && (
           <Button
             style="bg-blue-800 font-semibold text-white  text-[12px] rounded-sm py-2 px-1.5 max-w-30 shadow-sm cursor-pointer shadow-md"
