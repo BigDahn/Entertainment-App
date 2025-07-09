@@ -1,12 +1,13 @@
 import Button from "../ui/Button";
 import Loading from "../ui/Loading";
 import SortBy from "../ui/SortBy";
+import NewSeriesForm from "./NewSeriesForm";
 import SeriesTable from "./SeriesTable";
 import SeriesTableOperations from "./SeriesTableOperations";
 import { useSeries } from "./useSeries";
 
 function MainSeriesComp() {
-  const { series, isLoading } = useSeries();
+  const { series, isLoading, count } = useSeries();
 
   if (isLoading)
     return (
@@ -20,7 +21,7 @@ function MainSeriesComp() {
         <h3>All Series</h3>
         <SeriesTableOperations />
       </div>
-      <SeriesTable series={series} />
+      <SeriesTable series={series} count={count} />
       <div className="pb-2">
         <Button
           style="bg-blue-800 font-semibold text-white  text-[12px] rounded-sm py-1.5 px-1.5 max-w-30 shadow-sm cursor-pointer shadow-md"
@@ -29,6 +30,7 @@ function MainSeriesComp() {
           Add New Movie
         </Button>
       </div>
+      <NewSeriesForm />
     </main>
   );
 }

@@ -36,20 +36,22 @@ function Pagination({ count }) {
         </span>{" "}
         of <span>{count}</span> results
       </p>
-      <div className="flex  items-center gap-4">
-        <Button
-          style="flex items-center text-[12px] bg-gray-50 py-1.5 px-3 rounded-md"
-          onClick={prevPage}
-        >
-          <ChevronLeftIcon className="size-4" /> Previous
-        </Button>
-        <Button
-          style="flex items-center text-[12px] bg-gray-50 py-1.5 px-5 rounded-md"
-          onClick={nextPage}
-        >
-          Next <ChevronRightIcon className="size-4" />
-        </Button>
-      </div>
+      {count >= 5 && (
+        <div className="flex  items-center gap-4">
+          <Button
+            style="flex items-center text-[12px] bg-gray-50 py-1.5 px-3 rounded-md"
+            onClick={prevPage}
+          >
+            <ChevronLeftIcon className="size-4" /> Previous
+          </Button>
+          <Button
+            style="flex items-center text-[12px] bg-gray-50 py-1.5 px-5 rounded-md"
+            onClick={nextPage}
+          >
+            Next <ChevronRightIcon className="size-4" />
+          </Button>
+        </div>
+      )}
     </main>
   );
 }

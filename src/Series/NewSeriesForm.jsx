@@ -5,12 +5,10 @@ import {
 } from "@heroicons/react/16/solid";
 import Button from "../ui/Button";
 import { useFieldArray, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { closeMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
-import { useCreateMovie } from "./useCreateMovie";
+import { useCreateSeries } from "./useCreateSeries";
 
-function CreateNewMovie() {
-  const { mutate: createMovie, isLoading: isCreating } = useCreateMovie();
+function NewSeriesForm() {
+  const { mutate: CreateSeries, isLoading: isCreating } = useCreateSeries();
   const {
     register,
     reset,
@@ -21,22 +19,24 @@ function CreateNewMovie() {
     defaultValues: {},
   });
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    const image = data.image[0];
-    const newMovieData = {
-      ...data,
-      image,
-      year: Number(data.year),
-      rating: Number(data.rating),
-    };
+    const poster = data.poster[0];
 
-    createMovie(
-      { newMovieData },
+    const newSeriesData = {
+      ...data,
+      poster,
+      year: Number(data.year),
+      ratings: Number(data.ratings),
+    };
+    CreateSeries(
+      {
+        newSeriesData,
+      },
       {
         onSuccess: () => {
-          reset(), dispatch(closeMiniModal());
+          reset();
         },
       }
     );
@@ -56,7 +56,7 @@ function CreateNewMovie() {
   });
   return (
     <main className="px-7 w-full h-fit py-3 flex flex-col gap-y-2 bg-gray-100">
-      <h2 className="pb-3 text-[20px] font-bold ">Create New Movie</h2>
+      <h2 className="pb-3 text-[20px] font-bold ">Add New Series</h2>
       <form
         className="grid grid-cols-4 m-auto  items-start lg:gap-x-[1.3rem] lg:gap-y-3 "
         onSubmit={handleSubmit(onSubmit)}
@@ -117,22 +117,23 @@ function CreateNewMovie() {
           </select>
         </div>
         <div className="flex flex-col gap-1 items-start ">
-          <label htmlFor="mpa_ratings" className="text-[12px] font-medium">
-            MPA Ratings
+          <label htmlFor="tv_pg" className="text-[12px] font-medium">
+            TV Parental Guidelines
           </label>
           <select
             // disabled={isEditing}
 
             className="bg-white border rounded-sm border-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
-            {...register("mpa_ratings", {
+            {...register("tv_pg", {
               required: "This field is required",
             })}
           >
-            <option>PG-13</option>
-            <option>G</option>
-            <option>PG</option>
-            <option>R</option>
-            <option>NC-17</option>
+            <option>TV-Y</option>
+            <option>TV-Y7</option>
+            <option>TV-G</option>
+            <option>TV-PG</option>
+            <option>TV-14</option>
+            <option>TV-MA</option>
           </select>
         </div>
         <div className="flex flex-col gap-1 items-start ">
@@ -176,49 +177,49 @@ function CreateNewMovie() {
           )}
         </div>
         {/**  <div className="flex flex-col gap-1 items-start  row-start-2 col-start-4">
-          <label htmlFor="duration" className="text-[12px] font-medium">
-            Duration
-          </label>
-          <input
-            type="text"
-            name="duration"
-            disabled={isEditing}
-            defaultValue="1hr,30min"
-            className="border rounded-sm  border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
-            {...register("duration", {
-              required: "This field is required",
-            })}
-          />
-        </div> */}
+            <label htmlFor="duration" className="text-[12px] font-medium">
+              Duration
+            </label>
+            <input
+              type="text"
+              name="duration"
+              disabled={isEditing}
+              defaultValue="1hr,30min"
+              className="border rounded-sm  border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+              {...register("duration", {
+                required: "This field is required",
+              })}
+            />
+          </div> */}
         <div className="flex flex-col gap-1 items-star  row-start-2 col-start-2">
-          <label htmlFor="image" className="text-[12px] font-medium">
+          <label htmlFor="poster" className="text-[12px] font-medium">
             Movie Photo
           </label>
           <input
             //  disabled={isEditing}
             type="file"
-            name="image"
+            name="poster"
             accept="image/*"
             className="file:rounded-sm file:outline-none file:border border-white  file:bg-blue-500  file:py-2 file:px-2.5 file:cursor-pointer file:text-[11px] text-[12px] file:text-white file:font-semibold"
-            {...register("image", {
+            {...register("poster", {
               required: "This field is required",
             })}
           />
-          {errors.image && (
+          {errors.poster && (
             <span className="text-[8px] text-red-600">
               This field is required
             </span>
           )}
         </div>
         <div className="flex flex-col gap-1 items-start  row-start-2 col-start-3">
-          <label htmlFor="rating" className="text-[12px] font-medium">
+          <label htmlFor="ratings" className="text-[12px] font-medium">
             Rating
           </label>
           <select
             //defaultValue={rating}
             //disabled={isEditing}
             className="bg-white border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px] border-white"
-            {...register("rating", {
+            {...register("ratings", {
               required: "This field is required",
             })}
           >
@@ -348,9 +349,10 @@ function CreateNewMovie() {
           <Button
             style="bg-gray-400 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center gap-1"
             onClick={(e) => {
-              dispatch(closeMiniModal()), e.preventDefault();
+              e.preventDefault();
             }}
             // disabled={isEditing}
+            // dispatch(closeMiniModal()),
           >
             <NoSymbolIcon className="size-4" /> Cancel
           </Button>
@@ -366,4 +368,4 @@ function CreateNewMovie() {
   );
 }
 
-export default CreateNewMovie;
+export default NewSeriesForm;

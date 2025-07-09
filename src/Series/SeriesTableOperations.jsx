@@ -20,6 +20,14 @@ function SeriesTableOperations() {
           { value: "year-desc", label: "Sort by year (high first)" },
           { value: "ratings-asc", label: "Sort by rating (low first)" },
           { value: "ratings-desc", label: "Sort by rating (high first)" },
+          {
+            value: "number_of_season-asc",
+            label: "Sort by seasons (low first)",
+          },
+          {
+            value: "number_of_season-desc",
+            label: "Sort by seasons (high first)",
+          },
         ]}
         value={sortBy}
         handleSelectOptions={handleSelectOptions}

@@ -9,19 +9,15 @@ export function useSeries() {
     ? searchParams.get("sortby")
     : "title-asc";
 
-  console.log(sortBy);
+  const page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
 
   const [field, direction] = sortBy.split("-");
 
   const Sortby = { field, direction };
 
-  const {
-    data: series,
-    isLoading,
-    count,
-  } = useQuery({
-    queryKey: ["series", Sortby],
-    queryFn: () => getSeries({ Sortby }),
+  const { data: { data: series, count } = {}, isLoading } = useQuery({
+    queryKey: ["series", Sortby, page],
+    queryFn: () => getSeries({ Sortby, page }),
   });
 
   return { series, isLoading, count };

@@ -1,8 +1,7 @@
 import { EllipsisVerticalIcon } from "@heroicons/react/16/solid";
 import Pagination from "../ui/Pagination";
 
-function SeriesTable({ series }) {
-  console.log(series);
+function SeriesTable({ series, count }) {
   return (
     <section
       className="w-full  rounded-lg border-1 border-gray-100  "
@@ -19,11 +18,11 @@ function SeriesTable({ series }) {
         <div className="">Rating</div>
         <div className="">Year</div>
         <div className="">Seasons</div>
-        <div className="">MPA_Rating</div>
+        <div className=""> TV_PG</div>
         <div></div>
       </header>
       <div>
-        {series.data.map((s) => {
+        {series.map((s) => {
           const {
             id,
             title,
@@ -36,7 +35,7 @@ function SeriesTable({ series }) {
             stars,
             director,
             category,
-            mpa_ratings,
+            tv_pg,
           } = s;
 
           return (
@@ -45,16 +44,16 @@ function SeriesTable({ series }) {
                 <h2 className="">{id}</h2>
                 <h2 className="text-[14px] ">{title}</h2>
                 <img src={poster} className="w-[60px] h-[80%] m-auto" />
-                <h3 className="text-[10px] grid grid-cols-3 ">
+                <h3 className="text-[10px] grid grid-cols-2  ">
                   {" "}
-                  {category?.map((s) => {
-                    return <p>{s.category}</p>;
+                  {category?.map((s, i) => {
+                    return <p key={i}>{s.category}</p>;
                   })}
                 </h3>
                 <h6 className="">{ratings}</h6>
                 <h3 className="">{year}</h3>
                 <h3 className=" text-center">{number_of_season}</h3>
-                <h3 className="">{mpa_ratings}</h3>
+                <h3 className="">{tv_pg}</h3>
                 <EllipsisVerticalIcon
                   className="size-4 text-gray-400 ml-9"
                   role="button"
@@ -66,7 +65,7 @@ function SeriesTable({ series }) {
         })}
       </div>
       <div>
-        <Pagination count={12} />
+        <Pagination count={count} />
       </div>
     </section>
   );
