@@ -103,7 +103,7 @@ function MovieTable({ movies, count }) {
           <Pagination count={count} />
         </div>
       </section>
-      {newMovie && <CreateNewMovie />}
+      <>{newMovie && <CreateNewMovie />}</>
     </main>
   );
 }

@@ -53,7 +53,6 @@ function EditBox({ movies }) {
       image,
       year: Number(data.year),
       rating: Number(data.rating),
-      trending: Boolean(data.trending),
     };
 
     editMovie(

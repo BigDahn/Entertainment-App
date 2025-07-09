@@ -1,5 +1,3 @@
-import React from "react";
-
 function SortBy({ options, handleSelectOptions, value }) {
   return (
     <>

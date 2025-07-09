@@ -53,14 +53,16 @@ function MoviesComponent() {
         </div>
 
         <MovieTable movies={sortedData} count={count} />
-        {!newMovie && (
-          <Button
-            style="bg-blue-800 font-semibold text-white  text-[12px] rounded-sm py-2 px-1.5 max-w-30 shadow-sm cursor-pointer shadow-md"
-            onClick={() => dispatch(openNewMovie())}
-          >
-            Add New Movie
-          </Button>
-        )}
+        <div className="pb-2">
+          {!newMovie && (
+            <Button
+              style="bg-blue-800 font-semibold text-white  text-[12px] rounded-sm py-1.5 px-1.5 max-w-30 shadow-sm cursor-pointer shadow-md"
+              onClick={() => dispatch(openNewMovie())}
+            >
+              Add New Movie
+            </Button>
+          )}
+        </div>
       </main>
 
       {isDeleteModal && (

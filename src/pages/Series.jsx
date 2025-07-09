@@ -1,7 +1,12 @@
 import React from "react";
+import MainSeriesComp from "../Series/MainSeriesComp";
 
 function Series() {
-  return <div>Series</div>;
+  return (
+    <>
+      <MainSeriesComp />
+    </>
+  );
 }
 
 export default Series;
