@@ -28,5 +28,31 @@ export async function getSeries({ Sortby, page }) {
 }
 
 export async function addNewSeries({ newSeriesData }) {
-  console.log(newSeriesData);
+  const imagePath = `${Math.random()}-${
+    newSeriesData?.poster?.name
+  }`.replaceAll("/", "");
+
+  const newImagePath = `${supabaseUrl}/storage/v1/object/public/series/${imagePath}`;
+
+  let query = supabase
+    .from("series")
+    .insert([{ ...newSeriesData, poster: newImagePath }]);
+
+  const { data, error } = await query;
+
+  // uploading the image to the storage
+  if (error) {
+    throw new Error("Series could not be created");
+  }
+
+  const { error: StorageError } = supabase.storage
+    .from("series")
+    .upload(imagePath, newSeriesData.poster);
+
+  if (StorageError) {
+    await supabase.from("series").delete().eq("id", data.id);
+    throw new Error("There was an error creating this movie.. Try Again");
+  }
+
+  return data;
 }

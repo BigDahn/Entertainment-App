@@ -35,7 +35,6 @@ export async function getMovie(id) {
 }
 
 export async function createNewMovie({ newMovieData }) {
-  console.log(newMovieData);
   const imageName = `${Math.random()}-${newMovieData.image.name}`.replaceAll(
     "/",
     ""
