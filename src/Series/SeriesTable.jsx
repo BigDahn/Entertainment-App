@@ -1,7 +1,15 @@
 import { EllipsisVerticalIcon } from "@heroicons/react/16/solid";
 import Pagination from "../ui/Pagination";
+import { openMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
+import { useDispatch, useSelector } from "react-redux";
+import MiniModal from "../ui/MiniModal";
 
 function SeriesTable({ series, count }) {
+  const { optionsId, isEdit, optionsModal, newMovie } = useSelector(
+    (store) => store.Entertainment
+  );
+  const dispatch = useDispatch();
+
   return (
     <section
       className="w-full  rounded-lg border-1 border-gray-100  "
@@ -44,10 +52,14 @@ function SeriesTable({ series, count }) {
                 <h2 className="">{id}</h2>
                 <h2 className="text-[14px] ">{title}</h2>
                 <img src={poster} className="w-[60px] h-[80%] m-auto" />
-                <h3 className="text-[10px] grid grid-cols-2  ">
+                <h3 className="text-[9px] grid mt-1  ">
                   {" "}
                   {category?.map((s, i) => {
-                    return <p key={i}>{s.category}</p>;
+                    return (
+                      <p key={i} className="text-center">
+                        {s.category}
+                      </p>
+                    );
                   })}
                 </h3>
                 <h6 className="">{ratings}</h6>
@@ -57,9 +69,16 @@ function SeriesTable({ series, count }) {
                 <EllipsisVerticalIcon
                   className="size-4 text-gray-400 ml-9"
                   role="button"
-                  //onClick={() => {dispatch(openMiniModal({ id }))}}
+                  onClick={() => {
+                    dispatch(openMiniModal({ id }));
+                  }}
                 />
               </section>
+              {optionsId === id && optionsModal && (
+                <div className="absolute flex items-end justify-end w-full mt-12 left-[-16px] z-[90]">
+                  <MiniModal />
+                </div>
+              )}
             </main>
           );
         })}

@@ -7,14 +7,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { openNewMovie } from "../feature/EntertainmentSlice/EntertainmentSlice";
 import MovieTableOperation from "./MovieTableOperation";
 import { useSearchParams } from "react-router-dom";
+import { useGetPathName } from "../hooks/useGetPathName";
 
 function MoviesComponent() {
   const [searchParams] = useSearchParams();
+  const { path } = useGetPathName();
   const { movies, isLoading, error, count } = useMovies();
   const dispatch = useDispatch();
   const { isDeleteModal, newMovie } = useSelector(
     (store) => store.Entertainment
   );
+
+  console.log(isDeleteModal);
   if (isLoading)
     return (
       <div className="m-auto h-screen flex items-center justify-center">
@@ -65,7 +69,7 @@ function MoviesComponent() {
         </div>
       </main>
 
-      {isDeleteModal && (
+      {isDeleteModal.isOpen && isDeleteModal.name === path && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-300/40">
           <DeleteConfirmationBox />
         </div>

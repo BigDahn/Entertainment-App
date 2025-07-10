@@ -1,17 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteMovie } from "../services/getMovies";
 import toast from "react-hot-toast";
+import { deleteSeries } from "../services/getSeries";
 
-export function useDeleteMovie() {
+export function useDeleteSeries() {
   const queryClient = useQueryClient();
 
   const { mutate, isLoading } = useMutation({
-    mutationFn: ({ id, path }) => deleteMovie(id, path),
+    mutationFn: ({ id, path }) => deleteSeries(id, path),
     onSuccess: () => {
-      toast.success("Movie Deleted successful");
-      queryClient.invalidateQueries({ queryKey: ["movies"] });
+      queryClient.invalidateQueries({ queryKey: ["series"] });
+      toast.success("Series successfully deleted");
     },
     onError: (err) => toast.error(err.message),
   });
+
   return { mutate, isLoading };
 }

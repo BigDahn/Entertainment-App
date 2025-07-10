@@ -2,7 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isEdit: false,
-  isDeleteModal: false,
+  isDeleteModal: {
+    isOpen: false,
+    name: "",
+  },
   optionsModal: false,
   optionsId: "",
   newMovie: false,
@@ -26,15 +29,22 @@ const EntertainmentSlice = createSlice({
       state.isEdit = false;
       state.newMovie = false;
     },
-    openDeleteModal: (state) => {
+    openDeleteModal: (state, payload) => {
+      console.log(payload);
       state.optionsModal = false;
       state.isEdit = false;
-      state.isDeleteModal = true;
+      state.isDeleteModal = {
+        isOpen: true,
+        name: payload.payload,
+      };
     },
     closeDeleteModal: (state) => {
       state.optionsModal = false;
       state.isEdit = false;
-      state.isDeleteModal = false;
+      state.isDeleteModal = {
+        isOpen: false,
+        name: "",
+      };
     },
     openNewMovie: (state) => {
       state.newMovie = true;

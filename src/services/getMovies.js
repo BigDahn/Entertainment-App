@@ -101,8 +101,8 @@ export async function editMovie(id, newMovieData) {
   return data;
 }
 
-export async function deleteMovie(id) {
-  let query = supabase.from("movies").delete().eq("id", id);
+export async function deleteMovie(id, path) {
+  let query = supabase.from(path).delete().eq("id", id);
 
   const { data, error } = await query;
 

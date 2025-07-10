@@ -6,16 +6,19 @@ import {
   openDeleteModal,
   openEditBox,
 } from "../feature/EntertainmentSlice/EntertainmentSlice";
+import { useGetPathName } from "../hooks/useGetPathName";
 
 function MiniModal() {
   const { optionsId } = useSelector((store) => store.Entertainment);
+  const { path } = useGetPathName();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   return (
     <div className="bg-white shadow-sm w-[110px]   flex flex-col gap-0.5 items-start px-3 py-2 rounded-sm cursor-pointer">
       <h3
         className="text-[12px] flex gap-1.5 items-center text-gray-500"
-        onClick={() => navigate(`/movies/${optionsId}`)}
+        onClick={() => navigate(`/${path}/${optionsId}`)}
       >
         <EyeIcon className="size-3 text-gray-400" role="button" />
         See Details
@@ -29,7 +32,7 @@ function MiniModal() {
       </h3>
       <h3
         className="text-[12px] flex gap-1.5 items-center text-red-600"
-        onClick={() => dispatch(openDeleteModal())}
+        onClick={() => dispatch(openDeleteModal(path))}
       >
         <TrashIcon className="size-3 text-red-500" />
         Delete

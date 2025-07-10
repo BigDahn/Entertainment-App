@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import Button from "../ui/Button";
 import Loading from "../ui/Loading";
 import SortBy from "../ui/SortBy";
@@ -5,9 +6,15 @@ import NewSeriesForm from "./NewSeriesForm";
 import SeriesTable from "./SeriesTable";
 import SeriesTableOperations from "./SeriesTableOperations";
 import { useSeries } from "./useSeries";
+import { useGetPathName } from "../hooks/useGetPathName";
+import DeleteConfirmationBox from "../ui/DeleteConfirmationBox";
 
 function MainSeriesComp() {
+  const { path } = useGetPathName();
   const { series, isLoading, count } = useSeries();
+  const { isDeleteModal, newMovie } = useSelector(
+    (store) => store.Entertainment
+  );
 
   if (isLoading)
     return (
@@ -31,6 +38,11 @@ function MainSeriesComp() {
         </Button>
       </div>
       <NewSeriesForm />
+      {isDeleteModal.isOpen && isDeleteModal.name === path && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-300/40">
+          <DeleteConfirmationBox />
+        </div>
+      )}
     </main>
   );
 }
