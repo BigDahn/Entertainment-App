@@ -4,21 +4,20 @@ import MovieTable from "./MovieTable";
 import Button from "../ui/Button";
 import DeleteConfirmationBox from "../ui/DeleteConfirmationBox";
 import { useDispatch, useSelector } from "react-redux";
-import { openNewMovie } from "../feature/EntertainmentSlice/EntertainmentSlice";
+import { openCreateForm } from "../feature/EntertainmentSlice/EntertainmentSlice";
 import MovieTableOperation from "./MovieTableOperation";
 import { useSearchParams } from "react-router-dom";
 import { useGetPathName } from "../hooks/useGetPathName";
+import CreateNewMovie from "./CreateNewMovie";
 
 function MoviesComponent() {
   const [searchParams] = useSearchParams();
   const { path } = useGetPathName();
   const { movies, isLoading, error, count } = useMovies();
   const dispatch = useDispatch();
-  const { isDeleteModal, newMovie } = useSelector(
-    (store) => store.Entertainment
-  );
+  const { isDeleteModal, addNew } = useSelector((store) => store.Entertainment);
 
-  console.log(isDeleteModal);
+  console.log(addNew);
   if (isLoading)
     return (
       <div className="m-auto h-screen flex items-center justify-center">
@@ -58,15 +57,16 @@ function MoviesComponent() {
 
         <MovieTable movies={sortedData} count={count} />
         <div className="pb-2">
-          {!newMovie && (
+          {(!addNew.isOpen || addNew.name !== path) && (
             <Button
               style="bg-blue-800 font-semibold text-white  text-[12px] rounded-sm py-1.5 px-1.5 max-w-30 shadow-sm cursor-pointer shadow-md"
-              onClick={() => dispatch(openNewMovie())}
+              onClick={() => dispatch(openCreateForm(path))}
             >
               Add New Movie
             </Button>
           )}
         </div>
+        <>{addNew.isOpen && addNew.name === path && <CreateNewMovie />}</>
       </main>
 
       {isDeleteModal.isOpen && isDeleteModal.name === path && (

@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../ui/Button";
 import Loading from "../ui/Loading";
 import SortBy from "../ui/SortBy";
@@ -8,13 +8,13 @@ import SeriesTableOperations from "./SeriesTableOperations";
 import { useSeries } from "./useSeries";
 import { useGetPathName } from "../hooks/useGetPathName";
 import DeleteConfirmationBox from "../ui/DeleteConfirmationBox";
+import { openCreateForm } from "../feature/EntertainmentSlice/EntertainmentSlice";
 
 function MainSeriesComp() {
   const { path } = useGetPathName();
+  const dispatch = useDispatch();
   const { series, isLoading, count } = useSeries();
-  const { isDeleteModal, newMovie } = useSelector(
-    (store) => store.Entertainment
-  );
+  const { isDeleteModal, addNew } = useSelector((store) => store.Entertainment);
 
   if (isLoading)
     return (
@@ -30,14 +30,16 @@ function MainSeriesComp() {
       </div>
       <SeriesTable series={series} count={count} />
       <div className="pb-2">
-        <Button
-          style="bg-blue-800 font-semibold text-white  text-[12px] rounded-sm py-1.5 px-1.5 max-w-30 shadow-sm cursor-pointer shadow-md"
-          // onClick={() => dispatch(openNewMovie())}
-        >
-          Add New Movie
-        </Button>
+        {(!addNew.isOpen || addNew.name !== path) && (
+          <Button
+            style="bg-blue-800 font-semibold text-white  text-[12px] rounded-sm py-1.5 px-1.5 max-w-30 shadow-sm cursor-pointer shadow-md"
+            onClick={() => dispatch(openCreateForm(path))}
+          >
+            Add New Series
+          </Button>
+        )}
       </div>
-      <NewSeriesForm />
+      {addNew.isOpen && addNew.name === path && <NewSeriesForm />}
       {isDeleteModal.isOpen && isDeleteModal.name === path && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-300/40">
           <DeleteConfirmationBox />

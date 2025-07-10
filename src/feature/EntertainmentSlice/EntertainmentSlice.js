@@ -7,8 +7,14 @@ const initialState = {
     name: "",
   },
   optionsModal: false,
-  optionsId: "",
-  newMovie: false,
+  options: {
+    id: "",
+    name: "",
+  },
+  addNew: {
+    isOpen: false,
+    name: "",
+  },
 };
 
 const EntertainmentSlice = createSlice({
@@ -16,26 +22,35 @@ const EntertainmentSlice = createSlice({
   initialState,
   reducers: {
     openMiniModal: (state, action) => {
-      state.optionsId = action.payload.id;
+      state.options = {
+        id: action.payload.id,
+        name: action.payload.path,
+      };
       state.optionsModal = !state.optionsModal;
       state.isEdit = false;
     },
     openEditBox: (state) => {
       state.isEdit = true;
       state.optionsModal = false;
+      state.addNew = {
+        isOpen: false,
+        name: "",
+      };
     },
     closeMiniModal: (state) => {
       state.optionsModal = false;
       state.isEdit = false;
-      state.newMovie = false;
+      state.addNew = {
+        isOpen: false,
+        name: "",
+      };
     },
-    openDeleteModal: (state, payload) => {
-      console.log(payload);
+    openDeleteModal: (state, action) => {
       state.optionsModal = false;
       state.isEdit = false;
       state.isDeleteModal = {
         isOpen: true,
-        name: payload.payload,
+        name: action.payload,
       };
     },
     closeDeleteModal: (state) => {
@@ -46,8 +61,11 @@ const EntertainmentSlice = createSlice({
         name: "",
       };
     },
-    openNewMovie: (state) => {
-      state.newMovie = true;
+    openCreateForm: (state, action) => {
+      state.addNew = {
+        isOpen: true,
+        name: action.payload,
+      };
     },
   },
 });
@@ -58,7 +76,7 @@ export const {
   closeMiniModal,
   openDeleteModal,
   closeDeleteModal,
-  openNewMovie,
+  openCreateForm,
 } = EntertainmentSlice.actions;
 
 export default EntertainmentSlice.reducer;

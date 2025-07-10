@@ -3,9 +3,14 @@ import Pagination from "../ui/Pagination";
 import { openMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
 import { useDispatch, useSelector } from "react-redux";
 import MiniModal from "../ui/MiniModal";
+import CreateNewMovie from "../Movies/CreateNewMovie";
+import { useGetPathName } from "../hooks/useGetPathName";
+import EditBox from "../Movies/EditBox";
+import EditSeries from "./EditSeries";
 
 function SeriesTable({ series, count }) {
-  const { optionsId, isEdit, optionsModal, newMovie } = useSelector(
+  const { path } = useGetPathName();
+  const { options, isEdit, optionsModal, addNew } = useSelector(
     (store) => store.Entertainment
   );
   const dispatch = useDispatch();
@@ -70,15 +75,37 @@ function SeriesTable({ series, count }) {
                   className="size-4 text-gray-400 ml-9"
                   role="button"
                   onClick={() => {
-                    dispatch(openMiniModal({ id }));
+                    dispatch(openMiniModal({ id, path }));
                   }}
                 />
               </section>
-              {optionsId === id && optionsModal && (
+              {options.id === id && options.name === path && optionsModal && (
                 <div className="absolute flex items-end justify-end w-full mt-12 left-[-16px] z-[90]">
                   <MiniModal />
                 </div>
               )}
+              <div>
+                {options.id === id && options.name === path && isEdit ? (
+                  <EditSeries
+                    series={{
+                      id,
+                      title,
+                      description,
+                      poster,
+                      year,
+                      ratings,
+                      trending,
+                      number_of_season,
+                      stars,
+                      director,
+                      category,
+                      tv_pg,
+                    }}
+                  />
+                ) : (
+                  ""
+                )}
+              </div>
             </main>
           );
         })}

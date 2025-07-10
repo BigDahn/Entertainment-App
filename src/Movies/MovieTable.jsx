@@ -5,13 +5,16 @@ import { openMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice"
 import EditBox from "./EditBox";
 import CreateNewMovie from "./CreateNewMovie";
 import Pagination from "../ui/Pagination";
+import { useGetPathName } from "../hooks/useGetPathName";
 
 function MovieTable({ movies, count }) {
-  const { optionsId, isEdit, optionsModal, newMovie } = useSelector(
+  const { path } = useGetPathName();
+  const { options, isEdit, optionsModal, addNew } = useSelector(
     (store) => store.Entertainment
   );
   const dispatch = useDispatch();
 
+  console.log(options);
   return (
     <main>
       <section
@@ -65,17 +68,17 @@ function MovieTable({ movies, count }) {
                     className="size-4 text-gray-400 ml-9"
                     role="button"
                     onClick={() => {
-                      dispatch(openMiniModal({ id }));
+                      dispatch(openMiniModal({ id, path }));
                     }}
                   />
                 </section>
-                {optionsId === id && optionsModal && (
+                {options.id === id && options.name === path && optionsModal && (
                   <div className="absolute flex items-end justify-end w-full mt-12 left-[-16px] z-[90]">
                     <MiniModal />
                   </div>
                 )}
                 <div>
-                  {optionsId === id && isEdit ? (
+                  {options.id === id && options.name === path && isEdit ? (
                     <EditBox
                       movies={{
                         id: id,
@@ -103,7 +106,6 @@ function MovieTable({ movies, count }) {
           <Pagination count={count} />
         </div>
       </section>
-      <>{newMovie && <CreateNewMovie />}</>
     </main>
   );
 }
