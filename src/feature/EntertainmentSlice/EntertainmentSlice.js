@@ -44,6 +44,10 @@ const EntertainmentSlice = createSlice({
         isOpen: false,
         name: "",
       };
+      state.options = {
+        id: "",
+        name: "",
+      };
     },
     openDeleteModal: (state, action) => {
       state.optionsModal = false;

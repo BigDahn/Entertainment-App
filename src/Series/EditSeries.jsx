@@ -8,6 +8,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/16/solid";
 import { useEditSeries } from "./useEditSeries";
+import { closeMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
 
 function EditSeries({ series }) {
   const { mutate: editBtn, isLoading: isEditing } = useEditSeries();
@@ -59,7 +60,14 @@ function EditSeries({ series }) {
       ratings: Number(data.ratings),
     };
 
-    editBtn({ id, newSeriesData });
+    editBtn(
+      { id, newSeriesData },
+      {
+        onSuccess: () => {
+          reset(), dispatch(closeMiniModal());
+        },
+      }
+    );
     //console.log(newMovieData);
   };
   return (
