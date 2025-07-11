@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 export function useCreateSeries() {
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: ({ newSeriesData }) => addNewSeries({ newSeriesData }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["series"] });
@@ -13,5 +13,5 @@ export function useCreateSeries() {
     },
     onError: (err) => toast.error(err.message),
   });
-  return { mutate, isLoading };
+  return { mutate, isPending };
 }

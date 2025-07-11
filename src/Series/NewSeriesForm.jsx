@@ -6,9 +6,11 @@ import {
 import Button from "../ui/Button";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useCreateSeries } from "./useCreateSeries";
+import { useDispatch } from "react-redux";
+import { closeMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
 
 function NewSeriesForm() {
-  const { mutate: CreateSeries, isLoading: isCreating } = useCreateSeries();
+  const { mutate: CreateSeries, isPending: isCreating } = useCreateSeries();
   const {
     register,
     reset,
@@ -19,7 +21,7 @@ function NewSeriesForm() {
     defaultValues: {},
   });
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const onSubmit = (data) => {
     const poster = data.poster[0];
@@ -37,6 +39,7 @@ function NewSeriesForm() {
       {
         onSuccess: () => {
           reset();
+          dispatch(closeMiniModal());
         },
       }
     );
@@ -68,7 +71,7 @@ function NewSeriesForm() {
           <input
             type="text"
             name="title"
-            // disabled={isEditing}
+            disabled={isCreating}
             className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("title", {
               required: "This field is required",
@@ -85,10 +88,9 @@ function NewSeriesForm() {
             Year
           </label>
           <input
-            type="text"
-            // disabled={isEditing}
+            type="number"
+            disabled={isCreating}
             name="year"
-            //defaultValue={year}
             className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("year", {
               required: "This field is required",
@@ -105,8 +107,7 @@ function NewSeriesForm() {
             Trending
           </label>
           <select
-            // defaultValue={trending}
-            //  disabled={isEditing}
+            disabled={isCreating}
             className=" border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("trending", {
               required: "This field is required",
@@ -121,8 +122,7 @@ function NewSeriesForm() {
             TV Parental Guidelines
           </label>
           <select
-            // disabled={isEditing}
-
+            disabled={isCreating}
             className="bg-white border rounded-sm border-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("tv_pg", {
               required: "This field is required",
@@ -141,10 +141,9 @@ function NewSeriesForm() {
             Director
           </label>
           <input
-            //disabled={isEditing}
+            disabled={isCreating}
             type="text"
             name="director"
-            //defaultValue={director}
             className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("director", {
               required: "This field is required",
@@ -163,8 +162,7 @@ function NewSeriesForm() {
           <textarea
             type="text"
             name="description"
-            // disabled={isEditing}
-            //defaultValue={description}
+            disabled={isCreating}
             className="border rounded-sm outline-none w-full border-white bg-white h-[7rem] px-1.5 py-1 text-[13px] "
             {...register("description", {
               required: "This field is required",
@@ -176,6 +174,20 @@ function NewSeriesForm() {
             </span>
           )}
         </div>
+        <div className="flex flex-col gap-1 items-start  row-start-2 col-start-4">
+          <label htmlFor="duration" className="text-[12px] font-medium">
+            Number of Seasons
+          </label>
+          <input
+            type="number"
+            name="number"
+            disabled={isCreating}
+            className="border rounded-sm  border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
+            {...register("number_of_season", {
+              required: "This field is required",
+            })}
+          />
+        </div>
         {/**  <div className="flex flex-col gap-1 items-start  row-start-2 col-start-4">
             <label htmlFor="duration" className="text-[12px] font-medium">
               Duration
@@ -183,7 +195,7 @@ function NewSeriesForm() {
             <input
               type="text"
               name="duration"
-              disabled={isEditing}
+              disabled={isCreating}
               defaultValue="1hr,30min"
               className="border rounded-sm  border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
               {...register("duration", {
@@ -196,7 +208,7 @@ function NewSeriesForm() {
             Movie Photo
           </label>
           <input
-            //  disabled={isEditing}
+            disabled={isCreating}
             type="file"
             name="poster"
             accept="image/*"
@@ -216,8 +228,7 @@ function NewSeriesForm() {
             Rating
           </label>
           <select
-            //defaultValue={rating}
-            //disabled={isEditing}
+            disabled={isCreating}
             className="bg-white border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px] border-white"
             {...register("ratings", {
               required: "This field is required",
@@ -248,9 +259,8 @@ function NewSeriesForm() {
                     <div className="flex items-center gap-0.5">
                       <input
                         type="text"
-                        //disabled={isEditing}
+                        disabled={isCreating}
                         name="stars"
-                        defaultValue={field.name}
                         {...register(`stars.${index}.name`, {
                           required: "This field is required",
                         })}
@@ -260,7 +270,7 @@ function NewSeriesForm() {
                         className="size-5 text-gray-400 cursor-pointer hover:text-red-500"
                         onClick={() => removeStars(index)}
                         role="button"
-                        //  disabled={isEditing}
+                        disabled={isCreating}
                       />
                     </div>
                     {errors.stars?.[index]?.name && (
@@ -287,7 +297,7 @@ function NewSeriesForm() {
                 name: "",
               });
             }}
-            //disabled={isEditing}
+            disabled={isCreating}
           >
             Add Stars
           </Button>
@@ -304,7 +314,7 @@ function NewSeriesForm() {
                     <div className="flex items-center gap-0.5">
                       <input
                         type="text"
-                        //disabled={isEditing}
+                        disabled={isCreating}
                         name="category"
                         className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-white bg-white"
                         {...register(`category.${index}.category`, {
@@ -314,7 +324,7 @@ function NewSeriesForm() {
                       <XMarkIcon
                         className="size-5 text-gray-400 hover:text-red-500"
                         onClick={() => remove(index)}
-                        // disabled={isEditing}
+                        disabled={isCreating}
                         role="button"
                       />
                     </div>
@@ -340,7 +350,7 @@ function NewSeriesForm() {
                   category: "",
                 });
             }}
-            //disabled={isEditing}
+            disabled={isCreating}
           >
             Add Category
           </Button>
@@ -349,16 +359,15 @@ function NewSeriesForm() {
           <Button
             style="bg-gray-400 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center gap-1"
             onClick={(e) => {
-              e.preventDefault();
+              dispatch(closeMiniModal()), e.preventDefault();
             }}
-            // disabled={isEditing}
-            // dispatch(closeMiniModal()),
+            disabled={isCreating}
           >
             <NoSymbolIcon className="size-4" /> Cancel
           </Button>
           <Button
             style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center gap-1"
-            // disabled={isEditing}
+            disabled={isCreating}
           >
             <CheckCircleIcon className="size-4" /> Submit
           </Button>

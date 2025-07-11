@@ -6,8 +6,11 @@ import { useDispatch } from "react-redux";
 import { closeMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
 import { useEditMovie } from "./useEditMovie";
 
+import { useCountry } from "../hooks/useCountry";
+
 function EditBox({ movies }) {
   const { mutate: editMovie, isLoading: isEditing } = useEditMovie();
+  const { data } = useCountry();
   const {
     stars,
     title,
@@ -15,6 +18,7 @@ function EditBox({ movies }) {
     trending,
     year,
     director,
+    country,
     image,
     description,
     mpa_ratings,
@@ -54,7 +58,6 @@ function EditBox({ movies }) {
       year: Number(data.year),
       rating: Number(data.rating),
     };
-
     editMovie(
       { newMovieData, MovieId: id },
       {
@@ -165,6 +168,28 @@ function EditBox({ movies }) {
               required: "This field is required",
             })}
           ></textarea>
+        </div>
+        <div className="flex flex-col gap-1 items-start  row-start-2 col-start-4  ">
+          <label htmlFor="country" className="text-[12px] font-medium">
+            Country
+          </label>
+          <select
+            disabled={isEditing}
+            defaultValue={country}
+            className="bg-white border rounded-sm border-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            {...register("country", {
+              required: "This field is required",
+            })}
+          >
+            <option value="">select country</option>
+            {data?.map((s) => {
+              return (
+                <option key={s.name} value={s.name}>
+                  {s.name}
+                </option>
+              );
+            })}
+          </select>
         </div>
         {/**  <div className="flex flex-col gap-1 items-start  row-start-2 col-start-4">
           <label htmlFor="duration" className="text-[12px] font-medium">

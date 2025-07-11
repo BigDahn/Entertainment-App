@@ -11,7 +11,8 @@ import { useEditSeries } from "./useEditSeries";
 import { closeMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
 
 function EditSeries({ series }) {
-  const { mutate: editBtn, isLoading: isEditing } = useEditSeries();
+  const { mutate: editBtn, isPending: isEditing } = useEditSeries();
+
   const {
     id,
     title,
@@ -56,7 +57,6 @@ function EditSeries({ series }) {
     const newSeriesData = {
       ...data,
       poster,
-      year: Number(data.year),
       ratings: Number(data.ratings),
     };
 
@@ -84,8 +84,8 @@ function EditSeries({ series }) {
           <input
             type="text"
             name="title"
-            // disabled={isEditing}
-            className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            disabled={isEditing}
+            className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
             defaultValue={title}
             {...register("title", {
               required: "This field is required",
@@ -97,11 +97,11 @@ function EditSeries({ series }) {
             Year
           </label>
           <input
-            type="text"
-            //  disabled={isEditing}
+            type="number"
+            disabled={isEditing}
             name="year"
             defaultValue={year}
-            className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
             {...register("year", {
               required: "This field is required",
             })}
@@ -113,8 +113,8 @@ function EditSeries({ series }) {
           </label>
           <select
             defaultValue={trending}
-            // disabled={isEditing}
-            className=" border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            disabled={isEditing}
+            className=" border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
             {...register("trending", {
               required: "This field is required",
             })}
@@ -128,9 +128,9 @@ function EditSeries({ series }) {
             MPA Ratings
           </label>
           <select
-            //disabled={isEditing}
+            disabled={isEditing}
             defaultValue={tv_pg}
-            className="bg-white border rounded-sm border-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="bg-white border rounded-sm border-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
             {...register("tv_pg", {
               required: "This field is required",
             })}
@@ -148,11 +148,11 @@ function EditSeries({ series }) {
             Director
           </label>
           <input
-            // disabled={isEditing}
+            disabled={isEditing}
             type="text"
             name="director"
             defaultValue={director}
-            className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
             {...register("director", {
               required: "This field is required",
             })}
@@ -165,13 +165,28 @@ function EditSeries({ series }) {
           <textarea
             type="text"
             name="description"
-            // disabled={isEditing}
+            disabled={isEditing}
             defaultValue={description}
-            className="border rounded-sm outline-none w-full border-white bg-white h-[7rem] px-1.5 py-1 text-[13px] "
+            className="border rounded-sm outline-none w-full border-white bg-white h-[7rem] px-1.5 py-1 text-[13px] disabled:bg-gray-200"
             {...register("description", {
               required: "This field is required",
             })}
           ></textarea>
+        </div>
+        <div className="flex flex-col gap-1 items-start  row-start-2 col-start-4">
+          <label htmlFor="duration" className="text-[12px] font-medium">
+            Number of Seasons
+          </label>
+          <input
+            type="number"
+            name="number"
+            disabled={isEditing}
+            defaultValue={number_of_season}
+            className="border rounded-sm  border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
+            {...register("number_of_season", {
+              required: "This field is required",
+            })}
+          />
         </div>
         {/**  <div className="flex flex-col gap-1 items-start  row-start-2 col-start-4">
                     <label htmlFor="duration" className="text-[12px] font-medium">
@@ -193,11 +208,11 @@ function EditSeries({ series }) {
             Series Poster
           </label>
           <input
-            //  disabled={isEditing}
+            disabled={isEditing}
             type="file"
             name="poster"
             accept="image/*"
-            className="file:rounded-sm file:outline-none file:border border-white  file:bg-blue-500  file:py-2 file:px-2.5 file:cursor-pointer file:text-[11px] text-[12px] file:text-white file:font-semibold"
+            className="file:rounded-sm file:outline-none file:border border-white  file:bg-blue-500  file:py-2 file:px-2.5 file:cursor-pointer file:text-[11px] text-[12px] file:text-white file:font-semibold disabled:bg-gray-200"
             {...register("poster")}
           />
         </div>
@@ -208,8 +223,8 @@ function EditSeries({ series }) {
           </label>
           <select
             defaultValue={ratings}
-            // disabled={isEditing}
-            className="bg-white border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px] border-white"
+            disabled={isEditing}
+            className="bg-white border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px] border-white disabled:bg-gray-200"
             {...register("ratings", {
               required: "This field is required",
             })}
@@ -237,17 +252,17 @@ function EditSeries({ series }) {
                   <div className="flex items-center gap-0.5" key={index}>
                     <input
                       type="text"
-                      // disabled={isEditing}
+                      disabled={isEditing}
                       name="stars"
                       defaultValue={field.name}
                       {...register(`stars.${index}.name`)}
-                      className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-white bg-white"
+                      className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-white bg-white disabled:bg-gray-200"
                     />
                     <XMarkIcon
                       className="size-5 text-gray-400 cursor-pointer hover:text-red-500"
                       onClick={() => removeStars(index)}
                       role="button"
-                      // disabled={isEditing}
+                      disabled={isEditing}
                     />
                   </div>
                 );
@@ -260,14 +275,14 @@ function EditSeries({ series }) {
             </h3>
           )}
           <Button
-            style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] mt-2 disabled:bg-gray-400"
+            style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] mt-2 disabled:bg-gray-200"
             onClick={(e) => {
               e.preventDefault();
               addStars({
                 name: "",
               });
             }}
-            // disabled={isEditing}
+            disabled={isEditing}
           >
             Add Stars
           </Button>
@@ -283,16 +298,16 @@ function EditSeries({ series }) {
                   <div className="flex items-center gap-0.5" key={index}>
                     <input
                       type="text"
-                      //disabled={isEditing}
+                      disabled={isEditing}
                       name="category"
-                      className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-white bg-white"
+                      className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-white bg-white disabled:bg-gray-200"
                       {...register(`category.${index}.category`)}
                       defaultValue={field.category}
                     />
                     <XMarkIcon
                       className="size-5 text-gray-400 hover:text-red-500"
                       onClick={() => remove(index)}
-                      //disabled={isEditing}
+                      disabled={isEditing}
                       role="button"
                     />
                   </div>
@@ -305,29 +320,31 @@ function EditSeries({ series }) {
             </h3>
           )}
           <Button
-            style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] mt-2 disabled:bg-gray-400"
+            style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] mt-2 "
             onClick={(e) => {
               e.preventDefault(),
                 append({
                   category: "",
                 });
             }}
-            //  disabled={isEditing}
+            disabled={isEditing}
           >
             Add Category
           </Button>
         </div>
         <div className="flex justify-end gap-3 col-span-4 items-center  w-full h-[40px] ">
           <Button
-            style="bg-gray-400 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center gap-1"
-            //onClick={(e) => {dispatch(closeMiniModal()), e.preventDefault(); }}
-            //disabled={isEditing}
+            style="bg-gray-200 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center gap-1 disabled:cursor-not-allowed"
+            onClick={(e) => {
+              dispatch(closeMiniModal()), e.preventDefault();
+            }}
+            disabled={isEditing}
           >
             <NoSymbolIcon className="size-4" /> Cancel
           </Button>
           <Button
             style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center gap-1"
-            //disabled={isEditing}
+            disabled={isEditing}
           >
             <CheckCircleIcon className="size-4" /> Submit
           </Button>

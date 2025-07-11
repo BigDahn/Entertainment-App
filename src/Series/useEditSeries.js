@@ -5,7 +5,7 @@ import { editSeries } from "../services/getSeries";
 export function useEditSeries() {
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: ({ id, newSeriesData }) => editSeries({ id, newSeriesData }),
     onSuccess: () => {
       toast.success("Series Updated Successfully"),
@@ -14,5 +14,5 @@ export function useEditSeries() {
     onError: (err) => toast.error(err.message),
   });
 
-  return { mutate, isLoading };
+  return { mutate, isPending };
 }

@@ -46,6 +46,7 @@ function MovieTable({ movies, count }) {
               trending,
               stars,
               director,
+              country,
               category,
               mpa_ratings,
             } = s;
@@ -88,6 +89,7 @@ function MovieTable({ movies, count }) {
                         year: year,
                         rating: rating,
                         trending: trending,
+                        country: country,
                         stars: stars,
                         director: director,
                         category: category,
