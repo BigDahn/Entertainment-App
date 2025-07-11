@@ -18,7 +18,6 @@ export async function getSeries({ Sortby, page }) {
   }
 
   const { data, error, count } = await query;
-  console.log(data);
 
   if (error) {
     throw new Error("Series could not be loaded");
@@ -63,6 +62,40 @@ export async function deleteSeries(id, path) {
   const { data, error } = await query;
 
   if (error) throw new Error("Series could not be deleted");
+
+  return data;
+}
+
+export async function editSeries({ id, newSeriesData }) {
+  const imageName = newSeriesData?.poster?.startsWith?.(supabaseUrl);
+
+  const imagePath = `${Math.random()}-${newSeriesData.poster.name}`.replace(
+    "/",
+    ""
+  );
+  const newPoster = `${supabaseUrl}/storage/v1/object/public/series/${imagePath}`;
+
+  const seriesPoster = imageName ? newSeriesData.poster : newPoster;
+
+  const { data, error } = await supabase
+    .from("series")
+    .update({ ...newSeriesData, poster: seriesPoster })
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    throw new Error("Series could not be updated");
+  }
+
+  if (imageName) return data;
+  const { error: StorageError } = await supabase.storage
+    .from("series")
+    .upload(imagePath, newSeriesData.poster);
+
+  if (StorageError) {
+    await supabase.from("series").delete().eq("id", data.id);
+    throw new Error("There was an error updating this series.. Try Again");
+  }
 
   return data;
 }

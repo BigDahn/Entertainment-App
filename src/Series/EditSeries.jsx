@@ -7,8 +7,10 @@ import {
   NoSymbolIcon,
   XMarkIcon,
 } from "@heroicons/react/16/solid";
+import { useEditSeries } from "./useEditSeries";
 
 function EditSeries({ series }) {
+  const { mutate: editBtn, isLoading: isEditing } = useEditSeries();
   const {
     id,
     title,
@@ -47,15 +49,18 @@ function EditSeries({ series }) {
   });
 
   const onSubmit = (data) => {
-    const image = typeof data.image === "string" ? data.image : data.image[0];
+    const poster =
+      typeof data.poster === "string" ? data.poster : data.poster[0];
 
-    const newMovieData = {
+    const newSeriesData = {
       ...data,
-      image,
+      poster,
       year: Number(data.year),
-      rating: Number(data.rating),
+      ratings: Number(data.ratings),
     };
-    console.log(newMovieData);
+
+    editBtn({ id, newSeriesData });
+    //console.log(newMovieData);
   };
   return (
     <main className="px-7 w-full h-fit py-3 flex flex-col gap-y-2 bg-gray-100">
@@ -122,11 +127,12 @@ function EditSeries({ series }) {
               required: "This field is required",
             })}
           >
-            <option>PG-13</option>
-            <option>G</option>
-            <option>PG</option>
-            <option>R</option>
-            <option>NC-17</option>
+            <option>TV-Y</option>
+            <option>TV-Y7</option>
+            <option>TV-G</option>
+            <option>TV-PG</option>
+            <option>TV-14</option>
+            <option>TV-MA</option>
           </select>
         </div>
         <div className="flex flex-col gap-1 items-start ">
