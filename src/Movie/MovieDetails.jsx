@@ -49,7 +49,7 @@ function MovieDetails() {
     <main className="px-4  w-full h-full overflow-x-scroll">
       <div className="flex w-full justify-end  mt-2 ">
         <Button
-          style="bg-gray-50 shadow-sm px-3 py-2 flex items-center gap-2 cursor-pointer"
+          style="flex items-center gap-3 border border-gray-300 bg-white text-gray-700 px-2 py-1 rounded-md shadow-sm hover:bg-gray-50"
           onClick={() => goBack()}
         >
           <ArrowLeftIcon className="size-4" /> Back

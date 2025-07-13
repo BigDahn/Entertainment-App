@@ -21,7 +21,7 @@ function SeriesTable({ series, count }) {
       role="table"
     >
       <header
-        className=" grid grid-cols-[0.2fr_0.4fr_0.4fr_0.7fr_0.3fr_0.4fr_0.4fr_0.5fr_4rem]   gap-x-[1rem] text-center text-[14px] bg-gray-400 py-4 text-white font-normal rounded-tr-md rounded-tl-md uppercase "
+        className=" grid grid-cols-[0.2fr_0.8fr_0.4fr_1.5fr_0.3fr_0.4fr_0.4fr_0.5fr_4rem]   gap-x-[1rem] text-center text-[14px] bg-gray-400 py-4 text-white font-normal rounded-tr-md rounded-tl-md uppercase "
         role="row"
       >
         <div className="">Id</div>
@@ -53,7 +53,7 @@ function SeriesTable({ series, count }) {
 
           return (
             <main key={id} className="flex flex-col">
-              <section className="grid   grid-rows-[70px]  grid-cols-[0.2fr_0.4fr_0.4fr_0.7fr_0.3fr_0.4fr_0.4fr_0.5fr_4rem]   gap-x-[1rem]  text-[14px]   items-center  w-full  text-center border-b border-b-gray-200 cursor-pointer pb-1 relative">
+              <section className="grid   grid-rows-[70px]  grid-cols-[0.2fr_0.8fr_0.4fr_1.5fr_0.3fr_0.4fr_0.4fr_0.5fr_4rem]   gap-x-[1rem]  text-[14px]   items-center  w-full  text-center border-b border-b-gray-200 cursor-pointer pb-1 relative">
                 <h2 className="">{id}</h2>
                 <h2 className="text-[14px] ">{title}</h2>
                 <img src={poster} className="w-[60px] h-[80%] m-auto" />

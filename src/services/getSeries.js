@@ -99,3 +99,16 @@ export async function editSeries({ id, newSeriesData }) {
 
   return data;
 }
+
+export async function getSeriesById(id) {
+  console.log(id);
+  let query = supabase.from("series").select("*").eq("id", id);
+
+  const { data, error } = await query;
+
+  if (error) {
+    throw new Error("Series could not be loaded");
+  }
+
+  return data;
+}

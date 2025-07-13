@@ -1,7 +1,8 @@
 import React from "react";
+import SeriesDetails from "../SingleSeries/SeriesDetails";
 
 function SingleSeries() {
-  return <div>SingleSeries</div>;
+  return <SeriesDetails />;
 }
 
 export default SingleSeries;
