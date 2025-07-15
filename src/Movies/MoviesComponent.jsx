@@ -49,7 +49,7 @@ function MoviesComponent() {
 
   return (
     <>
-      <main className="py-4 px-6 flex flex-col gap-3   h-screen ">
+      <main className="py-2 px-6 flex flex-col gap-2  ">
         <div className="flex justify-between items-center">
           <h3 className="text-[20px] font-semibold">All Movies</h3>
           <MovieTableOperation />

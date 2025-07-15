@@ -57,7 +57,7 @@ function SeriesTable({ series, count }) {
                 <h2 className="">{id}</h2>
                 <h2 className="text-[14px] ">{title}</h2>
                 <img src={poster} className="w-[60px] h-[80%] m-auto" />
-                <h3 className="text-[11px] grid grid-cols-3   ">
+                <h3 className="text-[11px] grid grid-cols-[auto_auto_auto] gap-0.5   ">
                   {" "}
                   {category?.map((s, i) => {
                     return (
