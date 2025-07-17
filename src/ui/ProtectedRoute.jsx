@@ -5,11 +5,12 @@ import Loading from "./Loading";
 
 function ProtectedRoute({ children }) {
   const { isPending, isAuthenticated } = useGetUser();
+  console.log(isAuthenticated, isPending);
   const navigate = useNavigate();
 
   useEffect(
     function () {
-      if (!isAuthenticated && !isPending) navigate("/login");
+      if (!isAuthenticated && isPending) navigate("/login");
     },
     [isAuthenticated, isPending, navigate]
   );
