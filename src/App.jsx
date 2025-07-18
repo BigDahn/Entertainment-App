@@ -17,6 +17,8 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import ResetPassword from "./pages/ResetPassword";
+import UpdatePassword from "./pages/UpdatePassword";
 function App() {
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -50,6 +52,8 @@ function App() {
               <Route path="users" element={<Users />} />
             </Route>
             <Route path="login" element={<Login />} />
+            <Route path="resetPassword" element={<ResetPassword />} />
+            <Route path="updatePassword" element={<UpdatePassword />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>

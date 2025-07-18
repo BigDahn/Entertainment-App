@@ -26,7 +26,7 @@ function UpdatePasswordForm() {
     );
   };
   return (
-    <form className="flex flex-col gap-4 py-" onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex flex-col gap-4 " onSubmit={handleSubmit(onSubmit)}>
       <div className="flex justify-between  items-center  max-w-[65%]">
         <label htmlFor="password" className="text-[12px] font-medium">
           Password

@@ -65,3 +65,23 @@ export async function logOutUser() {
     throw new Error("Please try again...");
   }
 }
+
+export async function resetPassword(email) {
+  let { error } = await supabase.auth.resetPasswordForEmail(email);
+
+  if (error) {
+    console.log(error);
+    throw new Error("Try again there was an error");
+  }
+}
+
+export async function changePassword({ password }) {
+  let updatedData = { password };
+
+  const { data, error } = await supabase.auth.updateUser(updatedData);
+
+  if (error) {
+    throw new Error("Password could not be updated");
+  }
+  return data;
+}
