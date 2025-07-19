@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import Button from "../ui/Button";
 
 import { useChangePassword } from "./useChangePassword";
+import MiniLoader from "../ui/MiniLoader";
 
 function ChangePassword() {
   const {
@@ -12,10 +13,12 @@ function ChangePassword() {
     reset,
     formState: { errors },
   } = useForm();
+
   const { ChangePasswordFn, isChanging } = useChangePassword();
   const password = watch("password");
+
   const onSubmit = (data) => {
-    console.log(data);
+    console.log({ password });
     ChangePasswordFn({ password });
     // resetPasswordFn({ email: data.email });
   };
@@ -32,8 +35,8 @@ function ChangePassword() {
           <input
             type="password"
             name="password"
-            // disabled={isUpdating}
-            className="border rounded-sm border-white bg-gray-200 outline-none w-full px-2 py-1 text-[14px] disabled:bg-gray-200"
+            disabled={isChanging}
+            className="border rounded-sm border-white bg-gray-200 outline-none w-full px-2 py-2 text-[14px] disabled:bg-gray-400"
             {...register("password", {
               required: "This field is required",
               minLength: {
@@ -57,8 +60,8 @@ function ChangePassword() {
           <input
             type="password"
             name="confirm_password"
-            //disabled={isUpdating}
-            className="border rounded-[2px] border-white  bg-gray-200 outline-none w-full px-2 py-[3px] text-[14px] disabled:bg-gray-200"
+            disabled={isChanging}
+            className="border rounded-[2px] border-white  bg-gray-200 outline-none w-full px-2 py-2 text-[14px] disabled:bg-gray-400"
             {...register("confirm_password", {
               required: "This field is required",
               validate: (value) =>
@@ -73,8 +76,11 @@ function ChangePassword() {
         </div>
       </div>
 
-      <Button style="bg-blue-500 py-2 rounded-sm text-white font-bold">
-        Change Password
+      <Button
+        style="bg-blue-500 py-2 rounded-sm text-white font-bold disabled:bg-gray-400 disabled:cursor-not-allowed"
+        disabled={isChanging}
+      >
+        {isChanging ? <MiniLoader /> : <p> Change Password</p>}
       </Button>
     </form>
   );

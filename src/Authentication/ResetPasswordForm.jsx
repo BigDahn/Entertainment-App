@@ -3,10 +3,14 @@ import { useForm } from "react-hook-form";
 import Button from "../ui/Button";
 import { Link } from "react-router-dom";
 import { useResetPassword } from "./useResetPassword";
+import { ArrowLeftIcon } from "@heroicons/react/16/solid";
+import MiniLoader from "../ui/MiniLoader";
 
 function ResetPasswordForm() {
   const { register, handleSubmit } = useForm();
   const { resetPasswordFn, isResetting } = useResetPassword();
+
+ 
   const onSubmit = (data) => {
     console.log(data);
     resetPasswordFn({ email: data.email });
@@ -23,7 +27,7 @@ function ResetPasswordForm() {
         <input
           type="email"
           name="email address"
-          //  disabled={isEditing}
+          disabled={isResetting}
           className="border rounded-sm border-white bg-gray-200 outline-none w-full  px-2 py-2 text-[14px] disabled:bg-gray-200"
           {...register("email", {
             required: "This field is required",
@@ -31,13 +35,19 @@ function ResetPasswordForm() {
         />
       </div>
 
-      <Button style="bg-blue-500 py-2 rounded-sm text-white font-bold">
-        Send Link
+      <Button
+        style="bg-blue-500 py-2 rounded-sm text-white font-bold disabled:bg-gray-400 disabled:cursor-not-allowed"
+        disabled={isResetting}
+      >
+        {isResetting ? <MiniLoader /> : <p> Reset Password</p>}
       </Button>
       <Link to="/login">
-        <p className="text-[13px] text-gray-500 cursor-pointer">
-          back to login
-        </p>
+        <div className="flex items-center gap-1 justify-center">
+          <ArrowLeftIcon className="size-3 text-gray-500" />
+          <p className="text-[13px] text-gray-500 cursor-pointer">
+            back to login
+          </p>
+        </div>
       </Link>
     </form>
   );

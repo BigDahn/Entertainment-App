@@ -7,7 +7,7 @@ export function useLogin() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { mutate, isPending } = useMutation({
+  const { mutate, isPending: isLoading } = useMutation({
     mutationFn: ({ email, password }) => LoginAuth({ email, password }),
     onSuccess: (user) => {
       console.log(user.user);
@@ -16,9 +16,9 @@ export function useLogin() {
       navigate("/dashboard", { replace: true });
     },
     onError: (err) => {
-      console.log(err);
-      toast.error("Invalid details");
+      console.log(err.message);
+      toast.error(err.message);
     },
   });
-  return { isPending, mutate };
+  return { isLoading, mutate };
 }

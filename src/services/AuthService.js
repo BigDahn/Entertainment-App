@@ -75,13 +75,25 @@ export async function resetPassword(email) {
   }
 }
 
+// To change the password after clicking the reset btn ... more explanation to come later
+
 export async function changePassword({ password }) {
   let updatedData = { password };
 
-  const { data, error } = await supabase.auth.updateUser(updatedData);
+  const { token_hash } = Object.fromEntries(
+    new URLSearchParams(window.location.search)
+  );
+  const {
+    data: { session },
+    error,
+  } = await supabase.auth.verifyOtp({ token_hash, type: "email" });
+
+  if (session) {
+    const { data } = await supabase.auth.updateUser(updatedData);
+    return data;
+  }
 
   if (error) {
     throw new Error("Password could not be updated");
   }
-  return data;
 }

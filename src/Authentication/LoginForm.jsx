@@ -3,10 +3,13 @@ import { useForm } from "react-hook-form";
 import Button from "../ui/Button";
 import { useLogin } from "./useLogin";
 import { Link } from "react-router-dom";
+import MiniLoader from "../ui/MiniLoader";
 
 function LoginForm() {
   const { register, handleSubmit } = useForm();
-  const { mutate: Login } = useLogin();
+  const { mutate: Login, isLoading } = useLogin();
+
+  console.log(isLoading);
 
   const onSubmit = (data) => {
     Login({ email: data.email, password: data.password });
@@ -23,7 +26,7 @@ function LoginForm() {
         <input
           type="email"
           name="email address"
-          //  disabled={isEditing}
+          disabled={isLoading}
           className="border rounded-sm border-white bg-gray-200 outline-none w-full  px-2 py-2 text-[14px] disabled:bg-gray-200"
           {...register("email", {
             required: "This field is required",
@@ -37,15 +40,18 @@ function LoginForm() {
         <input
           type="password"
           name="password"
-          //  disabled={isEditing}
+          disabled={isLoading}
           className="border rounded-sm border-white bg-gray-200 outline-none w-full px-2 py-2 text-[14px] disabled:bg-gray-200"
           {...register("password", {
             required: "This field is required",
           })}
         />
       </div>
-      <Button style="bg-blue-500 py-2 rounded-sm text-white font-bold">
-        Login
+      <Button
+        style="bg-blue-500 py-2 rounded-sm text-white font-bold disabled:bg-gray-400 disabled:cursor-not-allowed"
+        disabled={isLoading}
+      >
+        {isLoading ? <MiniLoader /> : <p>Login</p>}
       </Button>
       <Link to="/resetPassword">
         <p className="text-[13px] text-gray-500 cursor-pointer">
