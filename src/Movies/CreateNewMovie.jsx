@@ -8,9 +8,10 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { closeMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
 import { useCreateMovie } from "./useCreateMovie";
+import MiniLoader from "../ui/MiniLoader";
 
 function CreateNewMovie() {
-  const { mutate: createMovie, isLoading: isCreating } = useCreateMovie();
+  const { mutate: createMovie, isPending: isCreating } = useCreateMovie();
   const {
     register,
     reset,
@@ -55,7 +56,7 @@ function CreateNewMovie() {
     name: "stars",
   });
   return (
-    <main className="px-7 w-full h-fit py-3 flex flex-col gap-y-2 bg-gray-100">
+    <main className="px-7 w-full h-fit py-3 flex flex-col gap-y-2 bg-white">
       <h2 className="pb-3 text-[20px] font-bold ">Create New Movie</h2>
       <form
         className="grid grid-cols-4 m-auto  items-start lg:gap-x-[1.3rem] lg:gap-y-3 "
@@ -68,8 +69,8 @@ function CreateNewMovie() {
           <input
             type="text"
             name="title"
-            // disabled={isEditing}
-            className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            disabled={isCreating}
+            className="border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("title", {
               required: "This field is required",
             })}
@@ -85,11 +86,10 @@ function CreateNewMovie() {
             Year
           </label>
           <input
-            type="text"
-            // disabled={isEditing}
+            type="number"
+            disabled={isCreating}
             name="year"
-            //defaultValue={year}
-            className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("year", {
               required: "This field is required",
             })}
@@ -105,9 +105,8 @@ function CreateNewMovie() {
             Trending
           </label>
           <select
-            // defaultValue={trending}
-            //  disabled={isEditing}
-            className=" border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            disabled={isCreating}
+            className=" border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("trending", {
               required: "This field is required",
             })}
@@ -121,9 +120,8 @@ function CreateNewMovie() {
             MPA Ratings
           </label>
           <select
-            // disabled={isEditing}
-
-            className="bg-white border rounded-sm border-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            disabled={isCreating}
+            className="bg-white border rounded-sm border-gray-200 outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("mpa_ratings", {
               required: "This field is required",
             })}
@@ -140,11 +138,10 @@ function CreateNewMovie() {
             Director
           </label>
           <input
-            //disabled={isEditing}
+            disabled={isCreating}
             type="text"
             name="director"
-            //defaultValue={director}
-            className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("director", {
               required: "This field is required",
             })}
@@ -162,9 +159,8 @@ function CreateNewMovie() {
           <textarea
             type="text"
             name="description"
-            // disabled={isEditing}
-            //defaultValue={description}
-            className="border rounded-sm outline-none w-full border-white bg-white h-[7rem] px-1.5 py-1 text-[13px] "
+            disabled={isCreating}
+            className="border rounded-sm outline-none w-full border-gray-200 bg-white h-[7rem] px-1.5 py-1 text-[13px] disabled:bg-gray-300 disabled:cursor-not-allowed "
             {...register("description", {
               required: "This field is required",
             })}
@@ -184,7 +180,7 @@ function CreateNewMovie() {
             name="duration"
             disabled={isEditing}
             defaultValue="1hr,30min"
-            className="border rounded-sm  border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="border rounded-sm  border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("duration", {
               required: "This field is required",
             })}
@@ -195,11 +191,11 @@ function CreateNewMovie() {
             Movie Photo
           </label>
           <input
-            //  disabled={isEditing}
+            disabled={isCreating}
             type="file"
             name="image"
             accept="image/*"
-            className="file:rounded-sm file:outline-none file:border border-white  file:bg-blue-500  file:py-2 file:px-2.5 file:cursor-pointer file:text-[11px] text-[12px] file:text-white file:font-semibold"
+            className="file:rounded-sm file:outline-none file:border border-gray-200  file:bg-blue-500  file:py-2 file:px-2.5 file:cursor-pointer file:text-[11px] text-[12px] file:text-white file:font-semibold"
             {...register("image", {
               required: "This field is required",
             })}
@@ -216,8 +212,8 @@ function CreateNewMovie() {
           </label>
           <select
             //defaultValue={rating}
-            //disabled={isEditing}
-            className="bg-white border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px] border-white"
+            disabled={isCreating}
+            className="bg-white border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px] border-gray-200 disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("rating", {
               required: "This field is required",
             })}
@@ -247,19 +243,19 @@ function CreateNewMovie() {
                     <div className="flex items-center gap-0.5">
                       <input
                         type="text"
-                        //disabled={isEditing}
+                        disabled={isCreating}
                         name="stars"
                         defaultValue={field.name}
                         {...register(`stars.${index}.name`, {
                           required: "This field is required",
                         })}
-                        className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-white bg-white"
+                        className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-gray-200 bg-white disabled:bg-gray-300 disabled:cursor-not-allowed"
                       />
                       <XMarkIcon
-                        className="size-5 text-gray-400 cursor-pointer hover:text-red-500"
+                        className="size-5 text-gray-400 cursor-pointer hover:text-red-500 disabled:cursor-not-allowed"
                         onClick={() => removeStars(index)}
                         role="button"
-                        //  disabled={isEditing}
+                        disabled={isCreating}
                       />
                     </div>
                     {errors.stars?.[index]?.name && (
@@ -286,7 +282,7 @@ function CreateNewMovie() {
                 name: "",
               });
             }}
-            //disabled={isEditing}
+            disabled={isCreating}
           >
             Add Stars
           </Button>
@@ -303,17 +299,17 @@ function CreateNewMovie() {
                     <div className="flex items-center gap-0.5">
                       <input
                         type="text"
-                        //disabled={isEditing}
+                        disabled={isCreating}
                         name="category"
-                        className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-white bg-white"
+                        className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-gray-200 disabled:bg-gray-300 disabled:cursor-not-allowed bg-white"
                         {...register(`category.${index}.category`, {
                           required: "This field is required",
                         })}
                       />
                       <XMarkIcon
-                        className="size-5 text-gray-400 hover:text-red-500"
+                        className="size-5 text-gray-400 hover:text-red-500 disabled:cursor-not-allowed"
                         onClick={() => remove(index)}
-                        // disabled={isEditing}
+                        disabled={isCreating}
                         role="button"
                       />
                     </div>
@@ -339,26 +335,34 @@ function CreateNewMovie() {
                   category: "",
                 });
             }}
-            //disabled={isEditing}
+            disabled={isCreating}
           >
             Add Category
           </Button>
         </div>
         <div className="flex justify-end gap-3 col-span-4 items-center  w-full h-[40px] ">
           <Button
-            style="bg-gray-400 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center gap-1"
+            style="bg-gray-400 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center gap-1  disabled:cursor-not-allowed"
             onClick={(e) => {
               dispatch(closeMiniModal()), e.preventDefault();
             }}
-            // disabled={isEditing}
+            disabled={isCreating}
           >
             <NoSymbolIcon className="size-4" /> Cancel
           </Button>
           <Button
-            style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center gap-1"
-            // disabled={isEditing}
+            style="bg-blue-500 cursor-pointer  w-[6rem] h-[2rem]  py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center justify-center gap-1"
+            disabled={isCreating}
           >
-            <CheckCircleIcon className="size-4" /> Submit
+            {isCreating ? (
+              <MiniLoader />
+            ) : (
+              <div className="flex gap-1 items-center">
+                {" "}
+                <CheckCircleIcon className="size-4" />
+                <p>Create</p>
+              </div>
+            )}
           </Button>
         </div>
       </form>

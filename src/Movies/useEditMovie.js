@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 export function useEditMovie() {
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: ({ newMovieData, MovieId }) => editMovie(MovieId, newMovieData),
     onSuccess: () => {
       toast.success("Movie Update Successful");
@@ -15,5 +15,5 @@ export function useEditMovie() {
     onError: (err) => toast.error(err.message),
   });
 
-  return { mutate, isLoading };
+  return { mutate, isPending };
 }

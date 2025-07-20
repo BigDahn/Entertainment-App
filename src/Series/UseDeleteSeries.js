@@ -5,7 +5,7 @@ import { deleteSeries } from "../services/getSeries";
 export function useDeleteSeries() {
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: ({ id, path }) => deleteSeries(id, path),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["series"] });
@@ -14,5 +14,5 @@ export function useDeleteSeries() {
     onError: (err) => toast.error(err.message),
   });
 
-  return { mutate, isLoading };
+  return { mutate, isPending };
 }

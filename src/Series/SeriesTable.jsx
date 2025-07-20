@@ -118,32 +118,3 @@ function SeriesTable({ series, count }) {
 }
 
 export default SeriesTable;
-{
-  /*   {optionsId === id && optionsModal && (
-                <div className="absolute flex items-end justify-end w-full mt-12 left-[-16px] z-[90]">
-                  <MiniModal />
-                </div>
-              )}
-              <div>
-                {optionsId === id && isEdit ? (
-                  <EditBox
-                    movies={{
-                      id: id,
-                      title: title,
-                      description: description,
-                      image: image,
-                      year: year,
-                      rating: rating,
-                      trending: trending,
-                      stars: stars,
-                      director: director,
-                      category: category,
-                      mpa_ratings: mpa_ratings,
-                    }}
-                  />
-                ) : (
-                  ""
-                )}
-              </div>
- */
-}

@@ -9,6 +9,7 @@ import {
 } from "@heroicons/react/16/solid";
 import { useEditSeries } from "./useEditSeries";
 import { closeMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
+import MiniLoader from "../ui/MiniLoader";
 
 function EditSeries({ series }) {
   const { mutate: editBtn, isPending: isEditing } = useEditSeries();
@@ -71,7 +72,7 @@ function EditSeries({ series }) {
     //console.log(newMovieData);
   };
   return (
-    <main className="px-7 w-full h-fit py-3 flex flex-col gap-y-2 bg-gray-100">
+    <main className="px-7 w-full h-fit py-3 flex flex-col gap-y-2 bg-white">
       <h3 className="text-[20px] font-medium ">Edit Movie ({title})</h3>
       <form
         className="grid grid-cols-4 m-auto  items-start lg:gap-x-[1.3rem] lg:gap-y-3  "
@@ -85,7 +86,7 @@ function EditSeries({ series }) {
             type="text"
             name="title"
             disabled={isEditing}
-            className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
+            className="border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
             defaultValue={title}
             {...register("title", {
               required: "This field is required",
@@ -101,7 +102,7 @@ function EditSeries({ series }) {
             disabled={isEditing}
             name="year"
             defaultValue={year}
-            className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
+            className="border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
             {...register("year", {
               required: "This field is required",
             })}
@@ -114,7 +115,7 @@ function EditSeries({ series }) {
           <select
             defaultValue={trending}
             disabled={isEditing}
-            className=" border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
+            className=" border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
             {...register("trending", {
               required: "This field is required",
             })}
@@ -130,7 +131,7 @@ function EditSeries({ series }) {
           <select
             disabled={isEditing}
             defaultValue={tv_pg}
-            className="bg-white border rounded-sm border-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
+            className="bg-white border rounded-sm border-gray-200 outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
             {...register("tv_pg", {
               required: "This field is required",
             })}
@@ -152,7 +153,7 @@ function EditSeries({ series }) {
             type="text"
             name="director"
             defaultValue={director}
-            className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
+            className="border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
             {...register("director", {
               required: "This field is required",
             })}
@@ -167,7 +168,7 @@ function EditSeries({ series }) {
             name="description"
             disabled={isEditing}
             defaultValue={description}
-            className="border rounded-sm outline-none w-full border-white bg-white h-[7rem] px-1.5 py-1 text-[13px] disabled:bg-gray-200"
+            className="border rounded-sm outline-none w-full border-gray-200 bg-white h-[7rem] px-1.5 py-1 text-[13px] disabled:bg-gray-200"
             {...register("description", {
               required: "This field is required",
             })}
@@ -182,7 +183,7 @@ function EditSeries({ series }) {
             name="number"
             disabled={isEditing}
             defaultValue={number_of_season}
-            className="border rounded-sm  border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
+            className="border rounded-sm  border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
             {...register("number_of_season", {
               required: "This field is required",
             })}
@@ -197,7 +198,7 @@ function EditSeries({ series }) {
                       name="duration"
                       disabled={isEditing}
                       defaultValue="1hr,30min"
-                      className="border rounded-sm  border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+                      className="border rounded-sm  border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
                       {...register("duration", {
                         required: "This field is required",
                       })}
@@ -212,7 +213,7 @@ function EditSeries({ series }) {
             type="file"
             name="poster"
             accept="image/*"
-            className="file:rounded-sm file:outline-none file:border border-white  file:bg-blue-500  file:py-2 file:px-2.5 file:cursor-pointer file:text-[11px] text-[12px] file:text-white file:font-semibold disabled:bg-gray-200"
+            className="file:rounded-sm file:outline-none file:border border-gray-200  file:bg-blue-500  file:py-2 file:px-2.5 file:cursor-pointer file:text-[11px] text-[12px] file:text-white file:font-semibold disabled:bg-gray-200"
             {...register("poster")}
           />
         </div>
@@ -224,7 +225,7 @@ function EditSeries({ series }) {
           <select
             defaultValue={ratings}
             disabled={isEditing}
-            className="bg-white border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px] border-white disabled:bg-gray-200"
+            className="bg-white border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px] border-gray-200 disabled:bg-gray-200"
             {...register("ratings", {
               required: "This field is required",
             })}
@@ -256,7 +257,7 @@ function EditSeries({ series }) {
                       name="stars"
                       defaultValue={field.name}
                       {...register(`stars.${index}.name`)}
-                      className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-white bg-white disabled:bg-gray-200"
+                      className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-gray-200 bg-white disabled:bg-gray-200"
                     />
                     <XMarkIcon
                       className="size-5 text-gray-400 cursor-pointer hover:text-red-500"
@@ -300,7 +301,7 @@ function EditSeries({ series }) {
                       type="text"
                       disabled={isEditing}
                       name="category"
-                      className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-white bg-white disabled:bg-gray-200"
+                      className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-gray-200 bg-white disabled:bg-gray-200"
                       {...register(`category.${index}.category`)}
                       defaultValue={field.category}
                     />
@@ -334,7 +335,7 @@ function EditSeries({ series }) {
         </div>
         <div className="flex justify-end gap-3 col-span-4 items-center  w-full h-[40px] ">
           <Button
-            style="bg-gray-200 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center gap-1 disabled:cursor-not-allowed"
+            style="bg-gray-400 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center gap-1 disabled:cursor-not-allowed"
             onClick={(e) => {
               dispatch(closeMiniModal()), e.preventDefault();
             }}
@@ -343,10 +344,17 @@ function EditSeries({ series }) {
             <NoSymbolIcon className="size-4" /> Cancel
           </Button>
           <Button
-            style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center gap-1"
+            style="bg-blue-500 cursor-pointer py-1.5 px-3 w-[6rem] rounded-sm text-white font-semibold text-[13px] flex items-center justify-center gap-1 disabled:bg-gray-300 disabled:cursor-not-allowed"
             disabled={isEditing}
           >
-            <CheckCircleIcon className="size-4" /> Submit
+            {isEditing ? (
+              <MiniLoader />
+            ) : (
+              <div className="flex gap-1 items-center">
+                {" "}
+                <CheckCircleIcon className="size-4" /> <span>Submit</span>
+              </div>
+            )}
           </Button>
         </div>
       </form>

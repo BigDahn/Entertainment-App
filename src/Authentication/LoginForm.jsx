@@ -9,8 +9,6 @@ function LoginForm() {
   const { register, handleSubmit } = useForm();
   const { mutate: Login, isLoading } = useLogin();
 
-  console.log(isLoading);
-
   const onSubmit = (data) => {
     Login({ email: data.email, password: data.password });
   };
@@ -27,7 +25,7 @@ function LoginForm() {
           type="email"
           name="email address"
           disabled={isLoading}
-          className="border rounded-sm border-white bg-gray-200 outline-none w-full  px-2 py-2 text-[14px] disabled:bg-gray-200"
+          className="border rounded-sm border-white bg-gray-200 outline-none w-full  px-2 py-2 text-[14px] disabled:bg-gray-400 disabled:cursor-not-allowed"
           {...register("email", {
             required: "This field is required",
           })}
@@ -41,7 +39,7 @@ function LoginForm() {
           type="password"
           name="password"
           disabled={isLoading}
-          className="border rounded-sm border-white bg-gray-200 outline-none w-full px-2 py-2 text-[14px] disabled:bg-gray-200"
+          className="border rounded-sm border-white bg-gray-200 outline-none w-full px-2 py-2 text-[14px] disabled:bg-gray-400 disabled:cursor-not-allowed"
           {...register("password", {
             required: "This field is required",
           })}

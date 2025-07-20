@@ -8,6 +8,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { useCreateSeries } from "./useCreateSeries";
 import { useDispatch } from "react-redux";
 import { closeMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
+import MiniLoader from "../ui/MiniLoader";
 
 function NewSeriesForm() {
   const { mutate: CreateSeries, isPending: isCreating } = useCreateSeries();
@@ -58,7 +59,7 @@ function NewSeriesForm() {
     name: "stars",
   });
   return (
-    <main className="px-7 w-full h-fit py-3 flex flex-col gap-y-2 bg-gray-100">
+    <main className="px-7 w-full h-fit py-3 flex flex-col gap-y-2 bg-white">
       <h2 className="pb-3 text-[20px] font-bold ">Add New Series</h2>
       <form
         className="grid grid-cols-4 m-auto  items-start lg:gap-x-[1.3rem] lg:gap-y-3 "
@@ -72,7 +73,7 @@ function NewSeriesForm() {
             type="text"
             name="title"
             disabled={isCreating}
-            className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("title", {
               required: "This field is required",
             })}
@@ -91,7 +92,7 @@ function NewSeriesForm() {
             type="number"
             disabled={isCreating}
             name="year"
-            className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("year", {
               required: "This field is required",
             })}
@@ -108,7 +109,7 @@ function NewSeriesForm() {
           </label>
           <select
             disabled={isCreating}
-            className=" border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className=" border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("trending", {
               required: "This field is required",
             })}
@@ -123,7 +124,7 @@ function NewSeriesForm() {
           </label>
           <select
             disabled={isCreating}
-            className="bg-white border rounded-sm border-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="bg-white border rounded-sm border-gray-200 outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("tv_pg", {
               required: "This field is required",
             })}
@@ -144,7 +145,7 @@ function NewSeriesForm() {
             disabled={isCreating}
             type="text"
             name="director"
-            className="border rounded-sm border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("director", {
               required: "This field is required",
             })}
@@ -163,7 +164,7 @@ function NewSeriesForm() {
             type="text"
             name="description"
             disabled={isCreating}
-            className="border rounded-sm outline-none w-full border-white bg-white h-[7rem] px-1.5 py-1 text-[13px] "
+            className="border rounded-sm outline-none w-full border-gray-200 bg-white h-[7rem] px-1.5 py-1 text-[13px] "
             {...register("description", {
               required: "This field is required",
             })}
@@ -182,7 +183,7 @@ function NewSeriesForm() {
             type="number"
             name="number"
             disabled={isCreating}
-            className="border rounded-sm  border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
+            className="border rounded-sm  border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
             {...register("number_of_season", {
               required: "This field is required",
             })}
@@ -197,7 +198,7 @@ function NewSeriesForm() {
               name="duration"
               disabled={isCreating}
               defaultValue="1hr,30min"
-              className="border rounded-sm  border-white bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+              className="border rounded-sm  border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
               {...register("duration", {
                 required: "This field is required",
               })}
@@ -212,7 +213,7 @@ function NewSeriesForm() {
             type="file"
             name="poster"
             accept="image/*"
-            className="file:rounded-sm file:outline-none file:border border-white  file:bg-blue-500  file:py-2 file:px-2.5 file:cursor-pointer file:text-[11px] text-[12px] file:text-white file:font-semibold"
+            className="file:rounded-sm file:outline-none file:border border-gray-200  file:bg-blue-500  file:py-2 file:px-2.5 file:cursor-pointer file:text-[11px] text-[12px] file:text-white file:font-semibold"
             {...register("poster", {
               required: "This field is required",
             })}
@@ -229,7 +230,7 @@ function NewSeriesForm() {
           </label>
           <select
             disabled={isCreating}
-            className="bg-white border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px] border-white"
+            className="bg-white border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px] border-gray-200"
             {...register("ratings", {
               required: "This field is required",
             })}
@@ -264,7 +265,7 @@ function NewSeriesForm() {
                         {...register(`stars.${index}.name`, {
                           required: "This field is required",
                         })}
-                        className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-white bg-white"
+                        className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-gray-200 bg-white"
                       />
                       <XMarkIcon
                         className="size-5 text-gray-400 cursor-pointer hover:text-red-500"
@@ -316,7 +317,7 @@ function NewSeriesForm() {
                         type="text"
                         disabled={isCreating}
                         name="category"
-                        className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-white bg-white"
+                        className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-gray-200 bg-white"
                         {...register(`category.${index}.category`, {
                           required: "This field is required",
                         })}
@@ -366,10 +367,17 @@ function NewSeriesForm() {
             <NoSymbolIcon className="size-4" /> Cancel
           </Button>
           <Button
-            style="bg-blue-500 cursor-pointer py-1.5 px-3 rounded-sm text-white font-semibold text-[13px] flex items-center gap-1"
+            style="bg-blue-500 cursor-pointer py-1.5 w-[6rem] px-3 rounded-sm text-white font-semibold text-[13px] flex items-center justify-center gap-1 disabled:bg-gray-300 disabled:cursor-not-allowed"
             disabled={isCreating}
           >
-            <CheckCircleIcon className="size-4" /> Submit
+            {isCreating ? (
+              <MiniLoader />
+            ) : (
+              <div className="flex gap-1 items-center">
+                {" "}
+                <CheckCircleIcon className="size-4" /> <span>Submit</span>
+              </div>
+            )}
           </Button>
         </div>
       </form>

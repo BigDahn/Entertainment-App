@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 export function useCreateMovie() {
   const queryClient = useQueryClient();
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: ({ newMovieData }) => createNewMovie({ newMovieData }),
     onSuccess: () => {
       toast.success("Movie successfully Uploaded");
@@ -13,5 +13,5 @@ export function useCreateMovie() {
     onError: (err) => toast.error(err.message),
   });
 
-  return { mutate, isLoading };
+  return { mutate, isPending };
 }

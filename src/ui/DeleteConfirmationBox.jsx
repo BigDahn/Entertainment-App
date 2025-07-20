@@ -4,12 +4,13 @@ import { closeDeleteModal } from "../feature/EntertainmentSlice/EntertainmentSli
 import { useDeleteMovie } from "../Movies/useDeleteMovie";
 import { useGetPathName } from "../hooks/useGetPathName";
 import { useDeleteSeries } from "../Series/UseDeleteSeries";
+import MiniLoader from "./MiniLoader";
 
 function DeleteConfirmationBox() {
   const { optionsId: id } = useSelector((store) => store.Entertainment);
   const { path } = useGetPathName();
-  const { mutate: DeleteBtn, isLoading } = useDeleteMovie();
-  const { mutate: DeleteSeries, isLoading: isDeleting } = useDeleteSeries();
+  const { mutate: DeleteBtn, isPending } = useDeleteMovie();
+  const { mutate: DeleteSeries, isPending: isDeleting } = useDeleteSeries();
   const dispatch = useDispatch();
   return (
     <main className="bg-white max-w-[31rem] py-3 px-4 rounded-md">
@@ -30,21 +31,23 @@ function DeleteConfirmationBox() {
           </Button>
           {path === "movies" ? (
             <Button
-              style="bg-red-500 px-6 py-1.5 text-[13px] rounded-lg cursor-pointer"
+              style="bg-red-500 px-6 py-1.5 w-[6rem] text-[13px] rounded-lg cursor-pointer flex items-center justify-center gap-1 disabled:bg-gray-300 disabled:cursor-not-allowed"
+              disabled={isPending}
               onClick={() => {
                 DeleteBtn({ id, path }), dispatch(closeDeleteModal());
               }}
             >
-              Delete
+              {isPending ? <MiniLoader /> : <p>Delete</p>}
             </Button>
           ) : (
             <Button
-              style="bg-red-500 px-6 py-1.5 text-[13px] rounded-lg cursor-pointer"
+              style="bg-red-500 px-6 py-1.5 w-[6rem] text-[13px] rounded-lg cursor-pointer flex items-center justify-center gap-1 disabled:bg-gray-300 disabled:cursor-not-allowed"
+              disabled={isDeleting}
               onClick={() => {
                 DeleteSeries({ id, path }), dispatch(closeDeleteModal());
               }}
             >
-              Delete
+              {isDeleting ? <MiniLoader /> : <p>Delete</p>}
             </Button>
           )}
         </div>

@@ -1,7 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import Button from "./Button";
-import { useUpdateDetails } from "../Authentication/useUpdateDetails";
+import Button from "../ui/Button";
+import { useUpdateDetails } from "./useUpdateDetails";
+import MiniLoader from "../ui/MiniLoader";
 
 function UpdatePasswordForm() {
   const {
@@ -28,7 +29,7 @@ function UpdatePasswordForm() {
   return (
     <form className="flex flex-col gap-4 " onSubmit={handleSubmit(onSubmit)}>
       <div className="flex justify-between  items-center  max-w-[65%]">
-        <label htmlFor="password" className="text-[12px] font-medium">
+        <label htmlFor="password" className="text-[14px] font-medium">
           Password
         </label>
         <div className="flex flex-col gap-0.5">
@@ -36,7 +37,7 @@ function UpdatePasswordForm() {
             type="password"
             name="password"
             disabled={isUpdating}
-            className="border rounded-sm border-white bg-gray-200 outline-none w-[15rem] px-2 py-1 text-[14px] disabled:bg-gray-200"
+            className="border rounded-sm border-white bg-gray-200 outline-none w-[15rem] px-2 py-[5px] text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("password", {
               required: "This field is required",
               minLength: {
@@ -53,15 +54,15 @@ function UpdatePasswordForm() {
         </div>
       </div>
       <div className="flex  justify-between  items-center  max-w-[65%]">
-        <label htmlFor="confirm_password" className="text-[12px] font-medium">
-          confirm password
+        <label htmlFor="confirm_password" className="text-[14px] font-medium">
+          Confirm Password
         </label>
         <div className="flex flex-col gap-0.5">
           <input
             type="password"
             name="confirm_password"
             disabled={isUpdating}
-            className="border rounded-[2px] border-white  bg-gray-200 outline-none w-[15rem] px-2 py-[3px] text-[14px] disabled:bg-gray-200"
+            className="border rounded-[2px] border-white  bg-gray-200 outline-none w-[15rem] px-2 py-[5px] text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("confirm_password", {
               required: "This field is required",
               validate: (value) =>
@@ -85,8 +86,11 @@ function UpdatePasswordForm() {
         >
           Cancel
         </Button>
-        <Button style="bg-blue-400 outline-none border-none px-5 text-[13px] py-1.5 rounded-sm">
-          Submit
+        <Button
+          style="bg-blue-500 w-[6rem] h-[2rem] outline-none border-none px-5 text-[13px] py-1.5 rounded-sm disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium"
+          disabled={isUpdating}
+        >
+          {isUpdating ? <MiniLoader /> : <p>Update</p>}
         </Button>
       </div>
     </form>

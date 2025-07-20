@@ -1,9 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import Button from "./Button";
+
 import { useGetUser } from "../Authentication/useGetUser";
 import { useUpdateDetails } from "../Authentication/useUpdateDetails";
-import toast from "react-hot-toast";
+import Button from "../ui/Button";
+import MiniLoader from "../ui/MiniLoader";
 
 function UpdateUserForm() {
   const {
@@ -47,7 +48,7 @@ function UpdateUserForm() {
         <input
           type="text"
           name="fullname"
-          //  disabled={isEditing}
+          disabled={isUpdating}
           className="border rounded-[2px] border-white  bg-gray-200 outline-none w-[15rem] px-2 py-[3px] text-[14px] disabled:bg-gray-200"
           defaultValue={fullName}
           {...register("fullname", {
@@ -60,11 +61,11 @@ function UpdateUserForm() {
           Profile Image
         </label>
         <input
-          //disabled={isEditing}
+          disabled={isUpdating}
           type="file"
           name="avatar"
           accept="image/*"
-          className="file:rounded-sm file:outline-none   file:bg-blue-500  file:py-1.5 file:px-2.5 file:cursor-pointer file:text-[11px] text-[12px] file:text-white file:font-semibold disabled:bg-gray-200 w-[15rem] "
+          className="file:rounded-sm file:outline-none   file:bg-blue-500  file:py-1.5 file:px-2.5 file:cursor-pointer file:text-[11px] text-[12px] file:text-white file:font-semibold  w-[15rem] "
           {...register("avatar")}
         />
       </div>
@@ -77,8 +78,11 @@ function UpdateUserForm() {
         >
           Cancel
         </Button>
-        <Button style="bg-blue-400 outline-none border-none px-5 text-[13px] py-1.5 rounded-sm">
-          Submit
+        <Button
+          style="bg-blue-500 w-[6rem] h-[2rem] outline-none border-none px-5 text-[13px] py-1.5 rounded-sm disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium"
+          disabled={isUpdating}
+        >
+          {isUpdating ? <MiniLoader /> : <p>Update</p>}
         </Button>
       </div>
     </form>

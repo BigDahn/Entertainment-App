@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 export function useDeleteMovie() {
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: ({ id, path }) => deleteMovie(id, path),
     onSuccess: () => {
       toast.success("Movie Deleted successful");
@@ -13,5 +13,5 @@ export function useDeleteMovie() {
     },
     onError: (err) => toast.error(err.message),
   });
-  return { mutate, isLoading };
+  return { mutate, isPending };
 }
