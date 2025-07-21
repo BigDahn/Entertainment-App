@@ -1,8 +1,12 @@
 import React from "react";
 import Button from "../ui/Button";
 import { ExclamationTriangleIcon } from "@heroicons/react/16/solid";
+import { openDeleteModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
+import { useDispatch } from "react-redux";
+import { useGetUser } from "../Authentication/useGetUser";
 
 function DeleteAccount() {
+  const dispatch = useDispatch();
   return (
     <div className="bg-white w-full px-3 py-2 rounded-sm">
       <h2 className="text-[17px] text-red-500 font-medium border-b border-gray-200 ">
@@ -13,7 +17,10 @@ function DeleteAccount() {
         Once you delete your account, there is no going back. Please be certain.
       </p>
       <div className="flex justify-end">
-        <Button style="text-[13px] bg-transparent border-1 px-3 py-2 rounded-sm text-red-600 cursor-pointer flex items-center gap-1 shadow-md">
+        <Button
+          style="text-[13px] bg-transparent border-1 px-3 py-2 rounded-sm text-red-600 cursor-pointer flex items-center gap-1 shadow-md"
+          onClick={() => dispatch(openDeleteModal())}
+        >
           <ExclamationTriangleIcon className="size-4 text-red-500" /> Delete
           Your Account
         </Button>

@@ -1,4 +1,4 @@
-import supabase, { supabaseUrl } from "./supabase";
+import supabase, { adminAuthClient, supabaseUrl } from "./supabase";
 
 export async function LoginAuth({ email, password }) {
   let { data, error } = await supabase.auth.signInWithPassword({
@@ -96,4 +96,33 @@ export async function changePassword({ password }) {
   if (error) {
     throw new Error("Password could not be updated");
   }
+}
+
+export async function signUpUser({ userData }) {
+  console.log(userData);
+  const { data, error } = await supabase.auth.signUp({
+    email: userData.email,
+    password: userData.password,
+    options: {
+      data: {
+        fullname: userData.fullname,
+        avatar: "",
+      },
+    },
+  });
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function deleteUser(user) {
+  const { data, error } = await adminAuthClient.deleteUser(user);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  console.log(data);
+  return data;
 }
