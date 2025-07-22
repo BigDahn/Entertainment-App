@@ -2,7 +2,7 @@ import { PAGE_SIZE } from "../helper/constant";
 import supabase, { supabaseUrl } from "./supabase";
 
 export async function getMovies({ page }) {
-  console.log(page);
+  
   let query = supabase.from("movies").select("*", { count: "exact" });
 
   if (page) {
@@ -18,6 +18,20 @@ export async function getMovies({ page }) {
   }
 
   return { data, count };
+}
+
+export async function getAllMovies() {
+  let query = supabase.from("movies").select("*");
+
+ 
+
+  const { data, error } = await query;
+
+  if (error) {
+    throw new Error("Movies could not be loaded");
+  }
+
+  return data ;
 }
 
 /*get single movie with a specific ID */
