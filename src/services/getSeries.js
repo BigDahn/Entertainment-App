@@ -26,6 +26,18 @@ export async function getSeries({ Sortby, page }) {
   return { data, count };
 }
 
+export async function getAllSeries() {
+  let query = supabase.from("series").select("*");
+
+  const { data, error } = await query;
+
+  if (error) {
+    throw new Error("Movies could not be loaded");
+  }
+
+  return data;
+}
+
 export async function addNewSeries({ newSeriesData }) {
   const imagePath = `${Math.random()}-${
     newSeriesData?.poster?.name

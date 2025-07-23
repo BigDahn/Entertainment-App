@@ -9,11 +9,11 @@ const data = [
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 function PieChartBoard() {
   return (
-    <PieChart width={800} height={400}>
+    <PieChart width={553} height={280}>
       <Pie
         data={data}
         cx={300}
-        cy={200}
+        cy={130}
         innerRadius={60}
         outerRadius={80}
         fill="#8884d8"
