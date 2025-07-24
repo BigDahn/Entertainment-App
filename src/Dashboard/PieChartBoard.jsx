@@ -1,4 +1,11 @@
-import { Cell, Pie, PieChart } from "recharts";
+import {
+  Cell,
+  Legend,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+} from "recharts";
 
 const data = [
   { name: "Group A", value: 400 },
@@ -9,25 +16,36 @@ const data = [
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 function PieChartBoard() {
   return (
-    <PieChart width={553} height={280}>
-      <Pie
-        data={data}
-        cx={300}
-        cy={130}
-        innerRadius={60}
-        outerRadius={80}
-        fill="#8884d8"
-        paddingAngle={5}
-        dataKey="value"
-      >
-        {data.map((entry, index) => (
-          <Cell
-            key={`cell-${entry.name}`}
-            fill={COLORS[index % COLORS.length]}
-          />
-        ))}
-      </Pie>
-    </PieChart>
+    <ResponsiveContainer width="100%" height="100%">
+      <PieChart>
+        <Pie
+          data={data}
+          cx={200}
+          cy={130}
+          innerRadius={60}
+          outerRadius={80}
+          fill="#8884d8"
+          paddingAngle={5}
+          dataKey="value"
+        >
+          {data.map((entry, index) => (
+            <Cell
+              key={`cell-${entry.name}`}
+              fill={COLORS[index % COLORS.length]}
+            />
+          ))}
+        </Pie>
+        <Tooltip />
+        <Legend
+          verticalAlign="middle"
+          align="right"
+          width="30%"
+          layout="vertical"
+          iconSize={15}
+          iconType="circle"
+        />
+      </PieChart>
+    </ResponsiveContainer>
   );
 }
 

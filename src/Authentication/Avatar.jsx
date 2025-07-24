@@ -8,7 +8,7 @@ function Avatar() {
       user_metadata: { fullname, avatar },
     },
   } = useGetUser();
-  console.log(avatar);
+
   return (
     <div className="flex items-center gap-3">
       <span className="text-[13px] font-medium">{fullname}</span>

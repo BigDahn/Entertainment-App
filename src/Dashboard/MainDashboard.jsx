@@ -20,7 +20,7 @@ function MainDashboard() {
       <div className="row-start-1 col-span-4 ">
         <MainTileComp />
       </div>
-      <div className="py-3 row-start-2 col-span-2   bg-white rounded-sm  ">
+      <div className="py-3 row-start-2 col-span-2   bg-white rounded-sm  shadow-md">
         <h2 className="px-4">
           Number of Movies released per year (Not Official yet!!!)
         </h2>
