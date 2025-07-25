@@ -1,7 +1,6 @@
 import React from "react";
 
 function TrendingSeries({ series }) {
-  console.log(series);
   return (
     <div className="px-3 overflow-y-scroll overflow-x-hidden h-full flex flex-col gap-1">
       <h2 className="text-[14px] font-semibold">Trending Series</h2>

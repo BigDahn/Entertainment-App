@@ -3,11 +3,11 @@ import MovieTile from "./MovieTile";
 import SeriesTile from "./SeriesTile";
 import RatedTile from "./RatedTile";
 
-function MainTileComp() {
+function MainTileComp({ data, series }) {
   return (
     <div className="flex items-center gap-[3rem] ">
-      <MovieTile />
-      <SeriesTile />
+      <MovieTile data={data} />
+      <SeriesTile series={series} />
       <RatedTile />
     </div>
   );
