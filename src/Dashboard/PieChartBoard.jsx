@@ -98,12 +98,12 @@ function PieChartBoard({ data }) {
 
   console.log(reducedData);
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height="96%">
       <PieChart>
         <Pie
           data={reducedData}
           cx={200}
-          cy={130}
+          cy={170}
           innerRadius={60}
           outerRadius={80}
           fill="#8884d8"
