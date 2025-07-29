@@ -9,8 +9,10 @@ import { useCreateSeries } from "./useCreateSeries";
 import { useDispatch } from "react-redux";
 import { closeMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
 import MiniLoader from "../ui/MiniLoader";
+import { useCountry } from "../hooks/useCountry";
 
 function NewSeriesForm() {
+  const { data: countries } = useCountry();
   const { mutate: CreateSeries, isPending: isCreating } = useCreateSeries();
   const {
     register,
@@ -26,12 +28,13 @@ function NewSeriesForm() {
 
   const onSubmit = (data) => {
     const poster = data.poster[0];
+    const flag = countries.find((s) => s.name === data.country);
 
     const newSeriesData = {
       ...data,
       poster,
-      year: Number(data.year),
       ratings: Number(data.ratings),
+      country: [flag],
     };
     CreateSeries(
       {
@@ -156,7 +159,7 @@ function NewSeriesForm() {
             </span>
           )}
         </div>
-        <div className="flex flex-col gap-1 items-start col-span-2">
+        <div className="flex flex-col gap-1 items-start col-start-3 col-end-5 row-start-4">
           <label htmlFor="description" className="text-[12px] font-medium">
             Description
           </label>
@@ -189,21 +192,48 @@ function NewSeriesForm() {
             })}
           />
         </div>
-        {/**  <div className="flex flex-col gap-1 items-start  row-start-2 col-start-4">
-            <label htmlFor="duration" className="text-[12px] font-medium">
-              Duration
-            </label>
-            <input
-              type="text"
-              name="duration"
-              disabled={isCreating}
-              defaultValue="1hr,30min"
-              className="border rounded-sm  border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
-              {...register("duration", {
-                required: "This field is required",
-              })}
-            />
-          </div> */}
+        <div className="flex flex-col gap-1 items-start  row-start-3 col-start-3">
+          <label htmlFor="country" className="text-[12px] font-medium">
+            Country
+          </label>
+          <select
+            disabled={isCreating}
+            // defaultValue={country?.[0]?.name || ""}
+            className="bg-white border rounded-sm border-gray-200 outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
+            {...register("country", {
+              required: "This field is required",
+            })}
+          >
+            <option value="">Select Country</option>
+            {countries?.map((country, i) => {
+              return (
+                <option key={i} value={country.name}>
+                  {country.name}
+                </option>
+              );
+            })}
+          </select>
+          {errors.country && (
+            <span className="text-[8px] text-red-600">
+              This field is required
+            </span>
+          )}
+        </div>
+        {/*  <div className="flex flex-col gap-1 items-start  row-start-3 col-start-4">
+          <label htmlFor="duration" className="text-[12px] font-medium">
+            Duration
+          </label>
+          <input
+            type="text"
+            name="duration"
+            disabled={isCreating}
+            defaultValue="1hr,30min"
+            className="border rounded-sm  border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            {...register("duration", {
+              required: "This field is required",
+            })}
+          />
+        </div> */}
         <div className="flex flex-col gap-1 items-star  row-start-2 col-start-2">
           <label htmlFor="poster" className="text-[12px] font-medium">
             Movie Photo

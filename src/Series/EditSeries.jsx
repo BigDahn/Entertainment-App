@@ -10,9 +10,11 @@ import {
 import { useEditSeries } from "./useEditSeries";
 import { closeMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
 import MiniLoader from "../ui/MiniLoader";
+import { useCountry } from "../hooks/useCountry";
 
 function EditSeries({ series }) {
   const { mutate: editBtn, isPending: isEditing } = useEditSeries();
+  const { data: countries } = useCountry();
 
   const {
     id,
@@ -24,11 +26,19 @@ function EditSeries({ series }) {
     trending,
     number_of_season,
     stars,
+    country,
     director,
     category,
     tv_pg,
   } = series;
-  const { register, reset, control, handleSubmit } = useForm({
+  console.log(country);
+  const {
+    register,
+    reset,
+    control,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
     defaultValues: {
       category: category,
       stars: stars,
@@ -54,11 +64,13 @@ function EditSeries({ series }) {
   const onSubmit = (data) => {
     const poster =
       typeof data.poster === "string" ? data.poster : data.poster[0];
+    const flag = countries.find((s) => s.name === data.country);
 
     const newSeriesData = {
       ...data,
       poster,
       ratings: Number(data.ratings),
+      country: [flag],
     };
 
     editBtn(
@@ -159,7 +171,7 @@ function EditSeries({ series }) {
             })}
           />
         </div>
-        <div className="flex flex-col gap-1 items-start col-span-2">
+        <div className="flex flex-col gap-1 items-start col-start-3 col-end-5 row-start-4">
           <label htmlFor="description" className="text-[12px] font-medium">
             Description
           </label>
@@ -189,7 +201,34 @@ function EditSeries({ series }) {
             })}
           />
         </div>
-        {/**  <div className="flex flex-col gap-1 items-start  row-start-2 col-start-4">
+        <div className="flex flex-col gap-1 items-start  row-start-3 col-start-3">
+          <label htmlFor="country" className="text-[12px] font-medium">
+            Country
+          </label>
+          <select
+            disabled={isEditing}
+            defaultValue={country?.[0]?.name || ""}
+            className="bg-white border rounded-sm border-gray-200 outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
+            {...register("country", {
+              required: "This field is required",
+            })}
+          >
+            <option value="">Select Country</option>
+            {countries?.map((country, i) => {
+              return (
+                <option key={i} value={country.name}>
+                  {country.name}
+                </option>
+              );
+            })}
+          </select>
+          {errors.country && (
+            <span className="text-[8px] text-red-600">
+              This field is required
+            </span>
+          )}
+        </div>
+        {/**  <div className="flex flex-col gap-1 items-start  row-start-3 col-start-4">
                     <label htmlFor="duration" className="text-[12px] font-medium">
                       Duration
                     </label>

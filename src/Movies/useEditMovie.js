@@ -8,7 +8,7 @@ export function useEditMovie() {
   const { mutate, isPending } = useMutation({
     mutationFn: ({ newMovieData, MovieId }) => editMovie(MovieId, newMovieData),
     onSuccess: () => {
-      toast.success("Movie Update Successful");
+      toast.success("Movie Successfully Updated");
       queryClient.invalidateQueries({ queryKey: ["movies"] });
       //console.log();
     },

@@ -9,7 +9,7 @@ export function useChangePassword() {
   const { mutate: ChangePasswordFn, isPending: isChanging } = useMutation({
     mutationFn: changePassword,
     onSuccess: (user) => {
-      toast.success("profile updated ");
+      toast.success("Password Reset Successful ");
       queryClient.setQueryData(["user"], user);
       navigate("/login", {
         replace: true,

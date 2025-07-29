@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  isDarkMode: false,
   isEdit: false,
   isDeleteModal: {
     isOpen: false,
@@ -71,6 +72,9 @@ const EntertainmentSlice = createSlice({
         name: action.payload,
       };
     },
+    themeToggle: (state) => {
+      state.isDarkMode = !state.isDarkMode;
+    },
   },
 });
 
@@ -81,6 +85,7 @@ export const {
   openDeleteModal,
   closeDeleteModal,
   openCreateForm,
+  themeToggle,
 } = EntertainmentSlice.actions;
 
 export default EntertainmentSlice.reducer;

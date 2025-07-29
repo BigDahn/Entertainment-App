@@ -9,7 +9,7 @@ export function useCreateSeries() {
     mutationFn: ({ newSeriesData }) => addNewSeries({ newSeriesData }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["series"] });
-      toast.success("Series Added Successfully");
+      toast.success("Series Successfully Created");
     },
     onError: (err) => toast.error(err.message),
   });

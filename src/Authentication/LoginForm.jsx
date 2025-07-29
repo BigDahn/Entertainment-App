@@ -26,7 +26,7 @@ function LoginForm() {
           type="email"
           name="email address"
           disabled={isLoading}
-          className="border rounded-sm border-white bg-gray-200 outline-none w-full  px-2 py-2 text-[14px] disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="border rounded-sm border-white bg-gray-200 outline-none w-full  px-2 py-2 text-[14px] disabled:bg-gray-400 disabled:cursor-not-allowed autofill:shadow-[inset_0_0_0px_1000px_#e5e7eb]"
           {...register("email", {
             required: "This field is required",
           })}

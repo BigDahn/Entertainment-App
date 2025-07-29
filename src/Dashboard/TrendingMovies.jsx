@@ -10,6 +10,7 @@ function TrendingMovies({ data }) {
       </div>
       {data
         ?.filter((s) => s.trending)
+        .sort((a, b) => b.rating - a.rating)
         ?.map((s) => {
           const { country, title, rating, year } = s;
 

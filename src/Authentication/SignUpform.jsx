@@ -8,6 +8,7 @@ function SignUpform() {
   const {
     register,
     watch,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm();
@@ -19,7 +20,14 @@ function SignUpform() {
       fullname: data.fullname,
       password: data.password,
     };
-    signUpFn({ userData });
+    signUpFn(
+      { userData },
+      {
+        onSuccess: () => {
+          reset();
+        },
+      }
+    );
     console.log(userData);
   };
   return (
@@ -62,7 +70,7 @@ function SignUpform() {
               required: "This field is required",
             })}
           />
-          {errors.fullName && (
+          {errors.fullname && (
             <span className="text-[9px] text-red-500">
               {errors.fullname.message}
             </span>
@@ -116,7 +124,7 @@ function SignUpform() {
       <div className="flex justify-end">
         <Button
           style="bg-blue-500 py-2 mt-2 w-[6rem] flex justify-center items-center rounded-sm text-white text-[13px] cursor-pointer font-bold disabled:bg-gray-400 disabled:cursor-not-allowed"
-          // disabled={isLoading}
+          disabled={isSigningUp}
         >
           {isSigningUp ? <MiniLoader /> : <p> Add User</p>}
         </Button>

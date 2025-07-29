@@ -9,7 +9,7 @@ export function useDeleteSeries() {
     mutationFn: ({ id, path }) => deleteSeries(id, path),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["series"] });
-      toast.success("Series successfully deleted");
+      toast.success("Series deleted successfully");
     },
     onError: (err) => toast.error(err.message),
   });

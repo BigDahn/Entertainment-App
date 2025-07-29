@@ -8,7 +8,7 @@ export function useDeleteMovie() {
   const { mutate, isPending } = useMutation({
     mutationFn: ({ id, path }) => deleteMovie(id, path),
     onSuccess: () => {
-      toast.success("Movie Deleted successful");
+      toast.success("Movie successfully Deleted");
       queryClient.invalidateQueries({ queryKey: ["movies"] });
     },
     onError: (err) => toast.error(err.message),
