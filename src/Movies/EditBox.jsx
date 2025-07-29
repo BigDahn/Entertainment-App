@@ -11,7 +11,7 @@ import MiniLoader from "../ui/MiniLoader";
 
 function EditBox({ movies }) {
   const { mutate: editMovie, isPending: isEditing } = useEditMovie();
-  const { data } = useCountry();
+  const { data: countries } = useCountry();
   const {
     stars,
     title,
@@ -27,7 +27,13 @@ function EditBox({ movies }) {
     category,
   } = movies;
 
-  const { register, reset, control, handleSubmit } = useForm({
+  const {
+    register,
+    reset,
+    control,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
     defaultValues: {
       category: category,
       stars: stars,
@@ -52,11 +58,12 @@ function EditBox({ movies }) {
 
   const onSubmit = (data) => {
     const image = typeof data.image === "string" ? data.image : data.image[0];
-
+    const flag = countries.find((s) => s.name === data.country);
     const newMovieData = {
       ...data,
       image,
       rating: Number(data.rating),
+      country: [flag],
     };
     editMovie(
       { newMovieData, MovieId: id },
@@ -169,7 +176,33 @@ function EditBox({ movies }) {
             })}
           ></textarea>
         </div>
-
+        <div className="flex flex-col gap-1 items-start  row-start-2 col-start-4">
+          <label htmlFor="country" className="text-[12px] font-medium">
+            Country
+          </label>
+          <select
+            disabled={isEditing}
+            defaultValue={country?.[0]?.name || ""}
+            className="bg-white border rounded-sm border-gray-200 outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
+            {...register("country", {
+              required: "This field is required",
+            })}
+          >
+            <option value="">Select Country</option>
+            {countries?.map((country, i) => {
+              return (
+                <option key={i} value={country.name}>
+                  {country.name}
+                </option>
+              );
+            })}
+          </select>
+          {errors.country && (
+            <span className="text-[8px] text-red-600">
+              This field is required
+            </span>
+          )}
+        </div>
         {/**  <div className="flex flex-col gap-1 items-start  row-start-2 col-start-4">
           <label htmlFor="duration" className="text-[12px] font-medium">
             Duration

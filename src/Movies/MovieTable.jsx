@@ -14,7 +14,6 @@ function MovieTable({ movies, count }) {
   );
   const dispatch = useDispatch();
 
-  console.log(options);
   return (
     <main>
       <section

@@ -7,7 +7,10 @@ import { useDeleteSeries } from "../Series/UseDeleteSeries";
 import MiniLoader from "./MiniLoader";
 
 function PathName() {
-  const { optionsId: id } = useSelector((store) => store.Entertainment);
+  const {
+    options: { id },
+  } = useSelector((store) => store.Entertainment);
+  console.log(id);
   const { path } = useGetPathName();
   const { mutate: DeleteBtn, isPending } = useDeleteMovie();
   const { mutate: DeleteSeries, isPending: isDeleting } = useDeleteSeries();

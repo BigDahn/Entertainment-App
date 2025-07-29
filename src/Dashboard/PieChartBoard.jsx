@@ -55,22 +55,22 @@ function PieChartBoard({ data }) {
       }
       if (i === 3) {
         simplifiedData = simplifiedData.map((s) =>
-          s.name === field[2] ? { ...s, value: s.value + 1 } : { ...s }
+          s.name === field[3] ? { ...s, value: s.value + 1 } : { ...s }
         );
       }
       if (i === 4) {
         simplifiedData = simplifiedData.map((s) =>
-          s.name === field[2] ? { ...s, value: s.value + 1 } : { ...s }
+          s.name === field[4] ? { ...s, value: s.value + 1 } : { ...s }
         );
       }
       if (i === 5) {
         simplifiedData = simplifiedData.map((s) =>
-          s.name === field[2] ? { ...s, value: s.value + 1 } : { ...s }
+          s.name === field[5] ? { ...s, value: s.value + 1 } : { ...s }
         );
       }
-      if (i === 5) {
+      if (i === 6) {
         simplifiedData = simplifiedData.map((s) =>
-          s.name === field[2] ? { ...s, value: s.value + 1 } : { ...s }
+          s.name === field[6] ? { ...s, value: s.value + 1 } : { ...s }
         );
       }
     }
@@ -78,9 +78,10 @@ function PieChartBoard({ data }) {
   }
 
   const reducedData = data
+    ?.filter((s) => !s.category.length < 1)
     ?.reduce((arr, curr, i) => {
-      const e = curr.category.map((s) => s.category);
-      //console.log(e);
+      const e = curr?.category.map((s) => s.category);
+
       if (i === 0) return moreDetailedData(arr, e);
       if (i === 1) return moreDetailedData(arr, e);
       if (i === 2) return moreDetailedData(arr, e);
@@ -91,12 +92,16 @@ function PieChartBoard({ data }) {
       if (i === 7) return moreDetailedData(arr, e);
       if (i === 8) return moreDetailedData(arr, e);
       if (i === 9) return moreDetailedData(arr, e);
+      if (i === 10) return moreDetailedData(arr, e);
+      if (i === 11) return moreDetailedData(arr, e);
+      if (i === 12) return moreDetailedData(arr, e);
 
       return arr;
     }, detailedData)
     .filter((s) => s.value > 0);
 
   console.log(reducedData);
+
   return (
     <ResponsiveContainer width="100%" height="96%">
       <PieChart>

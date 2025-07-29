@@ -8,10 +8,12 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { closeMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
 import { useCreateMovie } from "./useCreateMovie";
+import { useCountry } from "../hooks/useCountry";
 import MiniLoader from "../ui/MiniLoader";
 
 function CreateNewMovie() {
   const { mutate: createMovie, isPending: isCreating } = useCreateMovie();
+  const { data: countries } = useCountry();
   const {
     register,
     reset,
@@ -24,13 +26,17 @@ function CreateNewMovie() {
 
   const dispatch = useDispatch();
 
+  // console.log(countries.map((s) => s.name));
   const onSubmit = (data) => {
     const image = data.image[0];
+    const flag = countries.find((s) => s.name === data.country);
+
     const newMovieData = {
       ...data,
       image,
       year: Number(data.year),
       rating: Number(data.rating),
+      country: [flag],
     };
 
     createMovie(
@@ -166,6 +172,32 @@ function CreateNewMovie() {
             })}
           ></textarea>
           {errors.description && (
+            <span className="text-[8px] text-red-600">
+              This field is required
+            </span>
+          )}
+        </div>
+        <div className="flex flex-col gap-1 items-start  row-start-2 col-start-4">
+          <label htmlFor="country" className="text-[12px] font-medium">
+            Country
+          </label>
+          <select
+            disabled={isCreating}
+            className="bg-white border rounded-sm border-gray-200 outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
+            {...register("country", {
+              required: "This field is required",
+            })}
+          >
+            <option value="">Select Country</option>
+            {countries?.map((country, i) => {
+              return (
+                <option key={i} value={country.name}>
+                  {country.name}
+                </option>
+              );
+            })}
+          </select>
+          {errors.country && (
             <span className="text-[8px] text-red-600">
               This field is required
             </span>
