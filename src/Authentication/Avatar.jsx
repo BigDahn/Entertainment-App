@@ -14,7 +14,15 @@ function Avatar() {
 
   return (
     <div className="flex items-center gap-3">
-      <span className="text-[13px] font-medium">{fullname}</span>
+      <span
+        className={`${
+          isDarkMode
+            ? "text-[13px] font-medium text-gray-200"
+            : "text-[13px] font-medium"
+        }`}
+      >
+        {fullname}
+      </span>
       {avatar === "" ? (
         <UserCircleIcon className="size-10" />
       ) : (

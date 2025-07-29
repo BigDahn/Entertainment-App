@@ -37,7 +37,7 @@ function UpdatePasswordForm() {
             type="password"
             name="password"
             disabled={isUpdating}
-            className="border rounded-sm border-white bg-gray-200 outline-none w-[15rem] px-2 py-[5px] text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="border rounded-sm border-white bg-gray-200 text-black outline-none w-[15rem] px-2 py-[5px] text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("password", {
               required: "This field is required",
               minLength: {
@@ -47,7 +47,7 @@ function UpdatePasswordForm() {
             })}
           />
           {errors.password && (
-            <span className="text-[9px] text-red-500">
+            <span className="text-[7px] text-red-500">
               {errors.password.message}
             </span>
           )}
@@ -62,7 +62,7 @@ function UpdatePasswordForm() {
             type="password"
             name="confirm_password"
             disabled={isUpdating}
-            className="border rounded-[2px] border-white  bg-gray-200 outline-none w-[15rem] px-2 py-[5px] text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="border rounded-[2px] border-white  bg-gray-200 text-black outline-none w-[15rem] px-2 py-[5px] text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("confirm_password", {
               required: "This field is required",
               validate: (value) =>
@@ -70,7 +70,7 @@ function UpdatePasswordForm() {
             })}
           />
           {errors.confirm_password && (
-            <span className="text-[9px] text-red-500">
+            <span className="text-[7px] text-red-500">
               {errors.confirm_password.message}
             </span>
           )}
@@ -79,7 +79,7 @@ function UpdatePasswordForm() {
 
       <div className="flex gap-3 items-center justify-end">
         <Button
-          style="bg-gray-200 px-5 text-[13px] py-1.5 rounded-sm"
+          style="bg-gray-200 px-5 text-[13px] text-black py-1.5 rounded-sm"
           onClick={(e) => {
             e.preventDefault(), reset();
           }}

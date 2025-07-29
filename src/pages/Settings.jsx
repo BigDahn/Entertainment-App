@@ -5,13 +5,23 @@ import { useSelector } from "react-redux";
 import DeleteConfirmationBox from "../ui/DeleteConfirmationBox";
 
 function Settings() {
-  const { isDeleteModal } = useSelector((store) => store.Entertainment);
+  const { isDeleteModal, isDarkMode } = useSelector(
+    (store) => store.Entertainment
+  );
 
   console.log(isDeleteModal);
   return (
     <>
-      <main className="px-6 flex flex-col gap-3 py-3">
-        <h2 className="text-[18px] font-semibold">Settings</h2>
+      <main className="px-6 flex flex-col gap-3 py-3 ">
+        <h2
+          className={`${
+            isDarkMode
+              ? "text-[18px] font-semibold text-gray-200"
+              : "text-[18px] font-semibold"
+          }`}
+        >
+          Settings
+        </h2>
         <section className="flex flex-col gap-[2rem]">
           <AddNewUser />
           <DeleteAccount />

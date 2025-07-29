@@ -1,8 +1,15 @@
-import React from "react";
+import { useSelector } from "react-redux";
 
 function TrendingSeries({ series }) {
+  const { isDarkMode } = useSelector((store) => store.Entertainment);
   return (
-    <div className="px-3 overflow-y-scroll overflow-x-hidden h-full flex flex-col gap-1">
+    <div
+      className={`${
+        isDarkMode
+          ? "px-3 overflow-y-scroll overflow-x-hidden h-full text-gray-200 flex flex-col gap-1"
+          : "px-3 overflow-y-scroll overflow-x-hidden h-full flex flex-col gap-1"
+      }`}
+    >
       <h2 className="text-[14px] font-semibold">Trending Series</h2>
       <div className="text-[10px] grid-cols-[3fr_1fr_0.8fr_1fr] grid grid-rows-[auto] text-c font-semibold ">
         <div className="">Title</div>
@@ -16,7 +23,13 @@ function TrendingSeries({ series }) {
         ?.map((s) => {
           const { country, title, ratings, year } = s;
           return (
-            <div className="grid-cols-[3fr_1fr_0.8fr_1fr] grid grid-rows-[auto]  bg-gray-200 py-2  rounded-sm ">
+            <div
+              className={`${
+                isDarkMode
+                  ? "grid-cols-[3fr_1fr_0.8fr_1fr] grid grid-rows-[auto]  bg-gray-800 py-2 border-b-1 border-gray-200 "
+                  : "grid-cols-[3fr_1fr_0.8fr_1fr] grid grid-rows-[auto]  bg-gray-200 py-2  rounded-sm "
+              }`}
+            >
               <h2 className="text-[10px]">{title}</h2>
               <h2 className="text-[10px] ml-4">{ratings}</h2>
 

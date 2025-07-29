@@ -2,10 +2,18 @@ import React from "react";
 import Button from "../ui/Button";
 import { Link } from "react-router-dom";
 import { UserCircleIcon } from "@heroicons/react/20/solid";
+import { useSelector } from "react-redux";
 
 function AddNewUser() {
+  const { isDarkMode } = useSelector((store) => store.Entertainment);
   return (
-    <div className="bg-white w-full px-3 py-2 rounded-sm">
+    <div
+      className={`${
+        isDarkMode
+          ? "bg-gray-800 text-gray-200 w-full px-3 py-2 rounded-sm"
+          : "bg-white w-full px-3 py-2 rounded-sm"
+      }`}
+    >
       <h2 className="text-[17px] font-medium border-b border-gray-200 ">
         {" "}
         Add New User

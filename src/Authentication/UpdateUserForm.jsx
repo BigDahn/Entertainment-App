@@ -34,7 +34,7 @@ function UpdateUserForm() {
           type="email"
           name="email"
           disabled
-          className="border rounded-sm border-white bg-gray-200 outline-none w-[15rem] px-2 py-1 text-[14px] disabled:bg-gray-200 disabled:cursor-not-allowed"
+          className="border rounded-sm border-white bg-gray-200 outline-none w-[15rem] text-black px-2 py-1 text-[14px] disabled:bg-gray-200 disabled:cursor-not-allowed"
           defaultValue={email}
           {...register("email", {
             required: "This field is required",
@@ -49,7 +49,7 @@ function UpdateUserForm() {
           type="text"
           name="fullname"
           disabled={isUpdating}
-          className="border rounded-[2px] border-white  bg-gray-200 outline-none w-[15rem] px-2 py-[3px] text-[14px] disabled:bg-gray-200"
+          className="border rounded-[2px] border-white  bg-gray-200  text-black outline-none w-[15rem] px-2 py-[3px] text-[14px] disabled:bg-gray-200"
           defaultValue={fullName}
           {...register("fullname", {
             required: "This field is required",
@@ -69,7 +69,7 @@ function UpdateUserForm() {
           {...register("avatar")}
         />
       </div>
-      <div className="flex gap-3 items-center justify-end">
+      <div className="flex gap-3 items-center justify-end text-black">
         <Button
           style="bg-gray-200 px-5 text-[13px] py-1.5 rounded-sm"
           onClick={(e) => {

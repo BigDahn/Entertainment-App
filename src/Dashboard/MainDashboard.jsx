@@ -1,4 +1,4 @@
-import React from "react";
+import { useSelector } from "react-redux";
 
 import PieChart from "./PieChartBoard";
 import TrendingMovies from "./TrendingMovies";
@@ -11,6 +11,7 @@ import MainTileComp from "./MainTileComp";
 import { useAllSeries } from "./useAllSeries";
 
 function MainDashboard() {
+  const { isDarkMode } = useSelector((store) => store.Entertainment);
   const { data } = useAllMovies();
   const { data: series } = useAllSeries();
 
@@ -19,20 +20,44 @@ function MainDashboard() {
       <div className="row-start-1 col-span-2 ">
         <MainTileComp data={data} series={series} />
       </div>
-      <div className="py-3 row-start-2 col-span-2   bg-white rounded-sm  shadow-sm">
+      <div
+        className={`${
+          isDarkMode
+            ? "py-3 row-start-2 col-span-2   bg-gray-800 text-gray-200 rounded-sm  shadow-sm"
+            : "py-3 row-start-2 col-span-2   bg-white rounded-sm  shadow-sm"
+        }`}
+      >
         <h2 className="px-4">
           Number of Movies released per year (Not Official yet!!!)
         </h2>
         <LineChartBoard data={data} />
       </div>
-      <div className="py-3 row-span-2  col-span-2 bg-white rounded-sm shadow-sm  ">
+      <div
+        className={`${
+          isDarkMode
+            ? "py-3 row-span-2  col-span-2 bg-gray-800 text-gray-200 rounded-sm shadow-sm  "
+            : "py-3 row-span-2  col-span-2 bg-white rounded-sm shadow-sm  "
+        }`}
+      >
         <h2 className="px-4">Movies by Category (Not Official yet!!!)</h2>
         <PieChartBoard data={data} />
       </div>
-      <div className="py-3 row-start-3 col-span-2 bg-white rounded-sm  shadow-sm">
+      <div
+        className={`${
+          isDarkMode
+            ? "py-3 row-start-3 col-span-2 bg-gray-800 rounded-sm  shadow-sm"
+            : "py-3 row-start-3 col-span-2 bg-white rounded-sm  shadow-sm"
+        }`}
+      >
         <TrendingMovies data={data} />
       </div>
-      <div className="py-3 row-start-3 col-span-2 bg-white rounded-sm  shadow-sm ">
+      <div
+        className={`${
+          isDarkMode
+            ? "py-3 row-start-3 col-span-2 bg-gray-800 rounded-sm  shadow-sm"
+            : "py-3 row-start-3 col-span-2 bg-white rounded-sm  shadow-sm"
+        }`}
+      >
         <TrendingSeries series={series} />
       </div>
     </main>
