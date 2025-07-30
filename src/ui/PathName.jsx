@@ -11,7 +11,7 @@ function PathName() {
     options: { id },
     isDarkMode,
   } = useSelector((store) => store.Entertainment);
-  console.log(id);
+
   const { path } = useGetPathName();
   const { mutate: DeleteBtn, isPending } = useDeleteMovie();
   const { mutate: DeleteSeries, isPending: isDeleting } = useDeleteSeries();

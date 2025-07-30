@@ -81,3 +81,25 @@
         transform: rotate(360deg);
     }
 }
+
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #afa6a6;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #2B2C37;
+    border-radius: 3px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #050427;
+}

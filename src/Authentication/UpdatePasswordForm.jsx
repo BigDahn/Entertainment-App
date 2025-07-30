@@ -15,8 +15,7 @@ function UpdatePasswordForm() {
   const { UpdateDetail, isUpdating } = useUpdateDetails();
   const password = watch("password");
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = () => {
     UpdateDetail(
       { password },
       {
