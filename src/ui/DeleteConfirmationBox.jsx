@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "./Button";
 import { useGetPathName } from "../hooks/useGetPathName";
 
@@ -10,12 +10,19 @@ import { useDeleteAccount } from "../Settings/useDeleteAccount";
 function DeleteConfirmationBox() {
   const { path } = useGetPathName();
   const { mutate, isPending } = useDeleteAccount();
+  const { isDarkMode } = useSelector((store) => store.Entertainment);
   const dispatch = useDispatch();
 
   const { user } = useGetUser();
 
   return (
-    <main className="bg-white max-w-[31rem] py-3 px-4 rounded-md">
+    <main
+      className={`${
+        isDarkMode
+          ? "bg-gray-800 max-w-[31rem] py-3 px-4 rounded-md text-gray-200"
+          : "bg-white max-w-[31rem] py-3 px-4 rounded-md"
+      }`}
+    >
       {path !== "settings" ? (
         <PathName />
       ) : (
@@ -28,7 +35,11 @@ function DeleteConfirmationBox() {
           </p>
           <div className="flex justify-end gap-4 pt-3">
             <Button
-              style="bg-gray-300 px-6 py-1.5 text-[13px] rounded-lg cursor-pointer"
+              style={`${
+                isDarkMode
+                  ? "bg-gray-200 text-black px-6 py-1.5 text-[13px] rounded-lg cursor-pointer"
+                  : "bg-gray-300 px-6 py-1.5 text-[13px] rounded-lg cursor-pointer"
+              }`}
               onClick={() => dispatch(closeDeleteModal())}
             >
               Cancel

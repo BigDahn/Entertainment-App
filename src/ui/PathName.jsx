@@ -9,6 +9,7 @@ import MiniLoader from "./MiniLoader";
 function PathName() {
   const {
     options: { id },
+    isDarkMode,
   } = useSelector((store) => store.Entertainment);
   console.log(id);
   const { path } = useGetPathName();
@@ -26,7 +27,11 @@ function PathName() {
       </p>
       <div className="flex justify-end gap-4 pt-3">
         <Button
-          style="bg-gray-300 px-6 py-2 text-[13px] rounded-sm cursor-pointer"
+          style={`${
+            isDarkMode
+              ? "bg-gray-200 text-black px-6 py-1.5 text-[13px] rounded-lg cursor-pointer"
+              : "bg-gray-300 px-6 py-1.5 text-[13px] rounded-lg cursor-pointer"
+          }`}
           onClick={() => dispatch(closeDeleteModal())}
         >
           Cancel
