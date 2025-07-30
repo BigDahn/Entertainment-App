@@ -15,9 +15,10 @@ function MoviesComponent() {
   const { path } = useGetPathName();
   const { movies, isLoading, error, count } = useMovies();
   const dispatch = useDispatch();
-  const { isDeleteModal, addNew } = useSelector((store) => store.Entertainment);
+  const { isDeleteModal, addNew, isDarkMode } = useSelector(
+    (store) => store.Entertainment
+  );
 
-  console.log(addNew);
   if (isLoading)
     return (
       <div className="m-auto h-screen flex items-center justify-center">
@@ -49,7 +50,13 @@ function MoviesComponent() {
 
   return (
     <>
-      <main className="py-2 px-6 flex flex-col gap-2  ">
+      <main
+        className={`${
+          isDarkMode
+            ? "py-3 px-6 flex flex-col gap-2 text-gray-200 "
+            : "py-3 px-6 flex flex-col gap-2  "
+        }`}
+      >
         <div className="flex justify-between items-center">
           <h3 className="text-[20px] font-semibold">All Movies</h3>
           <MovieTableOperation />
@@ -59,7 +66,7 @@ function MoviesComponent() {
         <div className="pb-2">
           {(!addNew.isOpen || addNew.name !== path) && (
             <Button
-              style="bg-blue-800 font-semibold text-white  text-[12px] rounded-sm py-1.5 px-1.5 max-w-30 shadow-sm cursor-pointer shadow-md"
+              style="bg-blue-500 font-normal text-white  text-[12px] rounded-sm py-1.5 px-1.5 max-w-30 shadow-sm cursor-pointer shadow-md"
               onClick={() => dispatch(openCreateForm(path))}
             >
               Add New Movie

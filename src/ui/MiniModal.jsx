@@ -9,13 +9,19 @@ import {
 import { useGetPathName } from "../hooks/useGetPathName";
 
 function MiniModal() {
-  const { options } = useSelector((store) => store.Entertainment);
+  const { options, isDarkMode } = useSelector((store) => store.Entertainment);
   const { path } = useGetPathName();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   return (
-    <div className="bg-white shadow-sm w-[110px]   flex flex-col gap-0.5 items-start px-3 py-2 rounded-sm cursor-pointer">
+    <div
+      className={`${
+        isDarkMode
+          ? "bg-gray-800 shadow-sm w-[110px]   flex flex-col gap-0.5 items-start px-3 py-2 rounded-sm cursor-pointer"
+          : "bg-white shadow-sm w-[110px]   flex flex-col gap-0.5 items-start px-3 py-2 rounded-sm cursor-pointer"
+      }`}
+    >
       <h3
         className="text-[12px] flex gap-1.5 items-center text-gray-500"
         onClick={() => navigate(`/${path}/${options.id}`)}

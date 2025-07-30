@@ -3,8 +3,11 @@ import { useForm } from "react-hook-form";
 import Button from "../ui/Button";
 import { useSignup } from "../Settings/useSignUp";
 import MiniLoader from "../ui/MiniLoader";
+import { useSelector } from "react-redux";
 
 function SignUpform() {
+  const { isDarkMode } = useSelector((store) => store.Entertainment);
+
   const {
     register,
     watch,
@@ -28,11 +31,14 @@ function SignUpform() {
         },
       }
     );
-    console.log(userData);
   };
   return (
     <form
-      className="flex flex-col gap-3 px-4 py-4 bg-white w-[400px]  rounded-sm"
+      className={`${
+        isDarkMode
+          ? "flex flex-col gap-3 px-4 py-4 bg-gray-800 text-gray-200 w-[400px]  rounded-sm"
+          : "flex flex-col gap-3 px-4 py-4 bg-white w-[400px]  rounded-sm"
+      }`}
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col justify-between gap-2 items-start  ">
@@ -44,7 +50,7 @@ function SignUpform() {
             type="email"
             name="email"
             disabled={isSigningUp}
-            className="border rounded-sm border-white bg-gray-200 outline-none w-full  px-2 py-2 text-[14px] disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="border rounded-sm border-white bg-gray-200 text-black outline-none w-full  px-2 py-2 text-[14px] disabled:bg-gray-400 disabled:cursor-not-allowed"
             {...register("email", {
               required: "This field is required",
             })}
@@ -65,7 +71,7 @@ function SignUpform() {
             type="title"
             name="fullname"
             disabled={isSigningUp}
-            className="border rounded-sm border-white bg-gray-200 outline-none w-full px-2 py-2 text-[14px] disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="border rounded-sm border-white bg-gray-200 text-black outline-none w-full px-2 py-2 text-[14px] disabled:bg-gray-400 disabled:cursor-not-allowed"
             {...register("fullname", {
               required: "This field is required",
             })}
@@ -86,7 +92,7 @@ function SignUpform() {
             type="password"
             name="password"
             disabled={isSigningUp}
-            className="border rounded-sm border-white bg-gray-200 outline-none w-full px-2 py-2 text-[14px] disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="border rounded-sm border-white bg-gray-200  text-black outline-none w-full px-2 py-2 text-[14px] disabled:bg-gray-400 disabled:cursor-not-allowed"
             {...register("password", {
               required: "This field is required",
             })}
@@ -107,7 +113,7 @@ function SignUpform() {
             type="password"
             name="confirm_password"
             disabled={isSigningUp}
-            className="border rounded-sm border-white bg-gray-200 outline-none w-full px-2 py-2 text-[14px] disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="border rounded-sm border-white bg-gray-200 text-black outline-none w-full px-2 py-2 text-[14px] disabled:bg-gray-400 disabled:cursor-not-allowed"
             {...register("confirm_password", {
               required: "This field is required",
               validate: (value) =>

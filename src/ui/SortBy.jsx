@@ -1,8 +1,15 @@
+import { useSelector } from "react-redux";
+
 function SortBy({ options, handleSelectOptions, value }) {
+  const { isDarkMode } = useSelector((store) => store.Entertainment);
   return (
     <>
       <select
-        className="bg-[#fff] border-1 rounded-sm border-gray-400 px-1 outline-none w-[15rem] py-1.5 text-[14px]"
+        className={`${
+          isDarkMode
+            ? "bg-gray-800 border-1 rounded-sm border-gray-400 px-1 outline-none w-[15rem] py-1.5 text-[14px]"
+            : "bg-[#fff] border-1 rounded-sm border-gray-400 px-1 outline-none w-[15rem] py-1.5 text-[14px]"
+        }`}
         onChange={handleSelectOptions}
         value={value}
       >

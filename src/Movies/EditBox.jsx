@@ -2,7 +2,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import Button from "../ui/Button";
 import { CheckCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { NoSymbolIcon } from "@heroicons/react/16/solid";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closeMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
 import { useEditMovie } from "./useEditMovie";
 
@@ -12,6 +12,7 @@ import MiniLoader from "../ui/MiniLoader";
 function EditBox({ movies }) {
   const { mutate: editMovie, isPending: isEditing } = useEditMovie();
   const { data: countries } = useCountry();
+  const { isDarkMode } = useSelector((store) => store.Entertainment);
   const {
     stars,
     title,
@@ -75,7 +76,13 @@ function EditBox({ movies }) {
     );
   };
   return (
-    <main className="px-7 w-full h-fit py-3 flex flex-col gap-y-2 bg-white">
+    <main
+      className={`${
+        isDarkMode
+          ? "px-7 w-full h-fit py-3 flex flex-col gap-y-2 bg-gray-800 text-gray-200"
+          : "px-7 w-full h-fit py-3 flex flex-col gap-y-2 bg-white"
+      }`}
+    >
       <h3 className="text-[20px] font-medium ">Edit Movie ({title})</h3>
       <form
         className="grid grid-cols-4 m-auto  items-start lg:gap-x-[1.3rem] lg:gap-y-3  "
@@ -89,7 +96,7 @@ function EditBox({ movies }) {
             type="text"
             name="title"
             disabled={isEditing}
-            className="border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="border rounded-sm border-gray-200 text-black bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             defaultValue={title}
             {...register("title", {
               required: "This field is required",
@@ -105,7 +112,7 @@ function EditBox({ movies }) {
             disabled={isEditing}
             name="year"
             defaultValue={year}
-            className="border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="border rounded-sm border-gray-200 text-black bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("year", {
               required: "This field is required",
             })}
@@ -118,7 +125,7 @@ function EditBox({ movies }) {
           <select
             defaultValue={trending}
             disabled={isEditing}
-            className=" border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className=" border rounded-sm border-gray-200 text-black bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("trending", {
               required: "This field is required",
             })}
@@ -134,7 +141,7 @@ function EditBox({ movies }) {
           <select
             disabled={isEditing}
             defaultValue={mpa_ratings}
-            className="bg-white border rounded-sm border-gray-200 outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="bg-white border rounded-sm text-black border-gray-200 outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("mpa_ratings", {
               required: "This field is required",
             })}
@@ -155,7 +162,7 @@ function EditBox({ movies }) {
             type="text"
             name="director"
             defaultValue={director}
-            className="border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="border rounded-sm border-gray-200 text-black bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("director", {
               required: "This field is required",
             })}
@@ -170,7 +177,7 @@ function EditBox({ movies }) {
             name="description"
             disabled={isEditing}
             defaultValue={description}
-            className="border rounded-sm outline-none w-full border-gray-200 bg-white h-[7rem] px-1.5 py-1 text-[13px] disabled:bg-gray-300 disabled:cursor-not-allowed "
+            className="border rounded-sm outline-none w-full text-black border-gray-200 bg-white h-[7rem] px-1.5 py-1 text-[13px] disabled:bg-gray-300 disabled:cursor-not-allowed "
             {...register("description", {
               required: "This field is required",
             })}
@@ -183,7 +190,7 @@ function EditBox({ movies }) {
           <select
             disabled={isEditing}
             defaultValue={country?.[0]?.name || ""}
-            className="bg-white border rounded-sm border-gray-200 outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="bg-white border rounded-sm text-black border-gray-200 outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("country", {
               required: "This field is required",
             })}
@@ -212,7 +219,7 @@ function EditBox({ movies }) {
             name="duration"
             disabled={isEditing}
             defaultValue="1hr,30min"
-            className="border rounded-sm  border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="border rounded-sm  text-black border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("duration", {
               required: "This field is required",
             })}
@@ -239,7 +246,7 @@ function EditBox({ movies }) {
           <select
             defaultValue={rating}
             disabled={isEditing}
-            className="bg-white border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px] border-gray-200 disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="bg-white border rounded-sm outline-none w-[15rem] text-black px-2 py-1.5 text-[14px] border-gray-200 disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("rating", {
               required: "This field is required",
             })}
@@ -271,7 +278,7 @@ function EditBox({ movies }) {
                       name="stars"
                       defaultValue={field.name}
                       {...register(`stars.${index}.name`)}
-                      className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-gray-200 bg-white disabled:bg-gray-300 disabled:cursor-not-allowed"
+                      className="border w-[15rem] outline-none px-2 py-1.5 text-black rounded-sm text-[14px] border-gray-200 bg-white disabled:bg-gray-300 disabled:cursor-not-allowed"
                     />
                     <XMarkIcon
                       className="size-5 text-gray-400 cursor-pointer hover:text-red-500  disabled:cursor-not-allowed"
@@ -315,12 +322,12 @@ function EditBox({ movies }) {
                       type="text"
                       disabled={isEditing}
                       name="category"
-                      className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-gray-200 bg-white disabled:bg-gray-300 disabled:cursor-not-allowed"
+                      className="border w-[15rem]  px-2 py-1.5 text-black outline-none rounded-sm text-[14px] border-gray-200 bg-white disabled:bg-gray-300 disabled:cursor-not-allowed"
                       {...register(`category.${index}.category`)}
                       defaultValue={field.category}
                     />
                     <XMarkIcon
-                      className="size-5 text-gray-400 hover:text-red-500  disabled:cursor-not-allowed"
+                      className="size-5 text-gray-400 hover:text-red-500 cursor-pointer disabled:cursor-not-allowed"
                       onClick={() => remove(index)}
                       disabled={isEditing}
                       role="button"

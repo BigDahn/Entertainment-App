@@ -12,7 +12,7 @@ function Sidebar() {
     <div
       className={`${
         isDarkMode
-          ? "border-r bg-[#18212f] border-r-gray-600 font-medium text-[18px] row-[1/-1] flex flex-col py-5  gap-[3rem] justify-between "
+          ? "border-r bg-[#18212f] border-r-gray-800 font-medium text-[18px] row-[1/-1] flex flex-col py-5  gap-[3rem] justify-between "
           : "border-r border-r-gray-100 font-medium text-[18px] row-[1/-1] flex flex-col py-5  gap-[3rem] justify-between "
       }`}
     >
@@ -28,9 +28,13 @@ function Sidebar() {
               className={({ isActive, isPending }) =>
                 isPending
                   ? "pending"
-                  : isActive
-                  ? "flex items-center gap-3  px-4  bg-[#f9fafb] py-3 text-[#1f2937] rounded-tr-full rounded-br-full transition-all delay-3X~00 ease-linear"
-                  : "flex items-center gap-3  px-4  py-3 text-[#4b5563] hover:bg-gray-400 rounded-tr-full rounded-br-full transition-all delay-300 ease-linear "
+                  : isActive && isDarkMode
+                  ? "flex items-center gap-3  px-4  text-blue-200 py-3  transition-all delay-3X~00 ease-linear"
+                  : isActive && !isDarkMode
+                  ? "flex items-center gap-3  px-4  py-3 text-gray-800   transition-all delay-300 ease-linear "
+                  : !isActive && !isDarkMode
+                  ? "flex items-center gap-3  px-4  py-3 text-gray-500   transition-all delay-300 ease-linear "
+                  : "flex items-center gap-3  px-4  py-3 text-gray-600   transition-all delay-300 ease-linear "
               }
               to="dashboard"
             >
@@ -42,9 +46,13 @@ function Sidebar() {
               className={({ isActive, isPending }) =>
                 isPending
                   ? "pending"
-                  : isActive
-                  ? "flex items-center gap-3  px-4  bg-[#f9fafb] py-3 text-[#1f2937] rounded-tr-full rounded-br-full"
-                  : "flex items-center gap-3  px-4  py-3 text-[#4b5563] hover:bg-gray-400 rounded-tr-full rounded-br-full "
+                  : isActive && isDarkMode
+                  ? "flex items-center gap-3  px-4  text-blue-200 py-3  transition-all delay-3X~00 ease-linear"
+                  : isActive && !isDarkMode
+                  ? "flex items-center gap-3  px-4  py-3 text-gray-800   transition-all delay-300 ease-linear "
+                  : !isActive && !isDarkMode
+                  ? "flex items-center gap-3  px-4  py-3 text-gray-500   transition-all delay-300 ease-linear "
+                  : "flex items-center gap-3  px-4  py-3 text-gray-600   transition-all delay-300 ease-linear "
               }
               to="movies"
             >
@@ -56,9 +64,13 @@ function Sidebar() {
               className={({ isActive, isPending }) =>
                 isPending
                   ? "pending"
-                  : isActive
-                  ? "flex items-center gap-3  px-4  bg-[#f9fafb] py-3 text-[#1f2937] rounded-tr-full rounded-br-full"
-                  : "flex items-center gap-3  px-4  py-3 text-[#4b5563] hover:bg-gray-400 rounded-tr-full rounded-br-full "
+                  : isActive && isDarkMode
+                  ? "flex items-center gap-3  px-4  text-blue-200 py-3  transition-all delay-3X~00 ease-linear"
+                  : isActive && !isDarkMode
+                  ? "flex items-center gap-3  px-4  py-3 text-gray-800   transition-all delay-300 ease-linear "
+                  : !isActive && !isDarkMode
+                  ? "flex items-center gap-3  px-4  py-3 text-gray-500   transition-all delay-300 ease-linear "
+                  : "flex items-center gap-3  px-4  py-3 text-gray-600   transition-all delay-300 ease-linear "
               }
               to="series"
             >
@@ -70,9 +82,13 @@ function Sidebar() {
               className={({ isActive, isPending }) =>
                 isPending
                   ? "pending"
-                  : isActive
-                  ? "flex items-center gap-3  px-4  bg-[#f9fafb] py-3 text-[#1f2937] rounded-tr-full rounded-br-full"
-                  : "flex items-center gap-3  px-4  py-3 text-[#4b5563] hover:bg-gray-400 rounded-tr-full rounded-br-full "
+                  : isActive && isDarkMode
+                  ? "flex items-center gap-3  px-4  text-blue-200 py-3  transition-all delay-3X~00 ease-linear"
+                  : isActive && !isDarkMode
+                  ? "flex items-center gap-3  px-4  py-3 text-gray-800   transition-all delay-300 ease-linear "
+                  : !isActive && !isDarkMode
+                  ? "flex items-center gap-3  px-4  py-3 text-gray-500   transition-all delay-300 ease-linear "
+                  : "flex items-center gap-3  px-4  py-3 text-gray-600   transition-all delay-300 ease-linear "
               }
               to="account"
             >
@@ -84,9 +100,13 @@ function Sidebar() {
               className={({ isActive, isPending }) =>
                 isPending
                   ? "pending"
-                  : isActive
-                  ? "flex items-center gap-3  px-4  bg-[#f9fafb] py-3 text-[#1f2937] rounded-tr-full rounded-br-full"
-                  : "flex items-center gap-3  px-4  py-3 text-[#4b5563] hover:bg-gray-400 rounded-tr-full rounded-br-full "
+                  : isActive && isDarkMode
+                  ? "flex items-center gap-3  px-4  text-blue-200 py-3  transition-all delay-3X~00 ease-linear"
+                  : isActive && !isDarkMode
+                  ? "flex items-center gap-3  px-4  py-3 text-gray-800   transition-all delay-300 ease-linear "
+                  : !isActive && !isDarkMode
+                  ? "flex items-center gap-3  px-4  py-3 text-gray-500   transition-all delay-300 ease-linear "
+                  : "flex items-center gap-3  px-4  py-3 text-gray-600   transition-all delay-300 ease-linear "
               }
               to="settings"
             >

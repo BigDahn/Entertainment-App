@@ -5,13 +5,14 @@ import {
 } from "@heroicons/react/16/solid";
 import Button from "../ui/Button";
 import { useFieldArray, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closeMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
 import { useCreateMovie } from "./useCreateMovie";
 import { useCountry } from "../hooks/useCountry";
 import MiniLoader from "../ui/MiniLoader";
 
 function CreateNewMovie() {
+  const { isDarkMode } = useSelector((store) => store.Entertainment);
   const { mutate: createMovie, isPending: isCreating } = useCreateMovie();
   const { data: countries } = useCountry();
   const {
@@ -26,7 +27,6 @@ function CreateNewMovie() {
 
   const dispatch = useDispatch();
 
-  // console.log(countries.map((s) => s.name));
   const onSubmit = (data) => {
     const image = data.image[0];
     const flag = countries.find((s) => s.name === data.country);
@@ -62,7 +62,13 @@ function CreateNewMovie() {
     name: "stars",
   });
   return (
-    <main className="px-7 w-full h-fit py-3 flex flex-col gap-y-2 bg-white">
+    <main
+      className={`${
+        isDarkMode
+          ? "px-7 w-full h-fit py-3 flex flex-col gap-y-2 bg-gray-800 "
+          : "px-7 w-full h-fit py-3 flex flex-col gap-y-2 bg-white"
+      }`}
+    >
       <h2 className="pb-3 text-[20px] font-bold ">Create New Movie</h2>
       <form
         className="grid grid-cols-4 m-auto  items-start lg:gap-x-[1.3rem] lg:gap-y-3 "
@@ -76,7 +82,7 @@ function CreateNewMovie() {
             type="text"
             name="title"
             disabled={isCreating}
-            className="border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="border rounded-sm border-gray-200 bg-white outline-none w-[15rem] text-black px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("title", {
               required: "This field is required",
             })}
@@ -95,7 +101,7 @@ function CreateNewMovie() {
             type="number"
             disabled={isCreating}
             name="year"
-            className="border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="border rounded-sm border-gray-200 bg-white outline-none text-black w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("year", {
               required: "This field is required",
             })}
@@ -112,7 +118,7 @@ function CreateNewMovie() {
           </label>
           <select
             disabled={isCreating}
-            className=" border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className=" border rounded-sm border-gray-200 bg-white outline-none text-black  w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("trending", {
               required: "This field is required",
             })}
@@ -127,7 +133,7 @@ function CreateNewMovie() {
           </label>
           <select
             disabled={isCreating}
-            className="bg-white border rounded-sm border-gray-200 outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="bg-white border rounded-sm border-gray-200 text-black outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("mpa_ratings", {
               required: "This field is required",
             })}
@@ -147,7 +153,7 @@ function CreateNewMovie() {
             disabled={isCreating}
             type="text"
             name="director"
-            className="border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="border rounded-sm border-gray-200 bg-white text-black outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("director", {
               required: "This field is required",
             })}
@@ -166,7 +172,7 @@ function CreateNewMovie() {
             type="text"
             name="description"
             disabled={isCreating}
-            className="border rounded-sm outline-none w-full border-gray-200 bg-white h-[7rem] px-1.5 py-1 text-[13px] disabled:bg-gray-300 disabled:cursor-not-allowed "
+            className="border rounded-sm outline-none w-full text-black border-gray-200 bg-white h-[7rem] px-1.5 py-1 text-[13px] disabled:bg-gray-300 disabled:cursor-not-allowed "
             {...register("description", {
               required: "This field is required",
             })}
@@ -183,7 +189,7 @@ function CreateNewMovie() {
           </label>
           <select
             disabled={isCreating}
-            className="bg-white border rounded-sm border-gray-200 outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="bg-white border rounded-sm border-gray-200 text-black outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("country", {
               required: "This field is required",
             })}
@@ -212,7 +218,7 @@ function CreateNewMovie() {
             name="duration"
             disabled={isEditing}
             defaultValue="1hr,30min"
-            className="border rounded-sm  border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="border rounded-sm text-black  border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("duration", {
               required: "This field is required",
             })}
@@ -227,7 +233,7 @@ function CreateNewMovie() {
             type="file"
             name="image"
             accept="image/*"
-            className="file:rounded-sm file:outline-none file:border border-gray-200  file:bg-blue-500  file:py-2 file:px-2.5 file:cursor-pointer file:text-[11px] text-[12px] file:text-white file:font-semibold"
+            className="file:rounded-sm file:outline-none file:border border-gray-200 file:bg-blue-500  file:py-2 file:px-2.5 file:cursor-pointer file:text-[11px] text-[12px] file:text-white file:font-semibold"
             {...register("image", {
               required: "This field is required",
             })}
@@ -245,7 +251,7 @@ function CreateNewMovie() {
           <select
             //defaultValue={rating}
             disabled={isCreating}
-            className="bg-white border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px] border-gray-200 disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="bg-white border rounded-sm outline-none text-black w-[15rem] px-2 py-1.5 text-[14px] border-gray-200 disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("rating", {
               required: "This field is required",
             })}
@@ -281,10 +287,10 @@ function CreateNewMovie() {
                         {...register(`stars.${index}.name`, {
                           required: "This field is required",
                         })}
-                        className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-gray-200 bg-white disabled:bg-gray-300 disabled:cursor-not-allowed"
+                        className="border w-[15rem] text-black outline-none  px-2 py-1.5 rounded-sm text-[14px] border-gray-200 bg-white disabled:bg-gray-300 disabled:cursor-not-allowed"
                       />
                       <XMarkIcon
-                        className="size-5 text-gray-400 cursor-pointer hover:text-red-500 disabled:cursor-not-allowed"
+                        className="size-5 text-gray-400  hover:text-red-500 disabled:cursor-not-allowed cursor-pointer"
                         onClick={() => removeStars(index)}
                         role="button"
                         disabled={isCreating}
@@ -333,13 +339,13 @@ function CreateNewMovie() {
                         type="text"
                         disabled={isCreating}
                         name="category"
-                        className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-gray-200 disabled:bg-gray-300 disabled:cursor-not-allowed bg-white"
+                        className="border w-[15rem] text-black outline-none px-2 py-1.5 rounded-sm text-[14px] border-gray-200 disabled:bg-gray-300 disabled:cursor-not-allowed bg-white"
                         {...register(`category.${index}.category`, {
                           required: "This field is required",
                         })}
                       />
                       <XMarkIcon
-                        className="size-5 text-gray-400 hover:text-red-500 disabled:cursor-not-allowed"
+                        className="size-5 text-gray-400 hover:text-red-500 disabled:cursor-not-allowed cursor-pointer"
                         onClick={() => remove(index)}
                         disabled={isCreating}
                         role="button"

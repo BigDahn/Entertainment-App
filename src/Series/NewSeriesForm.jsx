@@ -6,7 +6,7 @@ import {
 import Button from "../ui/Button";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useCreateSeries } from "./useCreateSeries";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closeMiniModal } from "../feature/EntertainmentSlice/EntertainmentSlice";
 import MiniLoader from "../ui/MiniLoader";
 import { useCountry } from "../hooks/useCountry";
@@ -14,6 +14,7 @@ import { useCountry } from "../hooks/useCountry";
 function NewSeriesForm() {
   const { data: countries } = useCountry();
   const { mutate: CreateSeries, isPending: isCreating } = useCreateSeries();
+  const { isDarkMode } = useSelector((store) => store.Entertainment);
   const {
     register,
     reset,
@@ -62,7 +63,13 @@ function NewSeriesForm() {
     name: "stars",
   });
   return (
-    <main className="px-7 w-full h-fit py-3 flex flex-col gap-y-2 bg-white">
+    <main
+      className={`${
+        isDarkMode
+          ? "px-7 w-full h-fit py-3 flex flex-col gap-y-2 bg-gray-800 text-gray-200"
+          : "px-7 w-full h-fit py-3 flex flex-col gap-y-2 bg-white"
+      }`}
+    >
       <h2 className="pb-3 text-[20px] font-bold ">Add New Series</h2>
       <form
         className="grid grid-cols-4 m-auto  items-start lg:gap-x-[1.3rem] lg:gap-y-3 "
@@ -76,7 +83,7 @@ function NewSeriesForm() {
             type="text"
             name="title"
             disabled={isCreating}
-            className="border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="border rounded-sm text-black border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("title", {
               required: "This field is required",
             })}
@@ -95,7 +102,7 @@ function NewSeriesForm() {
             type="number"
             disabled={isCreating}
             name="year"
-            className="border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="border rounded-sm text-black border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("year", {
               required: "This field is required",
             })}
@@ -112,14 +119,20 @@ function NewSeriesForm() {
           </label>
           <select
             disabled={isCreating}
-            className=" border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className=" border rounded-sm text-black border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("trending", {
               required: "This field is required",
             })}
           >
+            <option value="">select option</option>
             <option>false</option>
             <option>true</option>
           </select>
+          {errors.trending && (
+            <span className="text-[8px] text-red-600">
+              This field is required
+            </span>
+          )}
         </div>
         <div className="flex flex-col gap-1 items-start ">
           <label htmlFor="tv_pg" className="text-[12px] font-medium">
@@ -127,11 +140,12 @@ function NewSeriesForm() {
           </label>
           <select
             disabled={isCreating}
-            className="bg-white border rounded-sm border-gray-200 outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="bg-white border text-black rounded-sm border-gray-200 outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("tv_pg", {
               required: "This field is required",
             })}
           >
+            <option value="">Select TV_PG</option>
             <option>TV-Y</option>
             <option>TV-Y7</option>
             <option>TV-G</option>
@@ -139,6 +153,11 @@ function NewSeriesForm() {
             <option>TV-14</option>
             <option>TV-MA</option>
           </select>
+          {errors.tv_pg && (
+            <span className="text-[8px] text-red-600">
+              This field is required
+            </span>
+          )}
         </div>
         <div className="flex flex-col gap-1 items-start ">
           <label htmlFor="director" className="text-[12px] font-medium">
@@ -148,7 +167,7 @@ function NewSeriesForm() {
             disabled={isCreating}
             type="text"
             name="director"
-            className="border rounded-sm border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="border rounded-sm text-black border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("director", {
               required: "This field is required",
             })}
@@ -167,7 +186,7 @@ function NewSeriesForm() {
             type="text"
             name="description"
             disabled={isCreating}
-            className="border rounded-sm outline-none w-full border-gray-200 bg-white h-[7rem] px-1.5 py-1 text-[13px] "
+            className="border rounded-sm text-black outline-none w-full border-gray-200 bg-white h-[7rem] px-1.5 py-1 text-[13px] "
             {...register("description", {
               required: "This field is required",
             })}
@@ -186,11 +205,16 @@ function NewSeriesForm() {
             type="number"
             name="number"
             disabled={isCreating}
-            className="border rounded-sm  border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
+            className="border rounded-sm  text-black border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-200"
             {...register("number_of_season", {
               required: "This field is required",
             })}
           />
+          {errors.number_of_season && (
+            <span className="text-[8px] text-red-600">
+              This field is required
+            </span>
+          )}
         </div>
         <div className="flex flex-col gap-1 items-start  row-start-3 col-start-3">
           <label htmlFor="country" className="text-[12px] font-medium">
@@ -198,8 +222,7 @@ function NewSeriesForm() {
           </label>
           <select
             disabled={isCreating}
-            // defaultValue={country?.[0]?.name || ""}
-            className="bg-white border rounded-sm border-gray-200 outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="bg-white border rounded-sm border-gray-200 text-black outline-none w-[15rem] px-2 py-1.5 text-[14px] disabled:bg-gray-300 disabled:cursor-not-allowed"
             {...register("country", {
               required: "This field is required",
             })}
@@ -228,7 +251,7 @@ function NewSeriesForm() {
             name="duration"
             disabled={isCreating}
             defaultValue="1hr,30min"
-            className="border rounded-sm  border-gray-200 bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
+            className="border rounded-sm  border-gray-200 text-black bg-white outline-none w-[15rem] px-2 py-1.5 text-[14px]"
             {...register("duration", {
               required: "This field is required",
             })}
@@ -260,11 +283,12 @@ function NewSeriesForm() {
           </label>
           <select
             disabled={isCreating}
-            className="bg-white border rounded-sm outline-none w-[15rem] px-2 py-1.5 text-[14px] border-gray-200"
+            className="bg-white border rounded-sm text-black outline-none w-[15rem] px-2 py-1.5 text-[14px] border-gray-200"
             {...register("ratings", {
               required: "This field is required",
             })}
           >
+            <option value="">Select your rating</option>
             <option>1</option>
             <option>2</option>
             <option>3</option>
@@ -276,6 +300,11 @@ function NewSeriesForm() {
             <option>9</option>
             <option>10</option>
           </select>
+          {errors.ratings && (
+            <span className="text-[8px] text-red-600">
+              This field is required
+            </span>
+          )}
         </div>
         <div className="flex flex-col gap-1 col-span-2">
           <label htmlFor="stars" className="text-[12px] font-medium">
@@ -295,7 +324,7 @@ function NewSeriesForm() {
                         {...register(`stars.${index}.name`, {
                           required: "This field is required",
                         })}
-                        className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-gray-200 bg-white"
+                        className="border w-[15rem]  text-black outline-none px-2 py-1.5 rounded-sm text-[14px] border-gray-200 bg-white"
                       />
                       <XMarkIcon
                         className="size-5 text-gray-400 cursor-pointer hover:text-red-500"
@@ -347,13 +376,13 @@ function NewSeriesForm() {
                         type="text"
                         disabled={isCreating}
                         name="category"
-                        className="border w-[15rem]  px-2 py-1.5 rounded-sm text-[14px] border-gray-200 bg-white"
+                        className="border w-[15rem]  text-black outline-none  px-2 py-1.5 rounded-sm text-[14px] border-gray-200 bg-white"
                         {...register(`category.${index}.category`, {
                           required: "This field is required",
                         })}
                       />
                       <XMarkIcon
-                        className="size-5 text-gray-400 hover:text-red-500"
+                        className="size-5 text-gray-400 cursor-pointer hover:text-red-500"
                         onClick={() => remove(index)}
                         disabled={isCreating}
                         role="button"

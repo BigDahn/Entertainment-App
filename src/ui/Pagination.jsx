@@ -3,10 +3,11 @@ import Button from "./Button";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { useSearchParams } from "react-router-dom";
 import { PAGE_SIZE } from "../helper/constant";
+import { useSelector } from "react-redux";
 
 function Pagination({ count }) {
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const { isDarkMode } = useSelector((store) => store.Entertainment);
   const currentPage = !searchParams.get("page")
     ? 1
     : Number(searchParams.get("page"));
@@ -27,7 +28,7 @@ function Pagination({ count }) {
 
   if (PageCount <= 1) return null;
   return (
-    <main className="flex justify-between w-full py-3 text-[13px]">
+    <main className="flex justify-between w-full py-3 text-[13px] px-3">
       <p>
         Showing <span>{(currentPage - 1) * PAGE_SIZE + 1}</span> to
         <span>
@@ -39,13 +40,21 @@ function Pagination({ count }) {
       {count >= 5 && (
         <div className="flex  items-center gap-4">
           <Button
-            style="flex items-center text-[12px] bg-gray-50 py-1.5 px-3 rounded-md cursor-pointer"
+            style={`${
+              isDarkMode
+                ? "flex items-center text-[12px] bg-gray-800 py-1.5 w-[6rem] justify-center  rounded-sm cursor-pointer"
+                : "flex items-center text-[12px] bg-gray-50 py-1.5 w-[6rem] justify-center  rounded-sm cursor-pointer"
+            }`}
             onClick={prevPage}
           >
             <ChevronLeftIcon className="size-4" /> Previous
           </Button>
           <Button
-            style="flex items-center text-[12px] bg-gray-50 py-1.5 px-5 rounded-md cursor-pointer"
+            style={`${
+              isDarkMode
+                ? "flex items-center text-[12px] bg-gray-800 py-1.5 w-[5rem] justify-center rounded-sm cursor-pointer"
+                : "flex items-center text-[12px] bg-gray-50 py-1.5 w-[5rem] justify-center  rounded-sm cursor-pointer"
+            }`}
             onClick={nextPage}
           >
             Next <ChevronRightIcon className="size-4" />

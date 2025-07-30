@@ -10,18 +10,26 @@ import EditSeries from "./EditSeries";
 
 function SeriesTable({ series, count }) {
   const { path } = useGetPathName();
-  const { options, isEdit, optionsModal, addNew } = useSelector(
+  const { options, isEdit, optionsModal, isDarkMode } = useSelector(
     (store) => store.Entertainment
   );
   const dispatch = useDispatch();
 
   return (
     <section
-      className="w-full  rounded-lg border-1 border-gray-100  "
+      className={`${
+        isDarkMode
+          ? "w-full  rounded-lg border-1 border-gray-800 text-gray-200 "
+          : "w-full  rounded-lg border-1 border-gray-200  "
+      }`}
       role="table"
     >
       <header
-        className=" grid grid-cols-[0.2fr_0.8fr_0.4fr_1.5fr_0.3fr_0.4fr_0.4fr_0.5fr_4rem]   gap-x-[1rem] text-center text-[14px] bg-gray-400 py-4 text-white font-normal rounded-tr-md rounded-tl-md uppercase "
+        className={`${
+          isDarkMode
+            ? " grid grid-cols-[0.2fr_0.8fr_0.4fr_1.5fr_0.3fr_0.4fr_0.4fr_0.5fr_4rem]   gap-x-[1rem] text-center text-[14px] bg-gray-800 py-4 text-gray-200 font-normal rounded-tr-md rounded-tl-md uppercase "
+            : " grid grid-cols-[0.2fr_0.8fr_0.4fr_1.5fr_0.3fr_0.4fr_0.4fr_0.5fr_4rem]   gap-x-[1rem] text-center text-[14px] bg-gray-400 py-4 text-white font-normal rounded-tr-md rounded-tl-md uppercase "
+        }`}
         role="row"
       >
         <div className="">Id</div>
@@ -54,7 +62,13 @@ function SeriesTable({ series, count }) {
 
           return (
             <main key={id} className="flex flex-col">
-              <section className="grid   grid-rows-[70px]  grid-cols-[0.2fr_0.8fr_0.4fr_1.5fr_0.3fr_0.4fr_0.4fr_0.5fr_4rem]   gap-x-[1rem]  text-[14px]   items-center  w-full  text-center border-b border-b-gray-200 cursor-pointer pb-1 relative">
+              <section
+                className={`${
+                  isDarkMode
+                    ? "grid grid-rows-[70px]  grid-cols-[0.2fr_0.8fr_0.4fr_1.5fr_0.3fr_0.4fr_0.4fr_0.5fr_4rem]   gap-x-[1rem]  text-[14px]   items-center  w-full  text-center border-b border-b-gray-800 cursor-pointer pb-1 relative"
+                    : "grid grid-rows-[70px]  grid-cols-[0.2fr_0.8fr_0.4fr_1.5fr_0.3fr_0.4fr_0.4fr_0.5fr_4rem]   gap-x-[1rem]  text-[14px]   items-center  w-full  text-center border-b border-b-gray-200 cursor-pointer pb-1 relative"
+                }`}
+              >
                 <h2 className="">{id}</h2>
                 <h2 className="text-[14px] ">{title}</h2>
                 <img src={poster} className="w-[60px] h-[80%] m-auto" />

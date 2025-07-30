@@ -8,7 +8,7 @@ function Header() {
     <main
       className={`${
         isDarkMode
-          ? "border-b border-b-gray-600  bg-[#18212f] flex justify-end px-4 items-center "
+          ? "border-b border-b-gray-800  bg-[#18212f] flex justify-end px-4 items-center "
           : "border-b border-b-gray-100   flex justify-end px-4 items-center "
       }`}
     >

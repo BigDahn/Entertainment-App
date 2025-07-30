@@ -14,7 +14,9 @@ function MainSeriesComp() {
   const { path } = useGetPathName();
   const dispatch = useDispatch();
   const { series, isLoading, count } = useSeries();
-  const { isDeleteModal, addNew } = useSelector((store) => store.Entertainment);
+  const { isDeleteModal, addNew, isDarkMode } = useSelector(
+    (store) => store.Entertainment
+  );
 
   if (isLoading)
     return (
@@ -23,7 +25,13 @@ function MainSeriesComp() {
       </div>
     );
   return (
-    <main className="px-5 py-3 flex flex-col gap-3">
+    <main
+      className={`${
+        isDarkMode
+          ? "px-5 py-3 flex flex-col gap-3 text-gray-200"
+          : "px-5 py-3 flex flex-col gap-3"
+      }`}
+    >
       <div className="flex justify-between ">
         <h3>All Series</h3>
         <SeriesTableOperations />
@@ -32,7 +40,7 @@ function MainSeriesComp() {
       <div className="pb-2">
         {(!addNew.isOpen || addNew.name !== path) && (
           <Button
-            style="bg-blue-800 font-semibold text-white  text-[12px] rounded-sm py-1.5 px-1.5 max-w-30 shadow-sm cursor-pointer shadow-md"
+            style="bg-blue-500 font-normal text-white  text-[12px] rounded-sm py-1.5 px-1.5 max-w-30 shadow-sm cursor-pointer shadow-md"
             onClick={() => dispatch(openCreateForm(path))}
           >
             Add New Series
